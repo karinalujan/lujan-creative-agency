@@ -24,6 +24,7 @@ The repository is organized as follows:
 ├── index.html                         # Agency landing page
 ├── assets/cd-nav.js                   # Spinning-CD site menu (self-injecting, loaded on every page)
 ├── 404.html                           # Custom not-found page (GitHub Pages serves it automatically)
+├── cloudflare/                        # Optional Worker for branded 5xx pages (not used by Pages itself)
 ├── logs.html                          # Removed Post Log
 ├── pollinators.html                   # Pollinator Meadow
 ├── playlist.html                      # The Iconic Playlist
