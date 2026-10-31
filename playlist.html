@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Listen to the iconic playlist.">
+  <meta name="theme-color" content="#111111">
+  <title>The Iconic Playlist · Lujan Creative Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; font-family: "Geist Mono", ui-monospace, Menlo, monospace; background: #111; color: #fefefe; --muted: #bdbdbd; --pink: #fc8dc1; --rule: #454545; }
+    * { box-sizing: border-box; }
+    body { min-width: 320px; margin: 0; line-height: 1.65; background: #111; color: #fefefe; }
+    a { color: inherit; text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
+    .wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+    .skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; padding: .75rem 1rem; background: #fefefe; color: #111; font-weight: 600; text-decoration: none; }
+    .skip:focus { top: 1rem; }
+    .site-header { padding-block: 1.25rem; border-bottom: 1px solid var(--rule); }
+    .wordmark { display: inline-flex; min-height: 44px; align-items: center; color: var(--pink); font-size: .9rem; font-weight: 600; letter-spacing: .16em; text-decoration: none; }
+    main { padding-block: clamp(2rem, 6vw, 4rem); }
+    .page-title { margin: 0 0 1.5rem; font-family: "Geist Pixel", "Geist Mono", ui-monospace, Menlo, monospace; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; }
+    .site-footer { padding-block: 1.5rem 6rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="./" aria-label="Lujan Creative Agency home">LUJAN</a>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <h1 class="page-title">The Iconic Playlist</h1>
+<!-- LUJAN Spotify CD embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element. Needs Geist Pixel + Geist Mono loaded site-wide.
+     The disc spins while the playlist plays (Spotify iFrame API). Tap the disc to play or pause. -->
+<style>
+.lj-cd{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;--lj-d:min(300px,72vw);
+  box-sizing:border-box;margin:0;padding:1.5pc;background:var(--lj-bg);color:var(--lj-ink);border:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.5;max-width:75pc;
+  display:grid;grid-template-columns:auto 1fr;gap:1.5pc;align-items:center}
+.lj-cd *{box-sizing:inherit;margin:0;padding:0;font:inherit;color:inherit;border:0;background:transparent;text-decoration:none}
+.lj-cd .lj-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-cd .lj-title{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:28px;line-height:1.1;margin:.25pc 0 1pc}
+.lj-cd .lj-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5pc 1pc;margin-bottom:1pc}
+.lj-cd .lj-open{display:inline-flex;align-items:center;min-height:44px;padding:0 .75pc;border:2px solid var(--lj-ink);border-radius:0;font-size:14px}
+.lj-cd .lj-open:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-cd .lj-status{font-size:13px;color:var(--lj-soft)}
+.lj-cd a:focus-visible,.lj-cd button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:4px}
+.lj-cd .lj-player iframe{display:block;width:100%;height:352px;border:1px solid var(--lj-rule);border-radius:0;background:#1b1b1b}
+.lj-cd .lj-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* The disc */
+.lj-cd .lj-disc{position:relative;width:var(--lj-d);height:var(--lj-d);border-radius:50%;cursor:pointer;
+  background:
+    radial-gradient(circle,#111 0 7.5%,rgba(255,255,255,.55) 7.5% 8.3%,rgba(255,255,255,.12) 8.3% 15%,#cfcfd4 15% 16%,transparent 16%),
+    repeating-radial-gradient(circle,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),
+    conic-gradient(from 20deg,#d9dbe0,#fc8dc1 8%,#cfd6ff 16%,#e8e8ec 24%,#9fe3d6 32%,#f2f2f4 40%,#dd0070 47%,#d9dbe0 54%,#fff3b0 62%,#c9c9cf 70%,#fc8dc1 80%,#bfe1ff 90%,#d9dbe0);
+  box-shadow:0 0 0 1px var(--lj-rule),0 18px 40px rgba(0,0,0,.55);
+  animation:lj-spin 4.5s linear infinite;animation-play-state:paused}
+.lj-cd .lj-disc::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 200deg,transparent 0 20%,rgba(255,255,255,.35) 25%,transparent 32% 70%,rgba(255,255,255,.25) 76%,transparent 82%)}
+.lj-cd .lj-face{position:absolute;inset:22%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;color:#121212;pointer-events:none}
+.lj-cd .lj-face b{font-family:"Geist Pixel","Geist Mono",monospace;font-size:calc(var(--lj-d) * .085);letter-spacing:.05em;line-height:1;position:absolute;top:50%;transform:translateY(calc(var(--lj-d) * -.2 - 50%))}
+.lj-cd .lj-face i{font-style:normal;font-size:calc(var(--lj-d) * .035);letter-spacing:.12em;text-transform:uppercase;color:#B0005A;font-weight:600;position:absolute;top:50%;transform:translateY(calc(var(--lj-d) * .16 - 50%))}
+.lj-cd.is-playing .lj-disc{animation-play-state:running}
+.lj-cd .lj-disc:hover{box-shadow:0 0 0 2px var(--lj-pink),0 18px 40px rgba(0,0,0,.55)}
+@keyframes lj-spin{to{transform:rotate(360deg)}}
+@media (max-width:760px){.lj-cd{grid-template-columns:1fr;justify-items:center;padding:1pc}.lj-cd .lj-info{width:100%}.lj-cd .lj-title{font-size:24px}}
+@media (prefers-reduced-motion:reduce){.lj-cd .lj-disc{animation:none}}
+</style>
+<section class="lj-cd" aria-label="Spotify player: The iconic playlist">
+  <button class="lj-disc" type="button" aria-pressed="false" aria-label="Play the iconic playlist">
+    <span class="lj-face" aria-hidden="true"><b>LUJAN</b><i>Iconic mix</i></span>
+  </button>
+  <div class="lj-info">
+    <p class="lj-label">Now playing</p>
+    <h2 class="lj-title">The iconic playlist</h2>
+    <div class="lj-row">
+      <a class="lj-open" href="https://open.spotify.com/playlist/1BR1LJ3XxEn6tOVbBRPZHF" target="_blank" rel="noopener">Open in Spotify<span class="lj-sr"> (opens in a new tab)</span></a>
+      <span class="lj-status" aria-live="polite">Tap the disc to play</span>
+    </div>
+    <div class="lj-player"><div data-lj-cd-mount></div></div>
+  </div>
+</section>
+<script>
+(function(){
+  var roots=document.querySelectorAll('.lj-cd:not([data-lj-ready])');
+  Array.prototype.forEach.call(roots,function(root){
+    root.setAttribute('data-lj-ready','1');
+    var URI='spotify:playlist:1BR1LJ3XxEn6tOVbBRPZHF',
+        SRC='https://open.spotify.com/embed/playlist/1BR1LJ3XxEn6tOVbBRPZHF?utm_source=generator&theme=0',
+        disc=root.querySelector('.lj-disc'),status=root.querySelector('.lj-status'),
+        mount=root.querySelector('[data-lj-cd-mount]'),ctl=null;
+    function setPlaying(p){root.classList.toggle('is-playing',p);disc.setAttribute('aria-pressed',String(p));
+      disc.setAttribute('aria-label',(p?'Pause':'Play')+' the iconic playlist');status.textContent=p?'Playing':'Paused';}
+    function fallback(){
+      if(ctl||!mount||!mount.parentNode)return;var f=document.createElement('iframe');f.src=SRC;f.title='Spotify player: Karina’s iconic playlist';
+      f.loading='lazy';f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';mount.replaceWith(f);
+      status.textContent='Use the player to listen';ctl='static';}
+    disc.addEventListener('click',function(){
+      if(ctl&&ctl!=='static'){ctl.togglePlay();}else{window.open('https://open.spotify.com/playlist/1BR1LJ3XxEn6tOVbBRPZHF','_blank','noopener');}
+    });
+    var prev=window.onSpotifyIframeApiReady;
+    window.onSpotifyIframeApiReady=function(API){
+      if(prev)try{prev(API);}catch(e){}
+      if(!mount||!mount.parentNode)return;
+      API.createController(mount,{uri:URI,width:'100%',height:352,theme:'dark'},function(c){
+        ctl=c;var f=root.querySelector('.lj-player iframe');if(f)f.title='Spotify player: Karina’s iconic playlist';
+        c.addListener('playback_update',function(e){setPlaying(!!(e.data&&!e.data.isPaused));});
+      });
+    };
+    if(!document.querySelector('script[data-lj-spotify-api]')){
+      var s=document.createElement('script');s.src='https://open.spotify.com/embed/iframe-api/v1';s.async=true;
+      s.setAttribute('data-lj-spotify-api','1');s.onerror=fallback;document.head.appendChild(s);
+    }
+    setTimeout(function(){if(!ctl)fallback();},8000);
+  });
+})();
+</script>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
+  </footer>
+  <script src="assets/cd-nav.js"></script>
+</body>
+</html>

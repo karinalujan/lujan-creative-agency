@@ -1,0 +1,57 @@
+/* Lujan Creative Agency Brand Theme */
+:root {
+  --lujan-bg: #F7F5F0;        /* Warm off-white / cream background */
+  --lujan-text: #2D2D2D;      /* Deep soft charcoal */
+  --lujan-accent: #3B5249;    /* Grounded editorial slate/green */
+  --lujan-card: #FFFFFF;      /* Clean container white */
+}
+
+body.lujan-accessible-mode {
+  background-color: var(--lujan-bg) !important;
+  color: var(--lujan-text) !important;
+  font-family: 'Lexend', 'Atkinson Hyperlegible', system-ui, sans-serif !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.lujan-accessible-mode p, 
+body.lujan-accessible-mode span, 
+body.lujan-accessible-mode li {
+  line-height: 1.7 !important;
+  letter-spacing: 0.03em !important;
+}
+
+.lujan-brand-card {
+  max-width: 700px;
+  margin: 3rem auto;
+  background: var(--lujan-card);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  border: 1px solid rgba(59, 82, 73, 0.1);
+}
+
+.lujan-btn {
+  background: var(--lujan-accent);
+  color: #FFF;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease;
+}
+
+.lujan-btn:hover {
+  opacity: 0.9;
+}
+
+.lujan-btn { min-height: 44px; }
+.lujan-btn:focus-visible { outline: 3px solid #dd0070; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.lujan-accessible-mode, .lujan-btn { transition: none; }
+}
+@media (max-width: 480px) {
+  .lujan-brand-card { margin: 1rem; padding: 1.5rem; }
+}
