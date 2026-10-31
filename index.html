@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lujan Creative Agency: brand design, accessibility, and digital experiences by Karina Lujan.">
+  <meta name="theme-color" content="#111111">
+  <title>Lujan Creative Agency</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+      background: #111;
+      color: #fefefe;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      --muted: #bdbdbd;
+      --pink: #fc8dc1;
+      --rule: #454545;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
+
+    .wrap {
+      width: min(100% - 2rem, 72rem);
+      margin-inline: auto;
+    }
+
+    header {
+      padding-block: 1.25rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .wordmark {
+      color: var(--pink);
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-decoration: none;
+    }
+
+    main { padding-block: clamp(4rem, 12vw, 9rem); }
+
+    .eyebrow {
+      color: var(--pink);
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 13ch;
+      margin: .75rem 0 1.5rem;
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: -.07em;
+    }
+
+    .intro {
+      max-width: 42rem;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    }
+
+    .work {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+      gap: 1rem;
+      margin-top: 4rem;
+    }
+
+    .card {
+      min-height: 12rem;
+      padding: 1.5rem;
+      border: 1px solid var(--rule);
+      text-decoration: none;
+    }
+
+    .card:hover { border-color: var(--pink); }
+    .card h2 { margin: 0 0 .75rem; font-size: 1.15rem; }
+    .card p { margin: 0; color: var(--muted); }
+
+    footer {
+      padding-block: 1.5rem;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .card { transition: border-color 150ms ease; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="wordmark" href="./" aria-label="Lujan Creative Agency home">LUJAN</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <p class="eyebrow">Brand design · Accessibility · Digital experiences</p>
+    <h1>Lujan Creative Agency</h1>
+    <p class="intro">Karina Lujan is a brand designer and accessibility specialist creating clear, inclusive digital experiences.</p>
+    <section class="work" aria-label="Selected work">
+      <a class="card" href="./LCA_Deploy_Ready/lca-web-architecture/">
+        <h2>The Printable Web</h2>
+        <p>An accessible, print-ready alternative to document-first publishing.</p>
+      </a>
+      <a class="card" href="./lujan-design-package%283%29/lujan-americas.html">
+        <h2>Lujan Américas</h2>
+        <p>A cultural lineage and research project across the Americas.</p>
+      </a>
+      <a class="card" href="./lujan-design-package%283%29/lujan-tv-os.html">
+        <h2>Lujan TV OS</h2>
+        <p>An experimental, remote-friendly launcher interface.</p>
+      </a>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
+  </footer>
+</body>
+</html>
