@@ -1,39 +1,49 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Book and pay Lujan Creative Agency.">
-  <meta name="theme-color" content="#111111">
-  <title>Book &amp; Pay · Lujan Creative Agency</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: dark; font-family: "Geist Mono", ui-monospace, Menlo, monospace; background: #111; color: #fefefe; --muted: #bdbdbd; --pink: #fc8dc1; --rule: #454545; }
-    * { box-sizing: border-box; }
-    body { min-width: 320px; margin: 0; line-height: 1.65; background: #111; color: #fefefe; }
-    a { color: inherit; text-underline-offset: .2em; }
-    a:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
-    .wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
-    .skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; padding: .75rem 1rem; background: #fefefe; color: #111; font-weight: 600; text-decoration: none; }
-    .skip:focus { top: 1rem; }
-    .site-header { padding-block: 1.25rem; border-bottom: 1px solid var(--rule); }
-    .wordmark { display: inline-flex; min-height: 44px; align-items: center; color: var(--pink); font-size: .9rem; font-weight: 600; letter-spacing: .16em; text-decoration: none; }
-    main { padding-block: clamp(2rem, 6vw, 4rem); }
-    .page-title { margin: 0 0 1.5rem; font-family: "Geist Pixel", "Geist Mono", ui-monospace, Menlo, monospace; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; }
-    .site-footer { padding-block: 1.5rem 6rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
-  </style>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Book and pay Lujan Creative Agency.">
+<meta name="theme-color" content="#111111">
+<title>Book &amp; Pay · Lujan Creative Agency</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/lujan-kit.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="wordmark" href="./" aria-label="Lujan Creative Agency home">LUJAN</a>
-    </div>
-  </header>
-  <main id="main" class="wrap">
-    <h1 class="page-title">Book &amp; Pay</h1>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="lcs-glitch" href="./" data-idle="6" aria-label="Lujan, home">LUJAN</a>
+    <nav class="lcs-nav" aria-label="Main">
+      <a class="lcs-pxlink" href="./#about">About</a>
+      <div class="lcs-menu">
+        <button class="lcs-pxlink lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button>
+        <ul class="lcs-menu__list" id="lcs-work-menu" hidden>
+          <li><a href="./#work">Case studies</a></li>
+          <li><a href="color-grading-game/">Color Grading Game<small>Example</small></a></li>
+          <li><a href="dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
+          <li><a href="lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="./#lab">The lab<small>All pages</small></a></li>
+        </ul>
+      </div>
+      <a class="lcs-pxlink" href="research/">Research</a>
+      <a class="lcs-inquire" href="inquire/">
+        <span>Inquire</span>
+        <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap page">
+    <span class="eyebrow">The lab / Checkout</span>
+    <h1 class="page-title lcs-dissolve" data-cell="10" data-duration="1100">Book &amp; Pay</h1>
 <!-- LUJAN + SIGNAL NTX + GROUND'D NTX · Square (squareup.com) Ecosystem Checkout embed v2
      Lujan Creative Agency LLC (lujan.design) · Signal NTX (signalntx.com) · Ground’d NTX (grounddntx)
      Paste into a Squarespace Code Block (</>) or Webflow Embed element.
@@ -236,10 +246,37 @@
 })();
 </script>
 
-  </main>
-  <footer class="site-footer">
-    <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
-  </footer>
-  <script src="assets/cd-nav.js"></script>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <b>LUJAN</b>
+    <span class="loc">Garland, TX</span>
+    <time id="clock" aria-label="Local time in Garland, Texas"></time>
+    <nav class="footer__also" aria-label="Also by Karina Lujan">
+      <span>Also from Karina</span>
+      <a class="lcs-pxlink" href="https://signalntx.com">Signal NTX</a>
+      <a class="lcs-pxlink" href="https://grounddart.webflow.io">Ground’d</a>
+    </nav>
+    <div class="lcs-themes" role="group" aria-label="Color theme">
+      <span class="lcs-themes__label">Theme</span>
+      <button type="button" data-theme="rosa" aria-label="Rosa mexicano" title="Rosa mexicano" aria-pressed="true"><i style="--sw:#E4007C"></i></button>
+      <button type="button" data-theme="bluebonnet" aria-label="Bluebonnet" title="Bluebonnet" aria-pressed="false"><i style="--sw:#4F7DFF"></i></button>
+      <button type="button" data-theme="nopal" aria-label="Nopal" title="Nopal" aria-pressed="false"><i style="--sw:#2FB574"></i></button>
+      <button type="button" data-theme="monarca" aria-label="Monarca" title="Monarca" aria-pressed="false"><i style="--sw:#FF8A1F"></i></button>
+      <button type="button" data-theme="tulipan" aria-label="Tulipán del monte" title="Tulipán del monte" aria-pressed="false"><i style="--sw:#E3243F"></i></button>
+      <span class="lcs-themes__name" aria-hidden="true">Rosa mexicano</span>
+    </div>
+    <div class="lcs-stitch" aria-hidden="true"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+    <small>© <span id="year">2026</span> Lujan. All rights reserved.</small>
+  </div>
+</footer>
+
+<script src="assets/lujan-kit.js"></script>
+<script src="assets/cd-nav.js"></script>
 </body>
 </html>

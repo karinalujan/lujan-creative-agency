@@ -5,6 +5,11 @@ lujan.design and replaces failed page loads (5xx responses, or the origin being
 unreachable) with a branded error page. Only page navigations are replaced;
 scripts, images, 404s, redirects and non-GET requests pass through unchanged.
 
+The page is the 5xx design from the Lujan motion kit: a flashing I-35 arrow board,
+the pixel status code, the site header and footer, and the visitor's saved color theme.
+Copy for 500 to 505 lives in `MESSAGES` at the top of `error-worker.js`. 503 sends
+`Retry-After: 60`. The 404 page is `404.html` at the repo root, which GitHub Pages serves itself.
+
 ## Deploy
 
 1. Add lujan.design to Cloudflare and move the nameservers. Keep the DNS record

@@ -1,190 +1,240 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lujan Creative Agency: brand design, accessibility, and digital experiences by Karina Lujan.">
-  <meta name="theme-color" content="#111111">
-  <title>Lujan Creative Agency</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: dark;
-      font-family: "Geist Mono", ui-monospace, Menlo, monospace;
-      background: #111;
-      color: #fefefe;
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      --muted: #bdbdbd;
-      --pink: #fc8dc1;
-      --rule: #454545;
-      --control-border: #666;
-    }
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lujan | A new design agency from Texas</title>
+<meta name="description" content="Lujan is a design agency in Garland, Texas focusing on brand, accessibility, innovation, and empathy.">
+<meta name="theme-color" content="#111111">
+<link rel="canonical" href="https://lujan.design/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/lujan-kit.css">
+<style>
+/* ===== hero ===== */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .wrap{position:relative;z-index:1;display:grid;gap:clamp(28px,4vw,48px);padding-block:clamp(72px,14vw,180px) clamp(56px,9vw,120px)}
+.hero .lcs-dissolve{font-size:clamp(44px,8.4vw,120px);max-width:13ch;margin:0}
+.hero .lcs-type{font-size:clamp(17px,2.4vw,30px)}
+.hero__meta{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;color:var(--muted)}
 
-    * { box-sizing: border-box; }
+/* ===== ribbon ===== */
+.ribbon{border-bottom:1px solid var(--line);padding-block:12px}
 
-    body {
-      min-width: 320px;
-      margin: 0;
-      line-height: 1.65;
-    }
+/* ===== about ===== */
+.section{padding-block:clamp(72px,11vw,140px);border-bottom:1px solid var(--line)}
+.section__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,56px)}
+.section__head h2{font-size:clamp(56px,10vw,128px)}
+.about{display:grid;gap:clamp(36px,6vw,72px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.about{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:center}}
+.about__lead{font-size:clamp(22px,3vw,38px);line-height:1.3;max-width:28ch}
+.about__lead em{font-style:italic;font-weight:700;color:var(--lcs-accent-2)}
+.about__body{display:grid;gap:18px;margin-top:clamp(28px,4vw,44px);color:var(--muted);max-width:60ch}
+.about__art{justify-self:center;width:100%;max-width:420px}
+.i35-note{margin:clamp(32px,4vw,44px) 0 0;max-width:60ch;padding:20px 22px;position:relative;border:2px solid var(--lcs-ink);
+  background:repeating-linear-gradient(90deg,var(--lcs-accent) 0 6px,transparent 6px 10px) left bottom/100% 4px no-repeat}
+.i35-note .eyebrow{display:block;color:var(--lcs-accent-2);margin-bottom:10px}
+.i35-note blockquote{margin:0}
+.i35-note p{font-size:clamp(17px,1.6vw,20px);line-height:1.5}
 
-    a { color: inherit; text-underline-offset: .2em; }
-    a:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
+/* ===== focus ===== */
+.focus{display:grid;grid-template-columns:minmax(0,1fr);column-gap:32px;margin:0;padding:0}
+@media (min-width:720px){.focus{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.focus{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.focus li{list-style:none;padding:24px 0 36px;border-top:1px solid var(--line);display:grid;gap:14px;align-content:start}
+.focus h3{font-size:clamp(22px,1.9vw,28px)}
+.focus h3::before{content:"+ ";color:var(--lcs-accent)}
+.focus p{color:var(--muted);font-size:15px;max-width:34ch}
+.focus-wrap{margin-top:clamp(56px,8vw,96px)}
 
-    .wrap {
-      width: min(100% - 2rem, 72rem);
-      margin-inline: auto;
-    }
+/* ===== work ===== */
+.work{display:grid;gap:clamp(32px,5vw,64px);grid-template-columns:minmax(0,1fr);align-items:center}
+@media (min-width:900px){.work{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.work__line{font-size:clamp(24px,3.4vw,44px);line-height:1.25}
+.work__note{margin-top:20px;color:var(--muted);max-width:44ch}
+.work .lcs-i35{width:100%;max-width:560px;justify-self:center}
 
-    header {
-      padding-block: 1.25rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; }
-    .site-nav ul { display: flex; flex-wrap: wrap; gap: 0 1.25rem; margin: 0; padding: 0; list-style: none; }
-    .site-nav a { display: inline-flex; min-height: 44px; align-items: center; font-size: .85rem; }
-    .site-nav a[aria-current="page"] { color: var(--pink); }
-    .skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; padding: .75rem 1rem; background: #fefefe; color: #111; font-weight: 600; text-decoration: none; }
-    .skip:focus { top: 1rem; }
-    .wordmark {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
-      color: var(--pink);
-      font-size: .9rem;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-decoration: none;
-    }
-
-    main { padding-block: clamp(4rem, 12vw, 9rem); }
-
-    .eyebrow {
-      color: var(--pink);
-      font-size: .8rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 13ch;
-      margin: .75rem 0 1.5rem;
-      font-family: "Geist Pixel", "Geist Mono", ui-monospace, Menlo, monospace;
-      font-size: clamp(3rem, 10vw, 7rem);
-      font-weight: 400;
-      line-height: .98;
-      letter-spacing: -.07em;
-    }
-
-    .intro {
-      max-width: 42rem;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
-    }
-
-    .work {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-      gap: 1rem;
-      margin-top: 4rem;
-    }
-
-    .card {
-      min-height: 12rem;
-      padding: 1.5rem;
-      border: 1px solid var(--control-border);
-      text-decoration: none;
-    }
-
-    .card:hover { border-color: var(--pink); }
-    .card h2 { margin: 0 0 .75rem; font-size: 1.15rem; }
-    .card p { margin: 0; color: var(--muted); }
-
-    footer {
-      padding-block: 1.5rem 6rem;
-      border-top: 1px solid var(--rule);
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .card { transition: border-color 150ms ease; }
-    }
-  </style>
+/* ===== inquire ===== */
+.inquire h2{font-size:clamp(44px,8vw,112px);max-width:16ch}
+.inquire__row{display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px;margin-top:clamp(32px,5vw,52px)}
+.inquire .lcs-inquire{font-size:20px}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to main content</a>
-  <header>
-    <div class="wrap bar">
-      <a class="wordmark" href="./" aria-label="Lujan Creative Agency home">LUJAN</a>
-      <nav class="site-nav" aria-label="Primary">
-        <ul>
-          <li><a href="#work">Work</a></li>
-          <li><a href="logs.html">Logs</a></li>
-          <li><a href="pollinators.html">Pollinators</a></li>
-          <li><a href="playlist.html">Playlist</a></li>
-          <li><a href="checkout.html">Book &amp; Pay</a></li>
-          <li><a href="heritage-blueprint.html">Heritage</a></li>
-          <li><a href="garden-gate/">Garden Gate</a></li>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="lcs-glitch" href="#top" data-idle="6" aria-label="Lujan, back to top">LUJAN</a>
+    <nav class="lcs-nav" aria-label="Main">
+      <a class="lcs-pxlink" href="#about">About</a>
+      <div class="lcs-menu">
+        <button class="lcs-pxlink lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button>
+        <ul class="lcs-menu__list" id="lcs-work-menu" hidden>
+          <li><a href="#work">Case studies</a></li>
+          <li><a href="color-grading-game/">Color Grading Game<small>Example</small></a></li>
+          <li><a href="dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
+          <li><a href="lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="#lab">The lab<small>All pages</small></a></li>
         </ul>
-      </nav>
+      </div>
+      <a class="lcs-pxlink" href="research/">Research</a>
+      <a class="lcs-inquire" href="inquire/">
+        <span>Inquire</span>
+        <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="lcs-field" data-cell="24" aria-hidden="true"></div>
+    <div class="wrap">
+      <h1 class="lcs-dissolve" id="hero-title" data-cell="12" data-duration="1400">A new design agency from&nbsp;Texas.</h1>
+      <p class="lcs-type" data-text="Empathy + Accessibility + Brand + by Design|Because design is everything.">
+  <span class="lcs-type__sr"></span><span class="lcs-type__out" aria-hidden="true"></span><svg class="lcs-type__cursor" viewBox="0 0 6 11" aria-hidden="true"><rect width="6" height="11"/></svg>
+</p>
+      <div class="hero__meta"><span>Brand</span><span>Accessibility</span><span>Innovation</span><span>Empathy</span><span>Garland, TX</span></div>
     </div>
-  </header>
-  <main id="main" class="wrap">
-    <p class="eyebrow">Brand design · Accessibility · Digital experiences</p>
-    <h1>Lujan Creative Agency</h1>
-    <p class="intro">Karina Lujan is a brand designer and accessibility specialist creating clear, inclusive digital experiences.</p>
-    <section class="work" id="work" aria-label="Selected work">
-      <a class="card" href="./LCA_Deploy_Ready/lca-web-architecture/">
-        <h2>The Printable Web</h2>
-        <p>An accessible, print-ready alternative to document-first publishing.</p>
-      </a>
-      <a class="card" href="./lujan-design-package%283%29/lujan-americas.html">
-        <h2>Lujan Américas</h2>
-        <p>A cultural lineage and research project across the Americas.</p>
-      </a>
-      <a class="card" href="./lujan-design-package%283%29/lujan-tv-os.html">
-        <h2>Lujan TV OS</h2>
-        <p>An experimental, remote-friendly launcher interface.</p>
-      </a>
-      <a class="card" href="./logs.html">
-        <h2>Removed Post Log</h2>
-        <p>A public log of removed posts, pulled live from the archive.</p>
-      </a>
-      <a class="card" href="./pollinators.html">
-        <h2>Pollinator Meadow</h2>
-        <p>A new meadow of Texas native wildflowers grows on every visit.</p>
-      </a>
-      <a class="card" href="./playlist.html">
-        <h2>The Iconic Playlist</h2>
-        <p>Spin the disc and listen to the iconic playlist.</p>
-      </a>
-      <a class="card" href="./checkout.html">
-        <h2>Book &amp; Pay</h2>
-        <p>Payment links, invoices, and appointments through Square.</p>
-      </a>
-      <a class="card" href="./heritage-blueprint.html">
-        <h2>Heritage Blueprint</h2>
-        <p>A direct-access guide to lineage, region, and leverage.</p>
-      </a>
-      <a class="card" href="./garden-gate/">
-        <h2>Garden Gate</h2>
-        <p>An installable accessible-typography app that works offline.</p>
-      </a>
-      <a class="card" href="./lujan-design-package%283%29/lca-printable-web.html">
-        <h2>Printable Web: Print Edition</h2>
-        <p>The print-ready edition of The Printable Web.</p>
-      </a>
-    </section>
-  </main>
-  <footer>
-    <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
-  </footer>
-  <script src="assets/cd-nav.js"></script>
+  </section>
+
+  <div class="ribbon"><div class="lcs-ribbon" data-text="EMPATHY + ACCESSIBILITY + BRAND + BY DESIGN + " data-speed="70" role="img" aria-label="Empathy, accessibility, brand, by design">
+  <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="lcs-ribbon__band" d="M-3200 120Q-3000 40-2800 120T-2400 120T-2000 120T-1600 120T-1200 120T-800 120T-400 120T0 120T400 120T800 120T1200 120T1600 120T2000 120"/>
+    <path class="lcs-ribbon__guide" d="M-3200 120Q-3000 40-2800 120T-2400 120T-2000 120T-1600 120T-1200 120T-800 120T-400 120T0 120T400 120T800 120T1200 120T1600 120T2000 120"/>
+    <text class="lcs-ribbon__text" dy=".36em"><textPath class="lcs-ribbon__tp" startOffset="0"></textPath></text>
+  </svg>
+</div></div>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="section__head"><h2 id="about-title">About</h2><span class="eyebrow">01 / Who we are</span></div>
+      <div class="about">
+        <div>
+          <p class="about__lead">Lujan is a design agency focusing on brand, accessibility, innovation, and empathy. Because design <em>is</em> everything.</p>
+          <div class="about__body">
+            <p>We guide brands to best serve their clients with integrity, intentionality, and empathy.</p>
+            <p>Simply because we believe that good brands look out for their clients.</p>
+            <p>Founded in Garland and working across Dallas and the rest of Texas, Lujan builds brand systems, digital experiences and public art installations made to last.</p>
+            <p>We believe in accessibility you can feel, sites that load fast, and owning our tools. When big platforms squeeze creators, we build our own.</p>
+          </div>
+          <figure class="i35-note">
+            <span class="eyebrow">Texas infrastructure, I-35&nbsp;edition</span>
+            <blockquote><p>Our turnaround is faster than merging onto I-35 at rush hour in Austin. And unlike the construction between Dallas and San Antonio, our work actually gets finished on schedule.</p></blockquote>
+          </figure>
+        </div>
+        <div class="about__art"><div class="lcs-stitch" role="img" aria-label="Cross-stitched bird and flower"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div></div>
+      </div>
+
+      <div class="focus-wrap">
+        <ul class="focus" aria-label="What we focus on">
+          <li><h3>Brand</h3><p>Identities and visual systems that make complex ideas clear.</p></li>
+          <li><h3>Accessibility</h3><p>Contrast, type, motion and keyboard access planned from the first sketch.</p></li>
+          <li><h3>Innovation</h3><p>Creative technology, motion and generative work when the idea calls for it.</p></li>
+          <li><h3>Empathy</h3><p>We start with the people a brand serves and design out from there.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section__head"><h2 id="work-title">Work</h2><span class="eyebrow">02 / Case studies</span></div>
+      <div class="work">
+        <div>
+          <p class="work__line">Under construction like I-35.</p>
+          <p class="work__note">Case studies are on the way. In the meantime, ask us about brand systems, campaigns and digital experiences.</p>
+        </div>
+        <div class="lcs-i35" role="img" aria-label="Flashing arrow board: under construction like I-35">
+  <svg viewBox="0 0 360 250" aria-hidden="true">
+    <rect class="lcs-i35__post" x="122" y="136" width="8" height="60"/>
+    <rect class="lcs-i35__post" x="230" y="136" width="8" height="60"/>
+    <rect class="lcs-i35__base" x="96" y="192" width="168" height="10"/>
+    <rect class="lcs-i35__panel" x="60" y="16" width="250" height="120"/>
+    <g class="lcs-i35__lamps"></g>
+    <line class="lcs-i35__road" x1="0" y1="218" x2="360" y2="218"/>
+    <text class="lcs-i35__label" x="180" y="244" text-anchor="middle">I-35 · WORK ZONE</text>
+  </svg>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lab" aria-labelledby="lab-title">
+    <div class="wrap">
+      <div class="section__head"><h2 id="lab-title">Lab</h2><span class="eyebrow">03 / Papers, tools &amp; experiments</span></div>
+      <ul class="lab" aria-label="Lab pages">
+          <li><a class="lab__card" href="lujan-design-package%283%29/lujan-americas.html"><span class="lab__num" aria-hidden="true">01</span><span class="lab__title">Lujan Américas</span><span class="lab__tag">Lineage</span><span class="lab__blurb">A cultural line across the Americas: the history of the Luján name, its lineage and DNA.</span></a></li>
+          <li><a class="lab__card" href="color-grading-game/"><span class="lab__num" aria-hidden="true">02</span><span class="lab__title">Color Grading Game</span><span class="lab__tag">Play</span><span class="lab__blurb">Match the hidden grade with four sliders. The score is the real color difference, pixel by pixel.</span></a></li>
+          <li><a class="lab__card" href="dark-ux-patterns-web-audit/"><span class="lab__num" aria-hidden="true">03</span><span class="lab__title">Dark UX Patterns Web Audit</span><span class="lab__tag">Audit</span><span class="lab__blurb">A working paper on abuse of platform power, and the audit we use to test it. A draft.</span></a></li>
+          <li><a class="lab__card" href="research/"><span class="lab__num" aria-hidden="true">04</span><span class="lab__title">Research</span><span class="lab__tag">Research</span><span class="lab__blurb">Questions we’re working through, and working papers in draft.</span></a></li>
+          <li><a class="lab__card" href="research/mapping-inner-experience/"><span class="lab__num" aria-hidden="true">05</span><span class="lab__title">Mapping inner experience</span><span class="lab__tag">Research</span><span class="lab__blurb">Science can measure what happens in the brain, but experience only exists from the inside.</span></a></li>
+          <li><a class="lab__card" href="LCA_Deploy_Ready/lca-web-architecture/"><span class="lab__num" aria-hidden="true">06</span><span class="lab__title">The Printable Web</span><span class="lab__tag">Project</span><span class="lab__blurb">Why accessible semantic HTML and CSS beat proprietary PDF workflows for documents people read and print.</span></a></li>
+          <li><a class="lab__card" href="lujan-design-package%283%29/lca-printable-web.html"><span class="lab__num" aria-hidden="true">07</span><span class="lab__title">Printable Web, print edition</span><span class="lab__tag">Print</span><span class="lab__blurb">The Printable Web, set for paper.</span></a></li>
+          <li><a class="lab__card" href="lujan-design-package%283%29/lujan-tv-os.html"><span class="lab__num" aria-hidden="true">08</span><span class="lab__title">Lujan TV OS</span><span class="lab__tag">Interface</span><span class="lab__blurb">A Fire TV launcher for living-room screens. Navigate with the D-pad or arrow keys.</span></a></li>
+          <li><a class="lab__card" href="logs.html"><span class="lab__num" aria-hidden="true">09</span><span class="lab__title">Removed Post Log</span><span class="lab__tag">Log</span><span class="lab__blurb">A log of removed posts documented by Lujan Creative Agency.</span></a></li>
+          <li><a class="lab__card" href="pollinators.html"><span class="lab__num" aria-hidden="true">10</span><span class="lab__title">Pollinator Meadow</span><span class="lab__tag">Garden</span><span class="lab__blurb">The Lujan pollinator meadow.</span></a></li>
+          <li><a class="lab__card" href="playlist.html"><span class="lab__num" aria-hidden="true">11</span><span class="lab__title">The Iconic Playlist</span><span class="lab__tag">Audio</span><span class="lab__blurb">Listen to the iconic playlist.</span></a></li>
+          <li><a class="lab__card" href="checkout.html"><span class="lab__num" aria-hidden="true">12</span><span class="lab__title">Book &amp; Pay</span><span class="lab__tag">Checkout</span><span class="lab__blurb">Book and pay Lujan Creative Agency.</span></a></li>
+          <li><a class="lab__card" href="heritage-blueprint.html"><span class="lab__num" aria-hidden="true">13</span><span class="lab__title">Heritage Blueprint</span><span class="lab__tag">Guide</span><span class="lab__blurb">A direct-access guide for the next generation: lineage, region, leverage.</span></a></li>
+          <li><a class="lab__card" href="garden-gate/"><span class="lab__num" aria-hidden="true">14</span><span class="lab__title">Garden Gate</span><span class="lab__tag">App</span><span class="lab__blurb">An installable web app that keeps working offline.</span></a></li>
+          <li><a class="lab__card" href="motion-kit/"><span class="lab__num" aria-hidden="true">15</span><span class="lab__title">Motion Kit</span><span class="lab__tag">Kit</span><span class="lab__blurb">Every effect on this site, previewed live with copy-paste embeds.</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section inquire" id="inquire" aria-labelledby="inquire-title">
+    <div class="wrap">
+      <span class="eyebrow">04 / Inquire</span>
+      <h2 id="inquire-title" style="margin-top:20px">Let’s design with intention together.</h2>
+      <div class="inquire__row">
+        <a class="lcs-inquire" href="inquire/">
+          <span>Start a project</span>
+          <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <b>LUJAN</b>
+    <span class="loc">Garland, TX</span>
+    <time id="clock" aria-label="Local time in Garland, Texas"></time>
+    <nav class="footer__also" aria-label="Also by Karina Lujan">
+      <span>Also from Karina</span>
+      <a class="lcs-pxlink" href="https://signalntx.com">Signal NTX</a>
+      <a class="lcs-pxlink" href="https://grounddart.webflow.io">Ground’d</a>
+    </nav>
+    <div class="lcs-themes" role="group" aria-label="Color theme">
+      <span class="lcs-themes__label">Theme</span>
+      <button type="button" data-theme="rosa" aria-label="Rosa mexicano" title="Rosa mexicano" aria-pressed="true"><i style="--sw:#E4007C"></i></button>
+      <button type="button" data-theme="bluebonnet" aria-label="Bluebonnet" title="Bluebonnet" aria-pressed="false"><i style="--sw:#4F7DFF"></i></button>
+      <button type="button" data-theme="nopal" aria-label="Nopal" title="Nopal" aria-pressed="false"><i style="--sw:#2FB574"></i></button>
+      <button type="button" data-theme="monarca" aria-label="Monarca" title="Monarca" aria-pressed="false"><i style="--sw:#FF8A1F"></i></button>
+      <button type="button" data-theme="tulipan" aria-label="Tulipán del monte" title="Tulipán del monte" aria-pressed="false"><i style="--sw:#E3243F"></i></button>
+      <span class="lcs-themes__name" aria-hidden="true">Rosa mexicano</span>
+    </div>
+    <div class="lcs-stitch" aria-hidden="true"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+    <small>© <span id="year">2026</span> Lujan. All rights reserved.</small>
+  </div>
+</footer>
+
+<script src="assets/lujan-kit.js"></script>
+<script src="assets/cd-nav.js"></script>
 </body>
 </html>

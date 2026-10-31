@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Color Grading Game | Lujan</title>
+<meta name="description" content="Match the hidden color grade with four sliders. The score measures the real color difference between the two frames, pixel by pixel.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap">
+<style>
+/* ===== Lujan tokens (motion kit variables) ===== */
+:root{
+  --lcs-ink:#FFFFFF;
+  --lcs-paper:#111111;
+  --lcs-accent:#E4007C;   /* rosa mexicano */
+  --lcs-accent-2:#FF9ACB; /* soft pink */
+  --lcs-display:"Geist Pixel","Pixelify Sans", "Courier New", monospace;
+  --lcs-mono:"Fira Mono", ui-monospace, Menlo, Consolas, monospace;
+  --muted:#A6A6A6;
+  --line:#2C2C2C;
+  --gutter:max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(20px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--lcs-paper);color:var(--lcs-ink);font:16px/1.65 var(--lcs-mono);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--lcs-display);font-weight:700;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+::selection{background:var(--lcs-accent);color:var(--lcs-ink)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--lcs-ink);color:var(--lcs-paper);padding:8px 12px;z-index:50}
+.skip:focus{left:16px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ===== header ===== */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--lcs-paper);z-index:30}
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--lcs-paper);border-bottom:1px solid transparent;transition:border-color .2s}
+.header.is-scrolled{border-bottom-color:var(--line)}
+.header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px;padding-block:20px}
+.header .lcs-glitch{font-size:clamp(34px,4vw,48px)}
+.header .lcs-nav{font-size:15px}
+@media (max-width:480px){.header .lcs-nav{font-size:14px;gap:.9em}}
+@media (max-width:340px){.header .lcs-nav{font-size:13px;gap:.7em}}
+
+
+
+.section{padding-block:clamp(72px,11vw,140px);border-bottom:1px solid var(--line)}
+.section__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,56px)}
+.section__head h2{font-size:clamp(56px,10vw,128px)}
+
+
+
+
+/* ===== footer ===== */
+.footer .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 40px;padding-block:44px calc(44px + env(safe-area-inset-bottom,0px))}
+.footer b{font:700 28px/1 var(--lcs-display)}
+.footer .loc{font:500 20px/1 var(--lcs-display)}
+.footer time{font-size:14px;font-variant-numeric:tabular-nums}
+.footer .lcs-stitch{width:64px;margin-left:auto}
+.footer small{flex-basis:100%;color:var(--muted);font-size:12px}
+.footer__also{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;font-size:14px}
+.footer__also span{color:var(--muted)}
+
+:focus-visible{outline:2px solid var(--lcs-accent);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== motion kit ===== */
+.lcs-dissolve{position:relative;font-family:var(--lcs-display,inherit);color:var(--lcs-ink,#fff)}
+.lcs-dissolve__veil{position:absolute;left:-2px;top:-2px;width:calc(100% + 4px);height:calc(100% + 4px);fill:var(--lcs-paper,#111);pointer-events:none}
+.lcs-dissolve__flash{fill:var(--lcs-accent,#E4007C)}
+.lcs-dissolve__flash--b{fill:var(--lcs-accent-2,#FF9ACB)}
+.lcs-glitch{display:inline-block;line-height:1;font-family:var(--lcs-display,inherit);font-weight:700;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-glitch:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+.lcs-nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.4em;font-family:var(--lcs-mono,inherit)}
+.lcs-pxlink{position:relative;color:var(--lcs-ink,#fff);text-decoration:none;padding-bottom:.35em}
+.lcs-pxlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lcs-accent,#E4007C) 0 3px,transparent 3px 5px);
+  clip-path:inset(0 100% 0 0);transition:clip-path .4s steps(8)}
+.lcs-pxlink:hover::after,.lcs-pxlink:focus-visible::after,.lcs-pxlink[aria-current="page"]::after,.lcs-pxlink.w--current::after{clip-path:inset(0)}
+.lcs-inquire{position:relative;display:inline-flex;align-items:center;gap:.6em;padding:.55em .9em;border:2px solid var(--lcs-ink,#fff);
+  color:var(--lcs-ink,#fff);text-decoration:none;isolation:isolate;transition:color 0s .15s}
+.lcs-inquire::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--lcs-ink,#fff);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-inquire:hover,.lcs-inquire:focus-visible{color:var(--lcs-paper,#111)}
+.lcs-inquire:hover::before,.lcs-inquire:focus-visible::before{clip-path:inset(0)}
+.lcs-pxlink:focus-visible,.lcs-inquire:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+.lcs-inquire__arrow{width:1.1em;height:.92em;fill:currentColor;overflow:visible}
+.lcs-inquire:hover .lcs-inquire__arrow,.lcs-inquire:focus-visible .lcs-inquire__arrow{fill:var(--lcs-accent,#E4007C);animation:lcs-march .6s steps(3) infinite}
+@keyframes lcs-march{to{transform:translateX(.5em)}}
+@media (prefers-reduced-motion:reduce){.lcs-pxlink::after,.lcs-inquire,.lcs-inquire::before{transition:none}.lcs-inquire__arrow{animation:none!important}}
+.lcs-stitch svg{display:block;width:100%;height:auto;overflow:visible}
+.lcs-stitch line{stroke:var(--lcs-accent,#E4007C);stroke-width:.3;stroke-linecap:round;opacity:0}
+.lcs-stitch .is-b line{stroke:var(--lcs-accent-2,#FF9ACB)}
+/* monochrome stitches: every letter is a tone of the theme accent, so detail survives in one color */
+.lcs-stitch .c-r line,.lcs-stitch .c-c line,.lcs-stitch .c-o line{stroke:var(--lcs-accent,#E4007C)}
+.lcs-stitch .c-g line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 62%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-k line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 38%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-y line{stroke:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch .c-w line{stroke:color-mix(in srgb,var(--lcs-accent-2,#FF9ACB) 45%,#FFFFFF)}
+.lcs-stitch .c-v line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 22%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-d line{stroke:#FFFFFF}
+.lcs-stitch line.is-in{opacity:1}
+
+/* ===== Work dropdown ===== */
+.lcs-menu{position:relative}
+.lcs-menu__btn{appearance:none;background:none;border:0;border-radius:0;font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.45em;min-height:44px}
+.lcs-menu__btn.lcs-pxlink{padding:0 0 .35em}
+.lcs-menu__caret{width:.7em;height:.42em;fill:currentColor;transition:transform .2s steps(2)}
+.lcs-menu__btn[aria-expanded="true"] .lcs-menu__caret{transform:rotate(180deg)}
+.lcs-menu__btn[aria-expanded="true"]::after,.lcs-menu:has([aria-current="page"]) .lcs-menu__btn::after{clip-path:inset(0)}
+.lcs-menu__list{position:absolute;top:calc(100% + 6px);right:-16px;z-index:40;width:max-content;max-width:340px;margin:0;padding:6px 0;list-style:none;
+  background:var(--lcs-paper,#111);border:2px solid var(--lcs-ink,#fff);animation:lcs-menu-in .2s steps(3)}
+@keyframes lcs-menu-in{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.lcs-menu__list a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:11px 16px;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-menu__list a small{flex:none}
+.lcs-menu__list a small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}
+.lcs-menu__list a:hover,.lcs-menu__list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}
+.lcs-menu__list a:hover small,.lcs-menu__list a:focus-visible small{color:var(--lcs-accent,#E4007C)}
+.lcs-menu__list a:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:-2px}
+.lcs-menu__list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}
+@media (max-width:640px){.lcs-menu{position:static}.lcs-menu__list{top:100%;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-width:none}}
+@media (prefers-reduced-motion:reduce){.lcs-menu__list{animation:none}.lcs-menu__caret{transition:none}}
+
+/* Geist Pixel has one weight: never fake-bold it */
+h1,h2,h3,legend,.lcs-glitch,.lcs-dissolve,.lcs-ribbon__text,.footer b,.footer .loc{font-synthesis:none}
+
+/* ===== shared extras for the new pages (built on the site tokens above) ===== */
+.lcs-pg{--ink:var(--lcs-ink,#FFFFFF);--paper:var(--lcs-paper,#111111);--rosa:var(--lcs-accent,#E4007C);--blush:var(--lcs-accent-2,#FF9ACB);
+  --display:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);--mono:var(--lcs-mono,"Fira Mono",ui-monospace,Menlo,Consolas,monospace);
+  --field:#1A1A1A;--err:#FF7A7A}
+.lcs-pg *{box-sizing:border-box}
+.lcs-pg [hidden]{display:none!important}
+.lcs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.section__head h1{font-size:clamp(44px,7.4vw,104px);max-width:14ch}
+.page__lede{color:var(--muted);max-width:62ch;font-size:clamp(16px,1.4vw,18px);margin-bottom:clamp(36px,5vw,56px)}
+.page__lead{font-size:clamp(22px,3vw,38px);line-height:1.3;max-width:28ch;margin-bottom:20px}
+
+/* buttons, same pixel wipe as the site's Inquire button */
+.lcs-btn{position:relative;appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:.55em .9em;
+  font:inherit;font-size:16px;border:2px solid var(--ink);border-radius:0;color:var(--ink);background:transparent;cursor:pointer;isolation:isolate;transition:color 0s .15s}
+.lcs-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-btn:hover,.lcs-btn:focus-visible{color:var(--paper)}
+.lcs-btn:hover::before,.lcs-btn:focus-visible::before{clip-path:inset(0)}
+.lcs-btn .lcs-inquire__arrow{width:1.1em;height:.92em;fill:currentColor;overflow:visible}
+.lcs-btn:hover .lcs-inquire__arrow,.lcs-btn:focus-visible .lcs-inquire__arrow{fill:var(--rosa);animation:lcs-march .6s steps(3) infinite}
+.lcs-ghost{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:0;padding:.5em .9em;cursor:pointer;min-height:44px}
+.lcs-ghost:hover{background:var(--ink);color:var(--paper)}
+.lcs-link{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:none;border:0;padding:.5em 0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+@media (prefers-reduced-motion:reduce){.lcs-btn,.lcs-btn::before{transition:none}.lcs-btn .lcs-inquire__arrow{animation:none!important}}
+
+/* Color Grading Game */
+.cg{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.cg{grid-template-columns:minmax(0,1fr) 340px;align-items:start}}
+.cg-frames{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:640px){.cg-frames{grid-template-columns:repeat(2,minmax(0,1fr))}.cg-histo{grid-column:1/-1}}
+.cg figure{margin:0;border:2px solid var(--ink);background:#000;min-width:0}
+.cg figcaption{display:flex;justify-content:space-between;gap:12px;padding:8px 12px;border-bottom:2px solid var(--ink);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;background:var(--paper)}
+.cg figcaption span:first-child{font-family:var(--display);letter-spacing:.06em;font-size:1rem;text-transform:none}
+.cg-round,.cg-live{color:var(--muted)}
+.cg-live::before{content:"";display:inline-block;width:8px;height:8px;background:var(--rosa);margin-right:6px;vertical-align:1px}
+.cg canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
+.cg-histo canvas{aspect-ratio:8/1}
+.cg-key{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.cg-key i{display:inline-block;width:12px;height:12px}
+.cg-key .k-you{background:var(--rosa)}
+.cg-key .k-target{border:2px solid var(--ink);margin-left:10px}
+
+.cg-panel{border:2px solid var(--ink);padding:22px 20px 20px;display:grid;gap:18px;background:var(--paper);
+  background-image:repeating-linear-gradient(90deg,var(--rosa) 0 6px,transparent 6px 10px);background-size:100% 4px;background-repeat:no-repeat;background-position:left bottom}
+.cg-panel__title{font-size:1.8rem}
+.cg-row{display:grid;gap:8px}
+.cg-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.cg-label label{font-weight:500}
+.cg-label output{font-variant-numeric:tabular-nums;color:var(--blush);min-width:4ch;text-align:right}
+.cg-hint{font-size:.85rem;color:var(--muted);min-height:0}
+.cg-hint:empty{display:none}
+.cg-hint.is-ok{color:var(--blush)}
+
+/* pixel slider */
+.cg input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:transparent;cursor:pointer}
+.cg input[type=range]::-webkit-slider-runnable-track{height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 4px,transparent 4px 6px);opacity:.9}
+.cg input[type=range]::-moz-range-track{height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 4px,transparent 4px 6px)}
+.cg input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-7px;background:var(--rosa);border:2px solid var(--ink);border-radius:0}
+.cg input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--rosa);border:2px solid var(--ink);border-radius:0}
+.cg input[type=range]:focus-visible{outline:2px solid var(--rosa);outline-offset:4px}
+
+.cg-check{width:100%}
+.cg-result{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:6px}
+.cg-score{display:flex;align-items:baseline;gap:6px}
+.cg-score strong{font:700 clamp(56px,7vw,72px)/1 var(--display);color:var(--blush);font-variant-numeric:tabular-nums}
+.cg-score span{color:var(--muted)}
+.cg-verdict{font-family:var(--display);font-size:1.4rem}
+.cg-de{font-size:.85rem;color:var(--muted)}
+.cg-actions{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
+.cg-best{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+/* ===== color themes: picked in the footer, remembered in this browser ===== */
+html[data-lcs-theme="bluebonnet"]{--lcs-paper:#0D1120;--lcs-accent:#4F7DFF;--lcs-accent-2:#B7C8FF}
+html[data-lcs-theme="nopal"]{--lcs-paper:#0E1511;--lcs-accent:#2FB574;--lcs-accent-2:#B5E7C9}
+html[data-lcs-theme="monarca"]{--lcs-paper:#15100B;--lcs-accent:#FF8A1F;--lcs-accent-2:#FFD29A}
+html[data-lcs-theme="tulipan"]{--lcs-paper:#170D10;--lcs-accent:#E3243F;--lcs-accent-2:#FF9EAA}
+
+/* ===== theme switcher (footer) ===== */
+.lcs-themes{display:flex;flex-wrap:wrap;align-items:center;gap:0 2px;font-size:14px}
+.lcs-themes__label{color:var(--muted,#A6A6A6);margin-right:8px}
+.lcs-themes button{appearance:none;background:none;border:0;border-radius:0;padding:0;width:44px;height:44px;display:grid;place-items:center;cursor:pointer}
+.lcs-themes i{display:block;width:16px;height:16px;background:var(--sw);box-shadow:0 0 0 2px var(--lcs-paper,#111),0 0 0 2px transparent;transition:transform .15s steps(2)}
+.lcs-themes button:hover i{transform:translateY(-3px)}
+.lcs-themes button[aria-pressed="true"] i{box-shadow:0 0 0 2px var(--lcs-paper,#111),0 0 0 4px var(--lcs-ink,#fff)}
+.lcs-themes button:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:-2px}
+.lcs-themes__name{margin-left:8px;min-width:12ch}
+@media (prefers-reduced-motion:reduce){.lcs-themes i{transition:none}}
+
+/* menu rag: labels stay on one line; on phones the badge drops below instead of splitting the label */
+.lcs-menu__list{max-width:none}
+.lcs-menu__list a{flex-wrap:wrap;white-space:nowrap}
+.lcs-menu__list a small{margin-left:auto}
+@media (max-width:640px){.lcs-menu__list a{white-space:normal;text-wrap:balance}}
+</style>
+<style>
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.w-form-done,.w-form-fail{display:none}
+/* Hit areas: the look stays the same, the tappable box grows to 44px. */
+.lcs-pxlink::before{content:"";position:absolute;inset:-8px -4px}
+.lcs-glitch{padding-block:5px;margin-block:-5px}
+.lcs-inquire{min-height:44px}
+</style>
+</head>
+<body>
+<div class="lcs-pg">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="lcs-glitch" href="../" data-idle="6" aria-label="Lujan home">LUJAN</a>
+    <nav class="lcs-nav" aria-label="Main">
+      <a class="lcs-pxlink" href="../#about">About</a>
+      <div class="lcs-menu">
+        <button class="lcs-pxlink lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button>
+        <ul class="lcs-menu__list" id="lcs-work-menu" hidden>
+          <li><a href="../#work">Case studies</a></li>
+          <li><a href="../color-grading-game/" aria-current="page">Color Grading Game<small>Example</small></a></li>
+          <li><a href="../dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
+          <li><a href="../lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="../#lab">The lab<small>All pages</small></a></li>
+        </ul>
+      </div>
+      <a class="lcs-pxlink" href="../research/">Research</a>
+      <a class="lcs-inquire" href="../inquire/">
+        <span>Inquire</span>
+        <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="section" aria-labelledby="page-title">
+<div class="wrap">
+<div class="section__head"><h1 class="lcs-dissolve" id="page-title" data-cell="12" data-duration="1400">Color Grading Game</h1><span class="eyebrow">Work / Example</span></div>
+<p class="page__lead">Match the grade.</p>
+<p class="page__lede">The target frame has a hidden color grade. Move the four sliders until your frame matches, then check your grade. The score measures the real color difference between the two frames, pixel by pixel.</p>
+
+<div class="cg">
+  <div class="cg-frames">
+    <figure class="cg-frame">
+      <figcaption><span>Target</span><span class="cg-round" id="cg-round">Round 1</span></figcaption>
+      <canvas id="cg-target" width="192" height="108" role="img" aria-label="Target frame: a pixel Texas highway at sunset with a hidden color grade"></canvas>
+    </figure>
+    <figure class="cg-frame">
+      <figcaption><span>Your grade</span><span class="cg-live" aria-hidden="true">Live</span></figcaption>
+      <canvas id="cg-yours" width="192" height="108" role="img" aria-label="Your frame: the same scene with your slider settings applied"></canvas>
+    </figure>
+    <figure class="cg-histo">
+      <figcaption><span>Brightness</span><span class="cg-key"><i class="k-you"></i>Yours <i class="k-target"></i>Target</span></figcaption>
+      <canvas id="cg-histo" width="960" height="120" role="img" aria-label="Brightness histogram comparing your frame with the target"></canvas>
+    </figure>
+  </div>
+
+  <form class="cg-panel" id="cg-form" novalidate>
+    <h2 class="cg-panel__title">Grade</h2>
+    <div class="cg-row">
+      <div class="cg-label"><label for="cg-exp">Exposure</label><output for="cg-exp" id="cg-exp-v">0.00</output></div>
+      <input type="range" id="cg-exp" min="-2" max="2" step="0.05" value="0" aria-describedby="cg-exp-h">
+      <p class="cg-hint" id="cg-exp-h"></p>
+    </div>
+    <div class="cg-row">
+      <div class="cg-label"><label for="cg-con">Contrast</label><output for="cg-con" id="cg-con-v">0</output></div>
+      <input type="range" id="cg-con" min="-50" max="50" step="1" value="0" aria-describedby="cg-con-h">
+      <p class="cg-hint" id="cg-con-h"></p>
+    </div>
+    <div class="cg-row">
+      <div class="cg-label"><label for="cg-temp">Temperature</label><output for="cg-temp" id="cg-temp-v">0</output></div>
+      <input type="range" id="cg-temp" min="-50" max="50" step="1" value="0" aria-describedby="cg-temp-h">
+      <p class="cg-hint" id="cg-temp-h"></p>
+    </div>
+    <div class="cg-row">
+      <div class="cg-label"><label for="cg-sat">Saturation</label><output for="cg-sat" id="cg-sat-v">0</output></div>
+      <input type="range" id="cg-sat" min="-50" max="50" step="1" value="0" aria-describedby="cg-sat-h">
+      <p class="cg-hint" id="cg-sat-h"></p>
+    </div>
+
+    <button type="submit" class="lcs-btn cg-check">Check my grade</button>
+
+    <div class="cg-result" id="cg-result" hidden>
+      <p class="cg-score"><strong id="cg-score">0</strong><span>/100</span></p>
+      <p class="cg-verdict" id="cg-verdict"></p>
+      <p class="cg-de" id="cg-de"></p>
+    </div>
+    <p class="lcs-sr" id="cg-live" role="status" aria-live="polite"></p>
+
+    <div class="cg-actions">
+      <button type="button" class="lcs-ghost" id="cg-new">New round</button>
+      <button type="button" class="lcs-link" id="cg-reset">Reset sliders</button>
+      <button type="button" class="lcs-link" id="cg-reveal">Show the answer</button>
+    </div>
+    <p class="cg-best" id="cg-best">Best this visit: none yet</p>
+  </form>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <b>LUJAN</b>
+    <span class="loc">Garland, TX</span>
+    <time id="clock" aria-label="Local time in Garland, Texas"></time>
+    <nav class="footer__also" aria-label="Also by Karina Lujan">
+      <span>Also from Karina</span>
+      <a class="lcs-pxlink" href="https://signalntx.com">Signal NTX</a>
+      <a class="lcs-pxlink" href="https://grounddart.webflow.io">Ground’d</a>
+    </nav>
+    <div class="lcs-themes" role="group" aria-label="Color theme">
+      <span class="lcs-themes__label">Theme</span>
+      <button type="button" data-theme="rosa" aria-label="Rosa mexicano" title="Rosa mexicano" aria-pressed="true"><i style="--sw:#E4007C"></i></button>
+      <button type="button" data-theme="bluebonnet" aria-label="Bluebonnet" title="Bluebonnet" aria-pressed="false"><i style="--sw:#4F7DFF"></i></button>
+      <button type="button" data-theme="nopal" aria-label="Nopal" title="Nopal" aria-pressed="false"><i style="--sw:#2FB574"></i></button>
+      <button type="button" data-theme="monarca" aria-label="Monarca" title="Monarca" aria-pressed="false"><i style="--sw:#FF8A1F"></i></button>
+      <button type="button" data-theme="tulipan" aria-label="Tulipán del monte" title="Tulipán del monte" aria-pressed="false"><i style="--sw:#E3243F"></i></button>
+      <span class="lcs-themes__name" aria-hidden="true">Rosa mexicano</span>
+    </div>
+    <div class="lcs-stitch" aria-hidden="true"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+    <small>© <span id="year">2026</span> Lujan. All rights reserved.</small>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-glitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var id='lcs-g-'+Math.random().toString(36).slice(2,9),defs=document.createElementNS(NS,'svg');
+    defs.setAttribute('width','0');defs.setAttribute('height','0');defs.setAttribute('aria-hidden','true');
+    defs.style.position='absolute';
+    defs.innerHTML='<filter id="'+id+'" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">'+
+      '<feTurbulence type="fractalNoise" baseFrequency="0.0001 0.07" numOctaves="1" seed="1"/>'+
+      '<feComponentTransfer result="slices"><feFuncR type="discrete" tableValues="0 .3 .5 .5 .5 .7 1"/><feFuncG type="linear" slope="0" intercept=".5"/></feComponentTransfer>'+
+      '<feDisplacementMap in="SourceGraphic" in2="slices" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter>';
+    document.body.appendChild(defs);
+    el.style.filter='url(#'+id+')';
+    var turb=defs.querySelector('feTurbulence'),disp=defs.querySelector('feDisplacementMap'),busy=false;
+    function burst(n,amp){
+      if(busy)return;busy=true;var i=0;
+      (function step(){
+        if(i++<n){el.style.textShadow=((Math.random()*10-5)|0)+'px 0 var(--lcs-accent,#E4007C)';disp.setAttribute('scale',((Math.random()*2-1)*amp).toFixed(1));turb.setAttribute('seed',Math.random()*100|0);setTimeout(step,45+Math.random()*45);}
+        else{disp.setAttribute('scale','0');el.style.textShadow='';busy=false;}
+      })();
+    }
+    el.addEventListener('pointerenter',function(){burst(9,24);});
+    el.addEventListener('focus',function(){burst(9,24);});
+    var idle=+el.getAttribute('data-idle')||0;
+    if(idle)(function loop(){setTimeout(function(){if(!el.isConnected)return;burst(3,12);loop();},idle*1000*(.7+Math.random()*.6));})();
+  });
+})();
+</script>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-dissolve:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var cell=+el.getAttribute('data-cell')||10,dur=+el.getAttribute('data-duration')||1300,rects=[];
+    var veil=document.createElementNS(NS,'svg');
+    veil.setAttribute('class','lcs-dissolve__veil');veil.setAttribute('aria-hidden','true');
+    veil.setAttribute('preserveAspectRatio','none');veil.setAttribute('shape-rendering','crispEdges');
+    el.appendChild(veil);
+    function build(){
+      var w=Math.max(1,Math.ceil(el.offsetWidth)),h=Math.max(1,Math.ceil(el.offsetHeight));
+      veil.setAttribute('viewBox','0 0 '+w+' '+h);veil.textContent='';rects=[];
+      for(var y=0;y<h;y+=cell)for(var x=0;x<w;x+=cell){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',cell+.6);r.setAttribute('height',cell+.6);
+        veil.appendChild(r);rects.push(r);
+      }
+      for(var i=rects.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=rects[i];rects[i]=rects[j];rects[j]=t;}
+    }
+    function play(){
+      var t0=0,done=0,flashing=[],N=rects.length;
+      function tick(t){
+        if(!t0)t0=t;
+        var p=Math.min(1,(t-t0)/dur),e=p<.5?2*p*p:1-Math.pow(2-2*p,2)/2,target=Math.floor(N*e);
+        while(done<target){var r=rects[done++];r.setAttribute('class',Math.random()<.5?'lcs-dissolve__flash':'lcs-dissolve__flash lcs-dissolve__flash--b');flashing.push([r,t]);}
+        while(flashing.length&&t-flashing[0][1]>70){flashing.shift()[0].remove();}
+        if(p<1||flashing.length)requestAnimationFrame(tick);else veil.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+    build();
+    function go(){build();play();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go();}},{threshold:.3});io.observe(el);
+    }else go();
+  });
+})();
+</script>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-stitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var pat=el.getAttribute('data-pattern')||'',alt=el.getAttribute('data-pattern-alt');if(alt&&Math.random()<(parseFloat(el.getAttribute('data-alt-chance'))||.25))pat=alt;var rows=pat.split('/'),svg=el.querySelector('svg'),steps=[];
+    var cols=Math.max.apply(null,rows.map(function(r){return r.length;}));
+    svg.setAttribute('viewBox','-0.5 -0.5 '+(cols+1)+' '+(rows.length+1));
+    function line(g,x1,y1,x2,y2){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);g.appendChild(l);return l;}
+    rows.forEach(function(row,r){
+      var cs=[];for(var c=0;c<row.length;c++)cs.push(c);
+      if(r%2)cs.reverse();
+      cs.forEach(function(c){
+        var ch=row.charAt(c),k={X:'',o:'is-b',G:'c-g',R:'c-r',W:'c-w',K:'c-k',O:'c-o',C:'c-c',Y:'c-y',V:'c-v',D:'c-d'}[ch];if(k===undefined)return;
+        var g=document.createElementNS(NS,'g');if(k)g.setAttribute('class',k);svg.appendChild(g);
+        steps.push(line(g,c+.2,r+.2,c+.8,r+.8));steps.push(line(g,c+.8,r+.2,c+.2,r+.8));
+      });
+    });
+    if(rm){steps.forEach(function(l){l.setAttribute('class','is-in');});return;}
+    function run(){var i=0;(function next(){if(i<steps.length&&el.isConnected){steps[i++].setAttribute('class','is-in');setTimeout(next,16);}})();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run();}},{threshold:.3});io.observe(el);
+    }else run();
+  });
+})();
+</script>
+<script>
+/* page glue: live Garland clock, header rule on scroll, current nav link */
+(function(){
+  var fd=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'long',day:'numeric',year:'numeric'});
+  var ft=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  var c=document.getElementById('clock');
+  function tick(){var d=new Date();c.textContent=fd.format(d)+' at '+ft.format(d);}
+  tick();setInterval(tick,1000);
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  var h=document.querySelector('.header');
+  function onScroll(){h.classList.toggle('is-scrolled',window.scrollY>8);}
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* Work dropdown: click or tap to open, hover on desktop, Escape or a click outside to close */
+  document.querySelectorAll('.lcs-menu').forEach(function(m){
+    var b=m.querySelector('.lcs-menu__btn'),l=m.querySelector('.lcs-menu__list'),t=0,byHover=false;
+    function set(o,focusFirst){b.setAttribute('aria-expanded',String(o));l.hidden=!o;if(o&&focusFirst){var f=l.querySelector('a');if(f)f.focus();}}
+    b.addEventListener('click',function(){if(byHover){byHover=false;return;}set(b.getAttribute('aria-expanded')!=='true');});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();e.stopPropagation();set(true,true);}});
+    m.addEventListener('keydown',function(e){
+      var items=[].slice.call(l.querySelectorAll('a')),i=items.indexOf(document.activeElement);
+      if(e.key==='Escape'&&!l.hidden){set(false);b.focus();}
+      else if(i>-1&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();items[(i+(e.key==='ArrowDown'?1:items.length-1))%items.length].focus();}
+    });
+    m.addEventListener('focusout',function(e){if(!m.contains(e.relatedTarget))set(false);});
+    document.addEventListener('click',function(e){if(!m.contains(e.target))set(false);});
+    l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+    if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+      m.addEventListener('mouseenter',function(){clearTimeout(t);if(l.hidden){byHover=true;set(true);}});
+      m.addEventListener('mouseleave',function(){byHover=false;t=setTimeout(function(){if(!m.querySelector(':focus-visible'))set(false);},250);});
+    }
+  });
+
+  if('IntersectionObserver' in window){
+    var links={};document.querySelectorAll('.header a[href^="#"]:not(.skip):not(.lcs-glitch)').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var a=links[e.target.id];if(!a)return;if(e.isIntersecting)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});},{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(links).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s);});
+  }
+})();
+</script>
+<script>
+/* Lujan Color Grading Game: everything is drawn from code, so there are no image files to upload. */
+(function(){
+  var root=document.querySelector('.cg');if(!root||root.hasAttribute('data-cg-on'))return;
+  root.setAttribute('data-cg-on','');
+  var W=192,H=108,N=W*H;
+  var $=function(id){return document.getElementById(id);};
+  var tCan=$('cg-target'),yCan=$('cg-yours'),hCan=$('cg-histo');
+  var tCtx=tCan.getContext('2d'),yCtx=yCan.getContext('2d'),hCtx=hCan.getContext('2d');
+  var css=getComputedStyle(root);
+  function col(name,fb){var v=css.getPropertyValue(name).trim();return v||fb;}
+  var ROSA=col('--rosa','#E4007C'),INK=col('--ink','#FFFFFF');
+
+  /* ---------- the scene: an original pixel Texas highway at sunset ---------- */
+  var base=new Float32Array(N*3);
+  var seed=35;function rnd(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;}
+  function put(x,y,r,g,b){if(x<0||y<0||x>=W||y>=H)return;var i=(y*W+x)*3;base[i]=r;base[i+1]=g;base[i+2]=b;}
+  function mix(a,b,t){return a+(b-a)*t;}
+  var HZ=62;
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+    var r,g,b,t;
+    if(y<HZ){t=y/HZ;r=mix(.18,.98,t*t);g=mix(.32,.60,t);b=mix(.62,.40,t);}
+    else{t=(y-HZ)/(H-HZ);r=mix(.80,.52,t);g=mix(.60,.36,t);b=mix(.42,.25,t);}
+    put(x,y,r,g,b);
+  }
+  // sun
+  for(var y=34;y<HZ;y++)for(var x=120;x<158;x++){var dx=x-139,dy=y-50;if(dx*dx+dy*dy<=12*12)put(x,y,1,.86,.56);}
+  // far mesas (stepped tops)
+  function mesa(x0,x1,top,r,g,b){for(var x=x0;x<x1;x++){var edge=Math.min(x-x0,x1-1-x),tp=top+(edge<3?3-edge:0);for(var y=tp;y<HZ;y++)put(x,y,r,g,b);}}
+  mesa(4,58,47,.62,.36,.30);mesa(40,84,53,.55,.31,.27);mesa(150,192,44,.45,.25,.22);mesa(110,152,55,.58,.34,.29);
+  // road to the vanishing point
+  for(var y=HZ;y<H;y++){var half=(y-HZ)*1.5+1;for(var x=Math.floor(96-half);x<=Math.ceil(96+half);x++)put(x,y,.23,.22,.24);
+    if(((y-HZ)>>2)%2===0){var w=Math.max(1,Math.round((y-HZ)/14));for(var k=0;k<w;k++)put(96+k-(w>>1),y,.96,.80,.30);}}
+  // I-35 shield on a post
+  for(var y=80;y<104;y++)put(24,y,.70,.70,.72),put(25,y,.60,.60,.62);
+  for(var y=66;y<81;y++)for(var x=17;x<33;x++){var ins=(y<69)?[.80,.14,.20]:[.13,.29,.66];
+    var cut=(y>76)?(y-76):0;if(x<17+cut||x>32-cut)continue;put(x,y,ins[0],ins[1],ins[2]);}
+  // "35" in 3x5 pixels
+  var D={3:['111','001','111','001','111'],5:['111','100','111','001','111']};
+  [['3',20],['5',26]].forEach(function(p){D[p[0]].forEach(function(row,ry){for(var c=0;c<3;c++)if(row[c]==='1')put(p[1]+c,70+ry,1,1,1);});});
+  // cacti
+  function cactus(x0,y0,h){for(var y=y0;y<y0+h;y++){put(x0,y,.28,.54,.31);put(x0+1,y,.22,.45,.26);put(x0+2,y,.28,.54,.31);}
+    for(var y=y0+4;y<y0+10;y++)put(x0-3,y,.28,.54,.31);for(var x=x0-3;x<x0;x++)put(x,y0+10,.28,.54,.31);
+    for(var y=y0+6;y<y0+12;y++)put(x0+5,y,.28,.54,.31);for(var x=x0+3;x<x0+6;x++)put(x,y0+12,.28,.54,.31);}
+  cactus(160,72,26);cactus(62,80,16);
+  // rosa and soft pink blooms, for Tenango
+  [[158,71],[163,79],[60,79],[172,96],[48,98],[140,92],[146,100]].forEach(function(p,i){var c=i%2?[1,.60,.80]:[.89,0,.49];
+    put(p[0],p[1],c[0],c[1],c[2]);put(p[0]+1,p[1],c[0],c[1],c[2]);put(p[0],p[1]+1,c[0],c[1],c[2]);put(p[0]+1,p[1]+1,c[0],c[1],c[2]);});
+  // light grain so the histogram reads like a photo
+  for(var i=0;i<N*3;i++)base[i]=Math.min(1,Math.max(0,base[i]+(rnd()-.5)*.035));
+
+  /* ---------- the grade ---------- */
+  function grade(p,out){
+    var ex=Math.pow(2,p.exp),k=1+p.con/100,wr=1+p.temp/250,wb=1-p.temp/250,s=1+p.sat/50;
+    for(var i=0;i<N*3;i+=3){
+      var r=base[i]*ex*wr,g=base[i+1]*ex*(1+p.temp/1000),b=base[i+2]*ex*wb;
+      r=(r-.5)*k+.5;g=(g-.5)*k+.5;b=(b-.5)*k+.5;
+      var L=.2126*r+.7152*g+.0722*b;
+      r=L+(r-L)*s;g=L+(g-L)*s;b=L+(b-L)*s;
+      out[i]=r<0?0:r>1?1:r;out[i+1]=g<0?0:g>1?1:g;out[i+2]=b<0?0:b>1?1:b;
+    }
+    return out;
+  }
+  function paint(ctx,buf){
+    var img=ctx.createImageData(W,H),d=img.data;
+    for(var i=0,j=0;i<N*3;i+=3,j+=4){d[j]=buf[i]*255+.5;d[j+1]=buf[i+1]*255+.5;d[j+2]=buf[i+2]*255+.5;d[j+3]=255;}
+    ctx.putImageData(img,0,0);
+  }
+  /* CIE Lab for a real color difference (Delta E 1976) */
+  function lin(c){return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4);}
+  function f(t){return t>.008856?Math.cbrt(t):7.787*t+16/116;}
+  function toLab(buf){
+    var out=new Float32Array(N*3);
+    for(var i=0;i<N*3;i+=3){
+      var r=lin(buf[i]),g=lin(buf[i+1]),b=lin(buf[i+2]);
+      var X=(r*.4124+g*.3576+b*.1805)/.95047,Y=r*.2126+g*.7152+b*.0722,Z=(r*.0193+g*.1192+b*.9505)/1.08883;
+      var fx=f(X),fy=f(Y),fz=f(Z);
+      out[i]=116*fy-16;out[i+1]=500*(fx-fy);out[i+2]=200*(fy-fz);
+    }
+    return out;
+  }
+  function meanDE(a,b){var s=0;for(var i=0;i<N*3;i+=3){var d0=a[i]-b[i],d1=a[i+1]-b[i+1],d2=a[i+2]-b[i+2];s+=Math.sqrt(d0*d0+d1*d1+d2*d2);}return s/N;}
+
+  /* ---------- histogram ---------- */
+  var BINS=64;
+  function bins(buf){var h=new Array(BINS).fill(0);for(var i=0;i<N*3;i+=3){var L=.2126*buf[i]+.7152*buf[i+1]+.0722*buf[i+2];h[Math.min(BINS-1,(L*BINS)|0)]++;}return h;}
+  function drawHisto(){
+    var hw=hCan.width,hh=hCan.height,bw=hw/BINS,a=bins(yours),b=bins(target),m=1;
+    for(var i=1;i<BINS-1;i++)m=Math.max(m,a[i],b[i]);
+    hCtx.fillStyle='#000';hCtx.fillRect(0,0,hw,hh);
+    hCtx.fillStyle=ROSA;
+    for(var i=0;i<BINS;i++){var v=Math.min(hh-2,Math.round(a[i]/m*(hh-8)));hCtx.fillRect(Math.round(i*bw)+1,hh-v,Math.max(1,Math.round(bw)-3),v);}
+    hCtx.strokeStyle=INK;hCtx.lineWidth=3;hCtx.beginPath();
+    for(var i=0;i<BINS;i++){var y=Math.max(1.5,hh-Math.round(b[i]/m*(hh-8))+1.5),x0=Math.round(i*bw),x1=Math.round((i+1)*bw);if(i===0)hCtx.moveTo(x0,y);else hCtx.lineTo(x0,y);hCtx.lineTo(x1,y);}
+    hCtx.stroke();
+  }
+
+  /* ---------- game state ---------- */
+  var F={exp:$('cg-exp'),con:$('cg-con'),temp:$('cg-temp'),sat:$('cg-sat')};
+  var NAMES={exp:'Exposure',con:'Contrast',temp:'Temperature',sat:'Saturation'};
+  var TOL={exp:.1,con:4,temp:4,sat:4};
+  var WORDS={exp:['Try brighter','Try darker'],con:['Try more contrast','Try less contrast'],temp:['Try warmer','Try cooler'],sat:['Try more color','Try less color']};
+  var target=new Float32Array(N*3),yours=new Float32Array(N*3),targetLab=null,goal=null,round=0,best=null,revealed=false,raf=0;
+  function fmt(k,v){return k==='exp'?(v>0?'+':'')+v.toFixed(2):(v>0?'+':'')+String(v);}
+  function read(){return {exp:+F.exp.value,con:+F.con.value,temp:+F.temp.value,sat:+F.sat.value};}
+  function pick(lo,hi,step){var v=lo+Math.random()*(hi-lo);v=Math.round(v/step)*step;return Math.random()<.5?-v:v;}
+  function clearHints(){Object.keys(F).forEach(function(k){var h=$('cg-'+k+'-h');h.textContent='';h.className='cg-hint';});}
+  function newRound(){
+    round++;revealed=false;
+    goal={exp:+pick(.3,1.2,.05).toFixed(2),con:pick(12,40,1),temp:pick(12,40,1),sat:pick(12,40,1)};
+    grade(goal,target);paint(tCtx,target);targetLab=toLab(target);
+    $('cg-round').textContent='Round '+round;
+    reset(true);$('cg-result').hidden=true;clearHints();
+  }
+  function reset(quiet){
+    Object.keys(F).forEach(function(k){F[k].value=0;});update();
+    if(!quiet)say('Sliders reset to zero.');
+  }
+  function update(){
+    Object.keys(F).forEach(function(k){$('cg-'+k+'-v').textContent=fmt(k,+F[k].value);});
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(function(){grade(read(),yours);paint(yCtx,yours);drawHisto();});
+  }
+  function say(msg){var l=$('cg-live');l.textContent='';setTimeout(function(){l.textContent=msg;},60);}
+  function check(){
+    var p=read();grade(p,yours);
+    var de=meanDE(toLab(yours),targetLab),score=Math.max(0,Math.min(100,Math.round(100-de*3)));
+    var verdict=score>=95?'Studio master':score>=85?'Client ready':score>=70?'Getting close':'Keep grading';
+    $('cg-score').textContent=score;$('cg-verdict').textContent=verdict;
+    $('cg-de').textContent='Average color difference (ΔE): '+de.toFixed(1)+'. Under 2 is hard for most people to see.';
+    $('cg-result').hidden=false;
+    var off=[];
+    Object.keys(F).forEach(function(k){
+      var h=$('cg-'+k+'-h'),d=goal[k]-p[k];
+      if(revealed)return;
+      if(Math.abs(d)<=TOL[k]){h.textContent='On target';h.className='cg-hint is-ok';}
+      else{h.textContent=WORDS[k][d>0?0:1];h.className='cg-hint';off.push(NAMES[k]+': '+WORDS[k][d>0?0:1].toLowerCase());}
+    });
+    if(!revealed&&(best===null||score>best)){best=score;$('cg-best').textContent='Best this visit: '+best+'/100';}
+    say('Score '+score+' out of 100, '+verdict+'. '+(revealed?'':off.length?off.join('. ')+'.':'Every slider is on target.'));
+  }
+  function reveal(){
+    revealed=true;
+    Object.keys(F).forEach(function(k){var h=$('cg-'+k+'-h');h.textContent='Target: '+fmt(k,goal[k]);h.className='cg-hint';});
+    say('Answer shown. Exposure '+fmt('exp',goal.exp)+', contrast '+fmt('con',goal.con)+', temperature '+fmt('temp',goal.temp)+', saturation '+fmt('sat',goal.sat)+'. Scores this round no longer count toward your best.');
+  }
+  Object.keys(F).forEach(function(k){F[k].addEventListener('input',update);});
+  $('cg-form').addEventListener('submit',function(e){e.preventDefault();check();});
+  $('cg-new').addEventListener('click',function(){newRound();say('New round. A new target grade is ready.');});
+  $('cg-reset').addEventListener('click',function(){reset(false);});
+  $('cg-reveal').addEventListener('click',reveal);
+  newRound();
+})();
+</script>
+<script>
+/* color themes: footer swatches set data-lcs-theme on <html>; the choice is remembered in this browser */
+(function(){
+  var KEY='lcs-theme',root=document.documentElement;
+  function set(t,save){
+    if(t==='rosa')root.removeAttribute('data-lcs-theme');else root.setAttribute('data-lcs-theme',t);
+    document.querySelectorAll('.lcs-themes').forEach(function(g){
+      g.querySelectorAll('button').forEach(function(b){
+        var on=b.getAttribute('data-theme')===t;b.setAttribute('aria-pressed',String(on));
+        if(on){var n=g.querySelector('.lcs-themes__name');if(n)n.textContent=b.getAttribute('aria-label');}
+      });
+    });
+    if(save){try{localStorage.setItem(KEY,t);}catch(e){}}
+  }
+  var cur='rosa';try{cur=localStorage.getItem(KEY)||'rosa';}catch(e){}
+  if(!document.querySelector('.lcs-themes button[data-theme="'+cur+'"]'))cur='rosa';
+  set(cur,false);
+  document.querySelectorAll('.lcs-themes button').forEach(function(b){b.addEventListener('click',function(){set(b.getAttribute('data-theme'),true);});});
+})();
+</script>
+<script src="../assets/cd-nav.js"></script>
+</body>
+</html>

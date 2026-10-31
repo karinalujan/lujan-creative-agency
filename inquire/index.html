@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Client intake | Lujan</title>
+<meta name="description" content="Start your Strategic Blueprint with Lujan. The client intake takes about 10 minutes, and your answers shape the three-week audit.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap">
+<style>
+/* paint the whole page dark, not just the form column (this embed lives on its own private page) */
+html,body{background:var(--lcs-paper,#111111);color-scheme:dark}
+/* keep focused fields clear of the sticky progress bar (WCAG 2.4.11) */
+html{scroll-padding-top:calc(var(--lcs-sticky-top,0px) + 120px)}
+.lcs{
+  --ink:var(--lcs-ink,#FFFFFF);
+  --paper:var(--lcs-paper,#111111);
+  --rosa:var(--lcs-accent,#E4007C);
+  --blush:var(--lcs-accent-2,#FF9ACB);
+  --muted:#A9A9A9;
+  --line:#3A3A3A;
+  --field:#1A1A1A;
+  --err:#FF7A7A;
+  font-family:var(--lcs-mono,"Fira Mono",ui-monospace,Menlo,Consolas,monospace);color:var(--ink);background:var(--paper);
+  max-width:760px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,4vw,40px)}
+.lcs *{box-sizing:border-box}
+.lcs [hidden]{display:none!important}
+.lcs h2{font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);font-size:clamp(34px,6vw,60px);line-height:1.02;margin:0 0 1rem;text-wrap:balance}
+.lcs .lcs-eyebrow{display:block;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.lcs .lcs-intro{color:var(--muted);margin:0 0 2rem;line-height:1.6;max-width:60ch}
+
+/* progress */
+.lcs .lcs-progress{position:sticky;top:var(--lcs-sticky-top,0px);z-index:2;background:var(--paper);display:flex;align-items:center;gap:14px;padding:12px 0;margin-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.lcs .lcs-progress ol{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.lcs .lcs-progress li{width:14px;height:14px;border:2px solid var(--ink);opacity:.45;transition:background-color .2s steps(2),opacity .2s steps(2)}
+.lcs .lcs-progress li.is-done{background:var(--rosa);border-color:var(--rosa);opacity:1}
+.lcs .lcs-progress li.is-here{opacity:1}
+.lcs .lcs-progress p{margin:0;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.lcs .lcs-progress{flex-wrap:wrap}
+.lcs .lcs-draft{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lcs .lcs-copies{margin:-1rem 0 1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;font-size:.85rem;color:var(--muted)}
+.lcs .lcs-copies .lcs-link{font-size:.85rem}
+.lcs-dialog{width:min(640px,calc(100% - 24px));max-height:min(86vh,760px);padding:0;border:2px solid var(--lcs-ink,#fff);border-radius:0;
+  background:var(--lcs-paper,#111);color:var(--lcs-ink,#fff);font-family:var(--lcs-mono,"Fira Mono",ui-monospace,Menlo,Consolas,monospace)}
+.lcs-dialog[open]{display:flex;flex-direction:column;animation:lcs-dialog-in .24s steps(4)}
+.lcs-dialog::backdrop{background:rgba(0,0,0,.72)}
+.lcs-dialog__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid #3A3A3A}
+.lcs-dialog__head h3{margin:0;font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);font-size:1.5rem;line-height:1}
+.lcs-dialog__hint{margin:0;padding:12px 18px 0;font-size:.85rem;color:#A9A9A9;line-height:1.5}
+.lcs-dialog__text{margin:12px 18px 0;padding:14px;flex:1 1 auto;min-height:120px;overflow:auto;white-space:pre-wrap;word-break:break-word;
+  background:#1A1A1A;border:1px solid #3A3A3A;font-family:inherit;font-size:13px;line-height:1.55;color:var(--lcs-ink,#fff)}
+.lcs-dialog__actions{display:flex;flex-wrap:wrap;gap:10px;padding:14px 18px 4px}
+.lcs-dialog__status{margin:0;padding:4px 18px 16px;min-height:1.6em;font-size:.85rem;color:var(--lcs-accent-2,#FF9ACB)}
+.lcs-dialog .lcs-ghost{appearance:none;font:inherit;font-size:.9rem;color:var(--lcs-ink,#fff);background:transparent;border:2px solid var(--lcs-ink,#fff);border-radius:0;padding:.5em .9em;cursor:pointer;min-height:44px}
+.lcs-dialog .lcs-ghost:hover{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}
+.lcs-dialog .lcs-link{appearance:none;font:inherit;font-size:.9rem;color:var(--lcs-ink,#fff);background:none;border:0;padding:.5em 0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+.lcs-dialog button:focus-visible,.lcs-dialog__text:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:3px}
+.lcs-dialog [hidden]{display:none!important}
+@keyframes lcs-dialog-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.lcs-dialog[open]{animation:none}}
+.lcs-print{display:none}
+@media print{
+  html.lcs-printing,html.lcs-printing body{background:#fff!important;color:#000!important}
+  html.lcs-printing body>*:not(.lcs-print){display:none!important}
+  html.lcs-printing .lcs-print{display:block!important}
+}
+.lcs-print{font:11pt/1.5 "Fira Mono",ui-monospace,Menlo,Consolas,monospace;color:#000;background:#fff;padding:0}
+.lcs-print h1{font:700 22pt/1.1 "Geist Pixel","Pixelify Sans","Courier New",monospace;margin:0 0 4pt}
+.lcs-print .meta{margin:0 0 16pt;color:#333}
+.lcs-print h2{font:700 13pt/1.2 "Geist Pixel","Pixelify Sans","Courier New",monospace;margin:16pt 0 6pt;padding-top:8pt;border-top:1.5pt solid #000;break-after:avoid}
+.lcs-print dl{margin:0}
+.lcs-print dt{font-weight:500;margin-top:6pt;break-after:avoid}
+.lcs-print dd{margin:0 0 0 12pt;white-space:pre-wrap;color:#222}
+.lcs-print .foot{margin-top:20pt;font-size:9pt;color:#555}
+.lcs .lcs-draft__time{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* top bar: way back to the website */
+.lcs .lcs-top{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-bottom:20px;margin-bottom:clamp(28px,5vw,48px);border-bottom:1px solid var(--line)}
+.lcs .lcs-logo{display:inline-block;padding-block:6px;margin-block:-6px;font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);font-weight:700;font-size:32px;line-height:1;color:var(--ink);text-decoration:none}
+.lcs .lcs-back{display:inline-flex;align-items:center;gap:.55em;color:var(--ink);text-decoration:none;padding:.5em 0;border-bottom:2px solid transparent;transition:border-color .2s steps(3)}
+.lcs .lcs-back:hover{border-bottom-color:var(--rosa)}
+.lcs .lcs-back svg{width:1.1em;height:.92em;fill:currentColor}
+.lcs .lcs-back small{display:block;color:var(--muted);font-size:.75rem}
+.lcs .lcs-logo:focus-visible,.lcs .lcs-back:focus-visible,.lcs .lcs-ghost:focus-visible,.lcs .lcs-link:focus-visible,.lcs .lcs-errors a:focus-visible{outline:2px solid var(--rosa);outline-offset:4px}
+
+/* secondary buttons */
+.lcs .lcs-ghost{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:0;padding:.5em .9em;cursor:pointer;min-height:44px}
+.lcs .lcs-ghost:hover{background:var(--ink);color:var(--paper)}
+.lcs .lcs-link{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:none;border:0;padding:.5em 0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+
+/* draft restored notice + error summary */
+.lcs .lcs-notice{border:2px solid var(--blush);padding:1rem 1.15rem;margin:0 0 1.5rem;line-height:1.55;display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap}
+.lcs .lcs-notice p{margin:0;flex:1 1 280px}
+.lcs .lcs-errors{border:2px solid var(--err);padding:1rem 1.15rem;margin:0 0 1.5rem;line-height:1.55}
+.lcs .lcs-errors h3{margin:0 0 .5rem;font-size:1.1rem;color:var(--err)}
+.lcs .lcs-errors ul{margin:0;padding-left:1.2rem}
+.lcs .lcs-errors a{color:var(--ink)}
+.lcs .lcs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* sections */
+.lcs fieldset{border:0;border-top:1px solid var(--line);margin:0 0 2.75rem;padding:1.75rem 0 0;min-width:0}
+.lcs legend{font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);font-size:1.6rem;font-weight:700;line-height:1.1;padding:0;margin-bottom:.4rem;float:left;width:100%}
+.lcs legend+*{clear:both}
+.lcs .lcs-num{color:var(--rosa)}
+.lcs .lcs-hint{color:var(--muted);font-size:.9rem;margin:.25rem 0 1.25rem;line-height:1.5}
+.lcs .lcs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.25rem}
+.lcs .lcs-full{grid-column:1/-1}
+.lcs .lcs-f{margin-bottom:1.35rem;min-width:0}
+.lcs label,.lcs .lcs-q{display:block;font-weight:500;margin-bottom:.45rem;line-height:1.4}
+.lcs .lcs-req{color:var(--blush)}
+
+/* inputs */
+.lcs input[type=text],.lcs input[type=email],.lcs input[type=tel],.lcs input[type=url],.lcs input[type=date],.lcs select,.lcs textarea{
+  width:100%;font:inherit;color:var(--ink);background:var(--field);border:0;border-bottom:2px solid var(--line);border-radius:0;
+  padding:.75rem .8rem;margin:0;transition:border-color .2s steps(3),background-color .2s steps(3)}
+.lcs input::placeholder,.lcs textarea::placeholder{color:#9A9A9A}
+.lcs select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(-45deg,transparent 50%,var(--ink) 50%);
+  background-position:calc(100% - 18px) 55%,calc(100% - 12px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:2.4rem}
+.lcs select option{background:var(--paper);color:var(--ink)}
+.lcs input[type=date]{color-scheme:dark}
+.lcs textarea{min-height:120px;resize:vertical;line-height:1.55}
+.lcs input:hover,.lcs select:hover,.lcs textarea:hover{border-bottom-color:#6A6A6A}
+.lcs input:focus,.lcs select:focus,.lcs textarea:focus{outline:none;border-bottom-color:var(--rosa);background-color:#1F1A1D}
+.lcs input:focus-visible,.lcs select:focus-visible,.lcs textarea:focus-visible{outline:2px solid var(--rosa);outline-offset:2px}
+.lcs input:user-invalid,.lcs select:user-invalid,.lcs textarea:user-invalid{border-bottom-color:var(--err)}
+
+/* cross-stitch checkboxes and pixel radios */
+.lcs .lcs-opt{display:flex;gap:.75rem;align-items:flex-start;font-weight:400;padding-block:.7rem;cursor:pointer;line-height:1.45}
+.lcs .lcs-opt input{appearance:none;flex:none;width:1.3rem;height:1.3rem;margin:.05rem 0 0;border:2px solid var(--ink);background:transparent;cursor:pointer;
+  transition:background-size .18s steps(3)}
+.lcs .lcs-opt input[type=checkbox]{background-image:
+  linear-gradient(45deg,transparent 41%,var(--rosa) 41%,var(--rosa) 59%,transparent 59%),
+  linear-gradient(-45deg,transparent 41%,var(--rosa) 41%,var(--rosa) 59%,transparent 59%);
+  background-repeat:no-repeat;background-position:center;background-size:0 0}
+.lcs .lcs-opt input[type=checkbox]:checked{background-size:100% 100%;border-color:var(--rosa)}
+.lcs .lcs-opt input[type=radio]{border-radius:50%;box-shadow:inset 0 0 0 10px var(--paper);transition:box-shadow .18s steps(3)}
+.lcs .lcs-opt input[type=radio]:checked{background:var(--rosa);border-color:var(--rosa);box-shadow:inset 0 0 0 4px var(--paper)}
+.lcs .lcs-opt input:focus-visible{outline:2px solid var(--rosa);outline-offset:3px}
+.lcs .lcs-opt input:user-invalid{border-color:var(--err)}
+
+/* price */
+.lcs .lcs-price{border:2px solid var(--ink);padding:1rem 1.15rem;margin:.5rem 0 1.5rem;line-height:1.6}
+.lcs .lcs-price strong{font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);font-size:1.6rem;color:var(--blush);display:block;line-height:1.1;margin-bottom:.25rem}
+
+/* submit: pixel wipe */
+.lcs .lcs-btn{appearance:none;border:2px solid var(--ink);border-radius:0;color:var(--ink);font:inherit;font-weight:500;font-size:1.05rem;cursor:pointer;
+  padding:.95rem 1.6rem;background:linear-gradient(var(--ink),var(--ink)) no-repeat 0 0/0% 100%;
+  transition:background-size .3s steps(6),color 0s .15s;margin-top:.5rem}
+.lcs .lcs-btn:hover,.lcs .lcs-btn:focus-visible{background-size:100% 100%;color:var(--paper)}
+.lcs .lcs-btn:focus-visible{outline:2px solid var(--rosa);outline-offset:4px}
+
+/* Webflow states */
+.lcs .w-form-done,.lcs .w-form-fail{padding:1.5rem;margin-top:1rem;line-height:1.6;text-align:left}
+.lcs .w-form-done{background:transparent;border:2px solid var(--rosa);color:var(--ink)}
+.lcs .w-form-done .lcs-stitch{width:120px;margin-bottom:1rem}
+.lcs .w-form-fail{background:transparent;border:2px solid var(--err);color:var(--err)}
+.lcs .w-form-fail b{color:var(--ink);font-weight:500;user-select:all}
+
+@media (max-width:600px){.lcs .lcs-grid{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.lcs *{transition:none!important}}
+
+/* motion kit: pixel dissolve + stitched motif */
+.lcs-dissolve{position:relative;font-family:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);color:var(--lcs-ink,#fff)}
+.lcs-dissolve__veil{position:absolute;left:-2px;top:-2px;width:calc(100% + 4px);height:calc(100% + 4px);fill:var(--lcs-paper,#111);pointer-events:none}
+.lcs-dissolve__flash{fill:var(--lcs-accent,#E4007C)}
+.lcs-dissolve__flash--b{fill:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch svg{display:block;width:100%;height:auto;overflow:visible}
+.lcs-stitch line{stroke:var(--lcs-accent,#E4007C);stroke-width:.3;stroke-linecap:round;opacity:0}
+.lcs-stitch .is-b line{stroke:var(--lcs-accent-2,#FF9ACB)}
+/* monochrome stitches: every letter is a tone of the theme accent, so detail survives in one color */
+.lcs-stitch .c-r line,.lcs-stitch .c-c line,.lcs-stitch .c-o line{stroke:var(--lcs-accent,#E4007C)}
+.lcs-stitch .c-g line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 62%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-k line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 38%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-y line{stroke:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch .c-w line{stroke:color-mix(in srgb,var(--lcs-accent-2,#FF9ACB) 45%,#FFFFFF)}
+.lcs-stitch .c-v line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 22%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-d line{stroke:#FFFFFF}
+.lcs-stitch line.is-in{opacity:1}
+/* ===== color themes: picked in the footer, remembered in this browser ===== */
+html[data-lcs-theme="bluebonnet"]{--lcs-paper:#0D1120;--lcs-accent:#4F7DFF;--lcs-accent-2:#B7C8FF}
+html[data-lcs-theme="nopal"]{--lcs-paper:#0E1511;--lcs-accent:#2FB574;--lcs-accent-2:#B5E7C9}
+html[data-lcs-theme="monarca"]{--lcs-paper:#15100B;--lcs-accent:#FF8A1F;--lcs-accent-2:#FFD29A}
+html[data-lcs-theme="tulipan"]{--lcs-paper:#170D10;--lcs-accent:#E3243F;--lcs-accent-2:#FF9EAA}
+</style>
+<style>
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.w-form-done,.w-form-fail{display:none}
+</style>
+<style>
+.lcs-static-done{margin-top:1.5rem;padding:1.5rem;border:2px solid var(--rosa);line-height:1.6;color:var(--ink)}
+.lcs-static-done[hidden]{display:none}
+.lcs-static-done:focus-visible{outline:2px solid var(--blush);outline-offset:4px}
+.lcs-static-done__h{margin:0 0 .75rem;font:700 clamp(1.25rem,3vw,1.6rem)/1.15 var(--lcs-display,"Geist Pixel","Pixelify Sans",monospace);font-synthesis:none}
+.lcs-static-done a:not(.lcs-btn){color:var(--blush)}
+.lcs-static-done__l{display:block;margin:1rem 0 .4rem;font-size:.9rem}
+.lcs-static-done textarea{width:100%;min-height:10rem;font:inherit;font-size:.9rem;color:var(--ink);background:var(--field);border:2px solid var(--line);padding:.75rem;border-radius:0;box-sizing:border-box}
+.lcs-static-done__btn{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.lcs-static-done__s{margin:.5rem 0 0;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="lcs">
+<header class="lcs-top">
+  <a class="lcs-logo" href="../" aria-label="Lujan home">LUJAN</a>
+  <a class="lcs-back" href="../">
+    <svg viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M2 0h1v1H2zM1 1h1v1H1zM0 2h6v1H0zM1 3h1v1H1zM2 4h1v1H2z"/></svg>
+    <span>Back to the website<small>Your answers are saved as a draft</small></span>
+  </a>
+</header>
+<span class="lcs-eyebrow">Lujan · Client intake</span>
+<h2 class="lcs-dissolve" data-cell="9" data-duration="1100">Start your Strategic Blueprint</h2>
+<p class="lcs-intro">This takes about 10 minutes. Your answers shape the three-week audit, so the more specific you are, the sharper the findings. Fields marked <span class="lcs-req" aria-hidden="true">*</span> are required.</p>
+
+<div class="lcs-notice" id="lcs-restored" hidden>
+  <p>Welcome back. We restored the draft you saved <span id="lcs-restored-when"></span>.</p>
+  <button type="button" class="lcs-link" id="lcs-startover">Start over with a blank form</button>
+</div>
+
+<div class="lcs-errors" id="lcs-errors" tabindex="-1" hidden>
+  <h3>A few answers are missing</h3>
+  <ul></ul>
+</div>
+
+<div class="lcs-progress">
+  <ol aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+  <p><span class="lcs-progress__n">0</span> of 6 sections complete</p>
+  <div class="lcs-draft">
+    <span class="lcs-draft__time" id="lcs-draft-time">Drafts save automatically on this device</span>
+    <button type="button" class="lcs-ghost" id="lcs-save">Save draft</button>
+  </div>
+  <p class="lcs-sr" id="lcs-live" role="status" aria-live="polite"></p>
+</div>
+<div class="lcs-copies">
+  <button type="button" class="lcs-link" id="lcs-copy-open" aria-haspopup="dialog">Keep a copy of my answers</button>
+</div>
+
+<dialog class="lcs-dialog" id="lcs-copy-dialog" aria-labelledby="lcs-copy-title">
+  <div class="lcs-dialog__head">
+    <h3 id="lcs-copy-title">Keep a copy</h3>
+    <button type="button" class="lcs-link" id="lcs-copy-close">Close</button>
+  </div>
+  <p class="lcs-dialog__hint">A copy for your records. Nothing is sent to Lujan until you select Send intake form.</p>
+  <pre class="lcs-dialog__text" id="lcs-copy-text" tabindex="0" aria-label="Your answers so far"></pre>
+  <div class="lcs-dialog__actions">
+    <button type="button" class="lcs-ghost" id="lcs-share" hidden>Share…</button>
+    <button type="button" class="lcs-ghost" id="lcs-copy">Copy text</button>
+    <button type="button" class="lcs-ghost" id="lcs-print">Save as PDF</button>
+  </div>
+  <p class="lcs-dialog__status" id="lcs-copy-status" role="status" aria-live="polite"></p>
+</dialog>
+
+
+<div class="w-form">
+<form id="lcs-intake" name="lcs-intake" data-name="Client Intake" method="post" action="mailto:hello@karinalujan.design?subject=Client%20intake" enctype="text/plain">
+
+<fieldset>
+<legend><span class="lcs-num">1.</span> About you</legend>
+<div class="lcs-grid">
+<div class="lcs-f"><label for="lcs-name">Full name <span class="lcs-req" aria-hidden="true">*</span></label><input type="text" id="lcs-name" name="Name" data-name="Name" autocomplete="name" required></div>
+<div class="lcs-f"><label for="lcs-title">Job title <span class="lcs-req" aria-hidden="true">*</span></label><input type="text" id="lcs-title" name="Job Title" data-name="Job Title" autocomplete="organization-title" required></div>
+<div class="lcs-f"><label for="lcs-email">Work email <span class="lcs-req" aria-hidden="true">*</span></label><input type="email" id="lcs-email" name="Email" data-name="Email" autocomplete="email" required></div>
+<div class="lcs-f"><label for="lcs-phone">Phone</label><input type="tel" id="lcs-phone" name="Phone" data-name="Phone" autocomplete="tel"></div>
+<div class="lcs-f lcs-full"><label for="lcs-contact">Best way to reach you</label>
+<select id="lcs-contact" name="Contact Preference" data-name="Contact Preference"><option value="Email">Email</option><option value="Phone call">Phone call</option><option value="Text">Text</option><option value="Video call">Video call</option></select></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend><span class="lcs-num">2.</span> Your organization</legend>
+<div class="lcs-grid">
+<div class="lcs-f"><label for="lcs-co">Organization name <span class="lcs-req" aria-hidden="true">*</span></label><input type="text" id="lcs-co" name="Organization" data-name="Organization" autocomplete="organization" required></div>
+<div class="lcs-f"><label for="lcs-site">Website <span class="lcs-req" aria-hidden="true">*</span></label><input type="url" id="lcs-site" name="Website" data-name="Website" placeholder="https://" autocomplete="url" required></div>
+<div class="lcs-f"><label for="lcs-ind">Industry <span class="lcs-req" aria-hidden="true">*</span></label><input type="text" id="lcs-ind" name="Industry" data-name="Industry" required></div>
+<div class="lcs-f"><label for="lcs-size">Team size</label>
+<select id="lcs-size" name="Team Size" data-name="Team Size"><option value="">Select one</option><option>1–10</option><option>11–50</option><option>51–200</option><option>201–1,000</option><option>1,000+</option></select></div>
+<div class="lcs-f lcs-full"><label for="lcs-aud">Who are your customers or audience?</label><textarea id="lcs-aud" name="Audience" data-name="Audience"></textarea></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend><span class="lcs-num">3.</span> Goals for the blueprint</legend>
+<div class="lcs-f"><label for="lcs-why">What made you reach out now? <span class="lcs-req" aria-hidden="true">*</span></label><textarea id="lcs-why" name="Why Now" data-name="Why Now" required></textarea></div>
+<div class="lcs-f"><label for="lcs-chal">What’s your biggest brand or marketing challenge? <span class="lcs-req" aria-hidden="true">*</span></label><textarea id="lcs-chal" name="Biggest Challenge" data-name="Biggest Challenge" required></textarea></div>
+<div class="lcs-f"><label for="lcs-win">What would success look like 90 days after the blueprint? <span class="lcs-req" aria-hidden="true">*</span></label><textarea id="lcs-win" name="Success Looks Like" data-name="Success Looks Like" required></textarea></div>
+<fieldset style="border:0;padding:0;margin:0 0 1.25rem">
+<legend class="lcs-q" style="font-family:inherit;font-size:1rem;font-weight:500">Where should the audit focus? Choose all that apply.</legend>
+<label class="lcs-opt"><input type="checkbox" name="Focus Brand" data-name="Focus Brand">Brand identity and positioning</label>
+<label class="lcs-opt"><input type="checkbox" name="Focus Messaging" data-name="Focus Messaging">Marketing and messaging</label>
+<label class="lcs-opt"><input type="checkbox" name="Focus Accessibility" data-name="Focus Accessibility">Website and digital accessibility</label>
+<label class="lcs-opt"><input type="checkbox" name="Focus Content" data-name="Focus Content">Social media and content</label>
+<label class="lcs-opt"><input type="checkbox" name="Focus Competitors" data-name="Focus Competitors">Competitive landscape</label>
+</fieldset>
+</fieldset>
+
+<fieldset>
+<legend><span class="lcs-num">4.</span> What you have today</legend>
+<p class="lcs-hint">Share links instead of files. A Google Drive or Dropbox folder works well.</p>
+<div class="lcs-f"><label for="lcs-guide">Link to brand guidelines or key brand files</label><input type="url" id="lcs-guide" name="Brand Files Link" data-name="Brand Files Link" placeholder="https://"></div>
+<div class="lcs-f"><label for="lcs-comp">Up to three competitors or brands you admire</label><textarea id="lcs-comp" name="Competitors" data-name="Competitors" placeholder="Name and website for each"></textarea></div>
+<div class="lcs-f"><label for="lcs-tools">Marketing tools and platforms you use</label><input type="text" id="lcs-tools" name="Tools" data-name="Tools" placeholder="For example: HubSpot, Google Analytics, Mailchimp"></div>
+<div class="lcs-f"><label for="lcs-a11y">Do you have an accessibility standard to meet?</label>
+<select id="lcs-a11y" name="Accessibility Standard" data-name="Accessibility Standard"><option value="">Select one</option><option>WCAG 2.2 AA</option><option>Section 508 or ADA requirement</option><option>Not sure</option><option>None yet</option></select></div>
+<div class="lcs-f"><label for="lcs-issues">Any known accessibility issues or complaints?</label><textarea id="lcs-issues" name="Accessibility Issues" data-name="Accessibility Issues"></textarea></div>
+</fieldset>
+
+<fieldset>
+<legend><span class="lcs-num">5.</span> Decisions and timing</legend>
+<div class="lcs-grid">
+<div class="lcs-f"><label for="lcs-dm">Who makes the final decision? <span class="lcs-req" aria-hidden="true">*</span></label><input type="text" id="lcs-dm" name="Decision Maker" data-name="Decision Maker" placeholder="Name and title" required></div>
+<div class="lcs-f"><label for="lcs-start">Ideal start date</label><input type="date" id="lcs-start" name="Start Date" data-name="Start Date"></div>
+<div class="lcs-f lcs-full"><label for="lcs-room">Who else should attend the final presentation?</label><input type="text" id="lcs-room" name="Presentation Attendees" data-name="Presentation Attendees"></div>
+<div class="lcs-f lcs-full"><label for="lcs-dead">Any hard deadline, launch, or event we should plan around?</label><input type="text" id="lcs-dead" name="Deadline" data-name="Deadline"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend><span class="lcs-num">6.</span> Investment</legend>
+<p class="lcs-price"><strong>$6,500</strong>The Enterprise Strategic Blueprint: a $3,250 deposit to begin and $3,250 at delivery.</p>
+<fieldset style="border:0;padding:0;margin:0 0 1.25rem">
+<legend class="lcs-q" style="font-family:inherit;font-size:1rem;font-weight:500">Does this fit your budget? <span class="lcs-req" aria-hidden="true">*</span></legend>
+<label class="lcs-opt"><input type="radio" name="Budget Fit" data-name="Budget Fit" value="Works for us" required>Yes, that works for us</label>
+<label class="lcs-opt"><input type="radio" name="Budget Fit" data-name="Budget Fit" value="Wants to discuss">I’d like to talk it through first</label>
+</fieldset>
+<div class="lcs-f"><label for="lcs-src">How did you hear about us?</label><input type="text" id="lcs-src" name="Referral Source" data-name="Referral Source"></div>
+<div class="lcs-f"><label for="lcs-else">Anything else we should know?</label><textarea id="lcs-else" name="Notes" data-name="Notes"></textarea></div>
+<label class="lcs-opt"><input type="checkbox" name="Consent" data-name="Consent" required><span>I understand Lujan will use this information only to prepare my proposal and blueprint. <span class="lcs-req" aria-hidden="true">*</span></span></label>
+</fieldset>
+
+<input type="submit" class="lcs-btn w-button" value="Send intake form →" data-wait="Sending…">
+</form>
+
+<div class="w-form-done" tabindex="-1" role="status">
+  <div class="lcs-stitch" aria-hidden="true"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+  <div>Thanks, your intake form is in. Karina will reply within two business days with next steps and a kickoff time.</div>
+</div>
+<div class="w-form-fail" role="alert"><div>Your form didn’t send. Check that every required field is filled in, then select Send intake form again. If it still fails, reply to your welcome email.</div></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-dissolve:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var cell=+el.getAttribute('data-cell')||10,dur=+el.getAttribute('data-duration')||1300,rects=[];
+    var veil=document.createElementNS(NS,'svg');
+    veil.setAttribute('class','lcs-dissolve__veil');veil.setAttribute('aria-hidden','true');
+    veil.setAttribute('preserveAspectRatio','none');veil.setAttribute('shape-rendering','crispEdges');
+    el.appendChild(veil);
+    function build(){
+      var w=Math.max(1,Math.ceil(el.offsetWidth)),h=Math.max(1,Math.ceil(el.offsetHeight));
+      veil.setAttribute('viewBox','0 0 '+w+' '+h);veil.textContent='';rects=[];
+      for(var y=0;y<h;y+=cell)for(var x=0;x<w;x+=cell){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',cell+.6);r.setAttribute('height',cell+.6);
+        veil.appendChild(r);rects.push(r);
+      }
+      for(var i=rects.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=rects[i];rects[i]=rects[j];rects[j]=t;}
+    }
+    function play(){
+      var t0=0,done=0,flashing=[],N=rects.length;
+      function tick(t){
+        if(!t0)t0=t;
+        var p=Math.min(1,(t-t0)/dur),e=p<.5?2*p*p:1-Math.pow(2-2*p,2)/2,target=Math.floor(N*e);
+        while(done<target){var r=rects[done++];r.setAttribute('class',Math.random()<.5?'lcs-dissolve__flash':'lcs-dissolve__flash lcs-dissolve__flash--b');flashing.push([r,t]);}
+        while(flashing.length&&t-flashing[0][1]>70){flashing.shift()[0].remove();}
+        if(p<1||flashing.length)requestAnimationFrame(tick);else veil.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+    build();
+    function go(){build();play();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go();}},{threshold:.3});io.observe(el);
+    }else go();
+  });
+})();
+</script>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-stitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var pat=el.getAttribute('data-pattern')||'',alt=el.getAttribute('data-pattern-alt');if(alt&&Math.random()<(parseFloat(el.getAttribute('data-alt-chance'))||.25))pat=alt;var rows=pat.split('/'),svg=el.querySelector('svg'),steps=[];
+    var cols=Math.max.apply(null,rows.map(function(r){return r.length;}));
+    svg.setAttribute('viewBox','-0.5 -0.5 '+(cols+1)+' '+(rows.length+1));
+    function line(g,x1,y1,x2,y2){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);g.appendChild(l);return l;}
+    rows.forEach(function(row,r){
+      var cs=[];for(var c=0;c<row.length;c++)cs.push(c);
+      if(r%2)cs.reverse();
+      cs.forEach(function(c){
+        var ch=row.charAt(c),k={X:'',o:'is-b',G:'c-g',R:'c-r',W:'c-w',K:'c-k',O:'c-o',C:'c-c',Y:'c-y',V:'c-v',D:'c-d'}[ch];if(k===undefined)return;
+        var g=document.createElementNS(NS,'g');if(k)g.setAttribute('class',k);svg.appendChild(g);
+        steps.push(line(g,c+.2,r+.2,c+.8,r+.8));steps.push(line(g,c+.8,r+.2,c+.2,r+.8));
+      });
+    });
+    if(rm){steps.forEach(function(l){l.setAttribute('class','is-in');});return;}
+    function run(){var i=0;(function next(){if(i<steps.length&&el.isConnected){steps[i++].setAttribute('class','is-in');setTimeout(next,16);}})();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run();}},{threshold:.3});io.observe(el);
+    }else run();
+  });
+})();
+</script>
+<script>
+/* intake progress: a section counts once its required fields are valid and at least one field has an answer */
+(function(){
+  var root=document.querySelector('.lcs');if(!root||root.hasAttribute('data-lcs-progress'))return;
+  root.setAttribute('data-lcs-progress','');
+  var form=root.querySelector('#lcs-intake'),
+      sections=[].slice.call(form.children).filter(function(n){return n.tagName==='FIELDSET';}),
+      dots=root.querySelectorAll('.lcs-progress li'),count=root.querySelector('.lcs-progress__n');
+  function answered(el){return el.type==='checkbox'||el.type==='radio'?el.checked:String(el.value||'').trim()!=='';}
+  function done(sec){
+    var fields=[].slice.call(sec.querySelectorAll('input,select,textarea')),
+        req=fields.filter(function(f){return f.required;});
+    var reqOk=req.every(function(f){return f.type==='radio'?!!sec.querySelector('input[name="'+f.name+'"]:checked'):f.validity.valid&&answered(f);});
+    var any=fields.some(function(f){return f.tagName!=='SELECT'&&answered(f);});
+    return reqOk&&any;
+  }
+  function update(){
+    var n=0,here=-1,a=document.activeElement;
+    sections.forEach(function(sec,i){
+      var ok=done(sec);if(ok)n++;
+      dots[i].classList.toggle('is-done',ok);
+      if(a&&sec.contains(a))here=i;
+    });
+    dots.forEach(function(d,i){d.classList.toggle('is-here',i===here);});
+    count.textContent=n;
+  }
+  form.addEventListener('input',update);form.addEventListener('change',update);form.addEventListener('focusin',update);
+  update();
+})();
+</script>
+
+<script>
+/* drafts: answers are kept in this browser (localStorage) so clients can leave and come back.
+   Nothing is sent anywhere until they select Send intake form. */
+(function(){
+  var root=document.querySelector('.lcs');if(!root||root.hasAttribute('data-lcs-draft'))return;
+  root.setAttribute('data-lcs-draft','');
+  var KEY='lujan-intake-draft-v1',form=root.querySelector('#lcs-intake'),
+      timeEl=root.querySelector('#lcs-draft-time'),live=root.querySelector('#lcs-live'),
+      notice=root.querySelector('#lcs-restored'),noticeWhen=root.querySelector('#lcs-restored-when'),
+      errors=root.querySelector('#lcs-errors'),timer=null,submitted=false;
+  function store(){try{return window.localStorage;}catch(e){return null;}}
+  var ls=store();
+  function stamp(d){return d.toLocaleString([], {month:'long',day:'numeric',hour:'numeric',minute:'2-digit'});}
+  function fields(){return [].slice.call(form.querySelectorAll('input,select,textarea')).filter(function(f){return f.name&&f.type!=='submit';});}
+  function collect(){
+    var data={};
+    fields().forEach(function(f){
+      if(f.type==='checkbox')data[f.name]=f.checked;
+      else if(f.type==='radio'){if(f.checked)data[f.name]=f.value;}
+      else data[f.name]=f.value;
+    });
+    return data;
+  }
+  function hasAnswers(d){return Object.keys(d).some(function(k){var v=d[k];return v===true||(typeof v==='string'&&v.trim()!==''&&k!=='Contact Preference');});}
+  function save(announce){
+    if(submitted)return;
+    if(!ls){if(announce)say('Drafts can’t be saved in this browser. Private browsing may be blocking them.');return;}
+    var d=collect();
+    if(!hasAnswers(d)){if(announce)say('Nothing to save yet.');return;}
+    var now=new Date();
+    try{ls.setItem(KEY,JSON.stringify({savedAt:now.toISOString(),data:d}));}
+    catch(e){if(announce)say('Your draft couldn’t be saved. Storage may be full or blocked.');return;}
+    timeEl.textContent='Draft saved '+stamp(now);
+    if(announce)say('Draft saved. You can close this page and come back on this device to finish.');
+  }
+  function say(msg){live.textContent='';setTimeout(function(){live.textContent=msg;},50);if(!ls||/couldn|can’t/.test(msg))timeEl.textContent=msg;}
+  function restore(){
+    if(!ls)return;
+    var raw;try{raw=ls.getItem(KEY);}catch(e){return;}
+    if(!raw)return;
+    var draft;try{draft=JSON.parse(raw);}catch(e){return;}
+    if(!draft||!draft.data)return;
+    fields().forEach(function(f){
+      if(!(f.name in draft.data))return;
+      var v=draft.data[f.name];
+      if(f.type==='checkbox')f.checked=!!v;
+      else if(f.type==='radio')f.checked=(f.value===v);
+      else f.value=v;
+    });
+    var when=draft.savedAt?new Date(draft.savedAt):null;
+    if(when){noticeWhen.textContent='on '+stamp(when);timeEl.textContent='Draft saved '+stamp(when);}
+    notice.hidden=false;
+    form.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  function clear(){
+    if(ls){try{ls.removeItem(KEY);}catch(e){}}
+    form.reset();notice.hidden=true;errors.hidden=true;
+    timeEl.textContent='Drafts save automatically on this device';
+    form.dispatchEvent(new Event('change',{bubbles:true}));
+    say('Draft cleared. The form is blank.');
+    var first=form.querySelector('input,select,textarea');if(first)first.focus();
+  }
+  form.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){save(false);},700);});
+  form.addEventListener('change',function(e){if(e.isTrusted){clearTimeout(timer);timer=setTimeout(function(){save(false);},300);}});
+  root.querySelector('#lcs-save').addEventListener('click',function(){clearTimeout(timer);save(true);});
+  root.querySelector('#lcs-startover').addEventListener('click',function(){
+    if(window.confirm('Clear every answer and start a blank form? This can’t be undone.'))clear();
+  });
+  root.querySelectorAll('.lcs-back,.lcs-logo').forEach(function(a){a.addEventListener('click',function(){clearTimeout(timer);save(false);});});
+  window.addEventListener('pagehide',function(){save(false);});
+
+  /* error summary: lists every missing answer with a link to it */
+  var pending=false;
+  form.addEventListener('invalid',function(){
+    if(pending)return;pending=true;
+    setTimeout(function(){
+      pending=false;
+      var seen={},list=errors.querySelector('ul');list.textContent='';
+      [].slice.call(form.querySelectorAll(':invalid')).forEach(function(f){
+        if(f.tagName==='FIELDSET'||seen[f.name])return;seen[f.name]=1;
+        var label=f.id?root.querySelector('label[for="'+f.id+'"]'):null,text;
+        if(label)text=label.textContent;
+        else if(f.type==='radio'){var lg=f.closest('fieldset').querySelector('legend');text=lg?lg.textContent:f.name;}
+        else text=(f.closest('label')||{}).textContent||f.name;
+        text=f.name==='Consent'?'Agree to how Lujan uses your information':text.replace('*','').trim();if(text.length>90)text=text.slice(0,87)+'…';
+        var li=document.createElement('li'),a=document.createElement('a');
+        a.href='#';a.textContent=text;
+        a.addEventListener('click',function(ev){ev.preventDefault();f.focus();});
+        li.appendChild(a);list.appendChild(li);
+      });
+      if(list.children.length){errors.hidden=false;errors.focus();}
+    },0);
+  },true);
+  form.addEventListener('input',function(){if(!errors.hidden&&!form.querySelector('input:invalid,select:invalid,textarea:invalid'))errors.hidden=true;});
+
+  /* once Webflow shows the success message, the draft is no longer needed */
+  var done=root.querySelector('.w-form-done');
+  if(done&&'MutationObserver' in window){
+    new MutationObserver(function(){
+      if(getComputedStyle(done).display!=='none'){submitted=true;if(ls){try{ls.removeItem(KEY);}catch(e){}}}
+    }).observe(done,{attributes:true,attributeFilter:['style','class']});
+  }
+
+  restore();
+})();
+</script>
+
+<script>
+/* keep a copy: email the answers to yourself, or print / save as PDF. Both run in the client's browser only. */
+(function(){
+  var root=document.querySelector('.lcs');if(!root||root.hasAttribute('data-lcs-copies'))return;
+  root.setAttribute('data-lcs-copies','');
+  var form=root.querySelector('#lcs-intake'),live=root.querySelector('#lcs-live');
+  function say(msg){live.textContent='';setTimeout(function(){live.textContent=msg;},50);}
+  function clean(t){return String(t||'').replace(/\*/g,'').replace(/\s+/g,' ').trim();}
+  function stamp(){return new Date().toLocaleString([], {month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});}
+  function collect(){
+    var out=[];
+    [].slice.call(form.children).filter(function(n){return n.tagName==='FIELDSET';}).forEach(function(sec){
+      var items=[];
+      [].slice.call(sec.querySelectorAll('.lcs-price, .lcs-f, fieldset, :scope > label.lcs-opt')).forEach(function(n){
+        if(n.classList.contains('lcs-price')){items.push(['Investment',clean(n.textContent).replace(/^\$6,500/,'$6,500. ')]);return;}
+        if(n.tagName==='FIELDSET'){
+          var picked=[].slice.call(n.querySelectorAll('input:checked')).map(function(i){return clean(i.closest('label').textContent);});
+          items.push([clean(n.querySelector('legend').textContent),picked.join('; ')||'(no answer yet)']);return;
+        }
+        if(n.tagName==='LABEL'){items.push(['Consent',n.querySelector('input').checked?'Agreed':'Not agreed yet']);return;}
+        var el=n.querySelector('input,select,textarea'),lab=n.querySelector('label');
+        var v=String(el.value||'').trim();
+        if(el.tagName==='SELECT'&&el.selectedIndex>-1&&el.value)v=el.options[el.selectedIndex].text;
+        items.push([clean(lab.textContent),v||'(no answer yet)']);
+      });
+      out.push({title:clean(sec.querySelector('legend').textContent),items:items});
+    });
+    return out;
+  }
+  function asText(data){
+    var lines=['LUJAN · CLIENT INTAKE','Copy of my answers, '+stamp(),'A copy for my records. Lujan doesn’t receive my answers until I select Send intake form.',''];
+    data.forEach(function(sec){
+      lines.push(sec.title.toUpperCase());
+      sec.items.forEach(function(it){lines.push(it[0]+': '+it[1]);});
+      lines.push('');
+    });
+    lines.push('Finish the form: '+location.href.split('#')[0]);
+    return lines.join('\r\n');
+  }
+
+  /* "Keep a copy" panel: stays on the page. Share uses the phone's own share sheet, no app switch unless the client picks one. */
+  var dlg=root.querySelector('#lcs-copy-dialog'),pre=root.querySelector('#lcs-copy-text'),
+      status=root.querySelector('#lcs-copy-status'),shareBtn=root.querySelector('#lcs-share'),
+      opener=root.querySelector('#lcs-copy-open'),current='';
+  function note(msg){status.textContent='';setTimeout(function(){status.textContent=msg;},40);}
+  if(navigator.share)shareBtn.hidden=false;
+  function copyText(text){
+    if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(text);
+    return new Promise(function(res,rej){
+      var r=document.createRange();r.selectNodeContents(pre);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+      try{document.execCommand('copy')?res():rej();}catch(e){rej(e);}
+    });
+  }
+  opener.addEventListener('click',function(){
+    current=asText(collect());pre.textContent=current;status.textContent='';
+    if(dlg.showModal){dlg.showModal();pre.scrollTop=0;}
+    else copyText(current).then(function(){say('Your answers are copied. Paste them anywhere to keep a copy.');},function(){say('Copying isn’t available here. Use your browser’s print option to save a copy.');});
+  });
+  root.querySelector('#lcs-copy-close').addEventListener('click',function(){dlg.close();});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+  dlg.addEventListener('close',function(){opener.focus();});
+  root.querySelector('#lcs-copy').addEventListener('click',function(){
+    copyText(current).then(function(){note('Copied. Paste it into a note, a message or an email to yourself.');},
+      function(){note('Copying was blocked. Select the text above and copy it, or use Save as PDF.');});
+  });
+  shareBtn.addEventListener('click',function(){
+    navigator.share({title:'My Lujan intake answers',text:current}).then(function(){note('Shared.');},function(e){if(e&&e.name!=='AbortError')note('Sharing didn’t work here. Try Copy text instead.');});
+  });
+
+  var sheet=null;
+  function build(){
+    if(sheet)sheet.remove();
+    sheet=document.createElement('div');sheet.className='lcs-print';
+    var h=document.createElement('h1');h.textContent='Lujan · Client intake';sheet.appendChild(h);
+    var m=document.createElement('p');m.className='meta';m.textContent='Copy of your answers, '+stamp()+'. This copy is for your records; it is not sent to Lujan until you select Send intake form.';sheet.appendChild(m);
+    collect().forEach(function(sec){
+      var t=document.createElement('h2');t.textContent=sec.title;sheet.appendChild(t);
+      var dl=document.createElement('dl');
+      sec.items.forEach(function(it){var dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=it[0];dd.textContent=it[1];dl.appendChild(dt);dl.appendChild(dd);});
+      sheet.appendChild(dl);
+    });
+    var f=document.createElement('p');f.className='foot';f.textContent='Lujan · Garland, TX · lujan.design';sheet.appendChild(f);
+    document.body.appendChild(sheet);
+    document.documentElement.classList.add('lcs-printing');
+  }
+  function teardown(){document.documentElement.classList.remove('lcs-printing');if(sheet){sheet.remove();sheet=null;}}
+  window.addEventListener('beforeprint',build);
+  window.addEventListener('afterprint',teardown);
+  root.querySelector('#lcs-print').addEventListener('click',function(){if(dlg.open)dlg.close();build();setTimeout(function(){window.print();},60);});
+})();
+</script>
+<script src="../assets/intake-static.js"></script>
+<script src="../assets/cd-nav.js"></script>
+</body>
+</html>
