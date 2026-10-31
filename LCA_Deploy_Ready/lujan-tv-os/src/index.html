@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LUJAN TV OS · Fire TV Launcher · lujan.design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lj-bg:#111;
+  --lj-paper:#1B1B1B;
+  --lj-ink:#FEFEFE;
+  --lj-soft:#9B9B9B;
+  --lj-rule:#2E2E2E;
+  --lj-mag:#DD0070;
+  --lj-pink:#FC8DC1;
+  --lj-silver:#C2C2C2;
+  color-scheme:dark;
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:var(--lj-bg);color:var(--lj-ink);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:16px;line-height:1.5;overflow-x:hidden}
+#tv-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
+.tv-shell{position:relative;z-index:1;max-width:75pc;margin:0 auto;padding:2pc 2pc 2.5pc;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;gap:1.5pc}
+@media (max-width:640px){.tv-shell{padding:1.25pc 1pc 1.5pc}}
+
+/* Top Bar */
+.tv-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1pc;padding-bottom:1pc;border-bottom:3px dashed var(--lj-mag)}
+.tv-brand{display:flex;align-items:baseline;gap:1pc;flex-wrap:wrap}
+.tv-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:2.5rem;letter-spacing:.04em;line-height:1;color:var(--lj-ink);text-decoration:none}
+.tv-sub{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.tv-status{display:flex;flex-wrap:wrap;align-items:center;gap:.75pc 1.25pc}
+.tv-clock{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:1.75rem;line-height:1;color:var(--lj-ink)}
+.tv-btn{font:inherit;font-size:.82rem;min-height:44px;padding:0 .85pc;border:2px solid var(--lj-ink);background:var(--lj-bg);color:var(--lj-ink);cursor:pointer;display:inline-flex;align-items:center;gap:.5pc}
+.tv-btn:hover,.tv-btn[aria-pressed="true"]{background:var(--lj-ink);color:var(--lj-bg)}
+.tv-btn:focus-visible,.tv-tile:focus-visible{outline:3px solid var(--lj-pink);outline-offset:3px}
+
+/* Hero Focus Stage */
+.tv-stage{background:var(--lj-paper);border:2px solid var(--lj-rule);border-left:6px solid var(--lj-mag);padding:1.5pc;display:grid;grid-template-columns:1fr auto;gap:1.25pc;align-items:center}
+@media (max-width:680px){.tv-stage{grid-template-columns:1fr}}
+.tv-eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);display:block;margin-bottom:.35pc}
+.tv-stage-title{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:clamp(1.8rem,4vw,2.75rem);line-height:1.05;font-weight:400;margin-bottom:.5pc}
+.tv-stage-desc{color:var(--lj-soft);max-width:42rem;font-size:.95rem}
+.tv-stage-meta{font-size:.8rem;color:var(--lj-pink);margin-top:.65pc}
+.tv-stage-action{min-height:44px;padding:0 1.1pc;border:2px solid var(--lj-mag);background:var(--lj-mag);color:#FEFEFE;font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5pc}
+.tv-stage-action:hover,.tv-stage-action:focus-visible{background:var(--lj-ink);border-color:var(--lj-ink);color:var(--lj-bg)}
+
+/* Filter / Category Row */
+.tv-cats{display:flex;flex-wrap:wrap;gap:.5pc;align-items:center}
+.tv-cats span.lbl{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-soft);margin-right:.5pc}
+
+/* Launcher Grid */
+.tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1pc}
+.tv-tile{text-align:left;background:var(--lj-paper);border:2px solid var(--lj-rule);border-top:4px solid var(--tc,var(--lj-mag));padding:1.15pc;cursor:pointer;color:var(--lj-ink);font:inherit;display:flex;flex-direction:column;justify-content:space-between;min-height:152px;position:relative;transition:transform .12s,border-color .12s}
+.tv-tile:hover,.tv-tile.is-focused,.tv-tile:focus-visible{border-color:var(--lj-pink);background:#222222;transform:translateY(-2px)}
+.tv-tile .t-cat{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.tv-tile .t-name{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:1.55rem;line-height:1.08;margin:.35pc 0;font-weight:400}
+.tv-tile .t-desc{font-size:.84rem;color:var(--lj-soft);line-height:1.45}
+.tv-tile .t-key{font-size:.72rem;color:var(--lj-silver);margin-top:.75pc;display:flex;justify-content:space-between;align-items:center}
+.tv-tile[hidden]{display:none}
+
+/* Modal / Detail Drawer */
+.tv-modal{position:fixed;inset:0;background:rgba(17,17,17,.88);z-index:80;display:flex;align-items:center;justify-content:center;padding:1.25pc}
+.tv-modal[hidden]{display:none}
+.tv-modal-box{background:var(--lj-paper);border:3px dashed var(--lj-mag);max-width:40pc;width:100%;padding:1.75pc}
+.tv-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1pc;margin-bottom:1pc}
+.tv-modal-head h2{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:2rem;line-height:1.05;font-weight:400}
+.tv-modal-body{color:var(--lj-soft);font-size:.95rem;margin-bottom:1.25pc}
+.tv-modal-actions{display:flex;flex-wrap:wrap;gap:.75pc}
+
+/* Footer Bar */
+.tv-foot{border-top:1px solid var(--lj-rule);padding-top:1pc;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5pc 1.5pc;font-size:.8rem;color:var(--lj-soft)}
+.tv-foot b{color:var(--lj-pink);font-weight:400}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="tv-bg" aria-hidden="true"></canvas>
+
+<div class="tv-shell">
+  <header class="tv-top" aria-label="Launcher status bar">
+    <div class="tv-brand">
+      <a class="tv-mark" href="https://www.lujan.design/">LUJAN</a>
+      <span class="tv-sub">TV OS v1.0 // Fire TV D-Pad Interface</span>
+    </div>
+    <div class="tv-status">
+      <button type="button" class="tv-btn" id="ambientBtn" aria-pressed="false" data-nav="top">Ambient Audio: Off</button>
+      <button type="button" class="tv-btn" id="adbHelpBtn" data-nav="top">ADB Deploy Info</button>
+      <span class="tv-clock" id="tvClock" aria-live="off">19:24</span>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1" style="display:flex;flex-direction:column;gap:1.25pc">
+    <section class="tv-stage" aria-live="polite" aria-atomic="true">
+      <div>
+        <span class="tv-eyebrow" id="stageCat">01 / Featured Channel</span>
+        <h1 class="tv-stage-title" id="stageTitle">Lujan Design Studio</h1>
+        <p class="tv-stage-desc" id="stageDesc">Brand, accessibility, innovation, and empathy—engineered in Garland, TX for open web and living-room screens. Use your remote D-pad (Arrow keys) or Enter to launch.</p>
+        <p class="tv-stage-meta" id="stageMeta">URI: https://www.lujan.design/ · Press Enter to open</p>
+      </div>
+      <div>
+        <button type="button" class="tv-stage-action" id="stageOpenBtn">Launch Selected →</button>
+      </div>
+    </section>
+
+    <div class="tv-cats" role="group" aria-label="Filter launcher channels">
+      <span class="lbl">Filter:</span>
+      <button type="button" class="tv-btn cat-btn" data-cat="all" aria-pressed="true">All Channels (8)</button>
+      <button type="button" class="tv-btn cat-btn" data-cat="agency" aria-pressed="false">Lujan Agency</button>
+      <button type="button" class="tv-btn cat-btn" data-cat="research" aria-pressed="false">Research &amp; Open Web</button>
+      <button type="button" class="tv-btn cat-btn" data-cat="ambient" aria-pressed="false">Ambient &amp; Media</button>
+    </div>
+
+    <section aria-label="Launcher applications">
+      <div class="tv-grid" id="tileGrid"></div>
+    </section>
+  </main>
+
+  <footer class="tv-foot">
+    <span><b>D-Pad Controls:</b> Arrow Keys Move · Enter Opens · M Toggles Ambient Synth</span>
+    <span>© <span data-lj-year>2026</span> Lujan Creative Agency LLC · Garland, TX · lujan.design</span>
+  </footer>
+</div>
+
+<div class="tv-modal" id="tvModal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="tv-modal-box">
+    <div class="tv-modal-head">
+      <div>
+        <span class="tv-eyebrow" id="modalEyebrow">Channel Inspection</span>
+        <h2 id="modalTitle">Channel Details</h2>
+      </div>
+      <button type="button" class="tv-btn" id="modalCloseBtn">Close (Esc)</button>
+    </div>
+    <p class="tv-modal-body" id="modalBody"></p>
+    <div class="tv-modal-actions">
+      <a class="tv-stage-action" id="modalLaunchLink" href="https://www.lujan.design/" target="_blank" rel="noopener">Open in Browser ↗</a>
+      <button type="button" class="tv-btn" id="modalChimeBtn">Test Audio Chime</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var TILES = [
+    {id:'lujan-home', cat:'agency', tag:'01 / Agency Core', name:'lujan.design', desc:'Lujan Creative Agency LLC portfolio, case studies, and accessibility consulting in Garland, TX.', url:'https://www.lujan.design/', color:'var(--lj-mag)'},
+    {id:'signal-ntx', cat:'agency', tag:'02 / Ecosystem', name:'Signal NTX', desc:'Mapping North Texas art, creative technology, and grassroots cultural events.', url:'https://signalntx.com', color:'var(--lj-pink)'},
+    {id:'groundd', cat:'agency', tag:'03 / Community', name:'Ground’d NTX', desc:'Fast micro-grants, mentorship, and community newsletter for emerging North Texas creatives (grounddntx).', url:'https://grounddart.webflow.io', color:'var(--lj-silver)'},
+    {id:'lujan-americas', cat:'research', tag:'04 / Lineage & Genome', name:'Luján Américas', desc:'One name, two continents, five centuries: interactive cultural route and ancient DNA field.', url:'https://www.lujan.design/research', color:'var(--lj-mag)'},
+    {id:'printable-web', cat:'research', tag:'05 / Open Standards', name:'The Printable Web', desc:'Why semantic HTML and @media print CSS replace proprietary PDF lock-in for ADA compliance.', url:'https://www.lujan.design/research', color:'var(--lj-pink)'},
+    {id:'removed-logs', cat:'research', tag:'06 / Public Audit', name:'Removed Post Log', desc:'Verifiable public CSV/JSON log of platform moderation events with screenshot receipts.', url:'https://www.lujan.design/logs', color:'var(--lj-silver)'},
+    {id:'iconic-spotify', cat:'ambient', tag:'07 / Soundtrack', name:'Iconic Mix CD', desc:'Karina’s iconic Spotify playlist with synchronized spinning disc controller.', url:'https://open.spotify.com/playlist/1BR1LJ3XxEn6tOVbBRPZHF', color:'var(--lj-mag)'},
+    {id:'pollinator-meadow', cat:'ambient', tag:'08 / Generative Art', name:'Texas Pollinators', desc:'Procedural pixel meadow of Texas bluebonnets, Indian paintbrush, monarchs, and hummingbirds.', url:'https://www.lujan.design/#about', color:'var(--lj-pink)'}
+  ];
+
+  var grid = document.getElementById('tileGrid');
+  var stageCat = document.getElementById('stageCat');
+  var stageTitle = document.getElementById('stageTitle');
+  var stageDesc = document.getElementById('stageDesc');
+  var stageMeta = document.getElementById('stageMeta');
+  var stageOpenBtn = document.getElementById('stageOpenBtn');
+  var modal = document.getElementById('tvModal');
+  var modalEyebrow = document.getElementById('modalEyebrow');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalBody = document.getElementById('modalBody');
+  var modalLaunchLink = document.getElementById('modalLaunchLink');
+  var modalCloseBtn = document.getElementById('modalCloseBtn');
+  var modalChimeBtn = document.getElementById('modalChimeBtn');
+  var ambientBtn = document.getElementById('ambientBtn');
+  var adbHelpBtn = document.getElementById('adbHelpBtn');
+
+  var activeIdx = 0;
+  var currentFilter = 'all';
+  var tileEls = [];
+
+  // Web Audio API Ambient Synth & Navigation Chimes
+  var audioCtx = null;
+  var ambientGain = null;
+  var ambientOsc1 = null;
+  var ambientOsc2 = null;
+  var ambientOn = false;
+
+  function ensureAudio() {
+    if (!audioCtx) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) audioCtx = new AC();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+
+  function playChime(freq, dur) {
+    try {
+      ensureAudio();
+      if (!audioCtx) return;
+      var osc = audioCtx.createOscillator();
+      var g = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq || 528, audioCtx.currentTime);
+      g.gain.setValueAtTime(0.06, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0008, audioCtx.currentTime + (dur || 0.14));
+      osc.connect(g);
+      g.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + (dur || 0.14));
+    } catch (e) {}
+  }
+
+  function toggleAmbient() {
+    ensureAudio();
+    if (!audioCtx) return;
+    if (!ambientOn) {
+      ambientGain = audioCtx.createGain();
+      ambientGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+      ambientOsc1 = audioCtx.createOscillator();
+      ambientOsc2 = audioCtx.createOscillator();
+      ambientOsc1.type = 'sine';
+      ambientOsc2.type = 'triangle';
+      ambientOsc1.frequency.setValueAtTime(110, audioCtx.currentTime);
+      ambientOsc2.frequency.setValueAtTime(164.81, audioCtx.currentTime);
+      ambientOsc1.connect(ambientGain);
+      ambientOsc2.connect(ambientGain);
+      ambientGain.connect(audioCtx.destination);
+      ambientOsc1.start();
+      ambientOsc2.start();
+      ambientOn = true;
+    } else {
+      try {
+        if (ambientOsc1) ambientOsc1.stop();
+        if (ambientOsc2) ambientOsc2.stop();
+      } catch (e) {}
+      ambientOn = false;
+    }
+    ambientBtn.setAttribute('aria-pressed', String(ambientOn));
+    ambientBtn.textContent = 'Ambient Audio: ' + (ambientOn ? 'On' : 'Off');
+    playChime(ambientOn ? 660 : 330, 0.18);
+  }
+
+  ambientBtn.addEventListener('click', toggleAmbient);
+
+  function selectTile(idx, focusDom) {
+    var visible = tileEls.filter(function(el){ return !el.hidden; });
+    if (!visible.length) return;
+    activeIdx = Math.max(0, Math.min(idx, visible.length - 1));
+    tileEls.forEach(function(el){ el.classList.remove('is-focused'); });
+    var target = visible[activeIdx];
+    target.classList.add('is-focused');
+    if (focusDom) target.focus();
+    var item = TILES[Number(target.dataset.index)];
+    stageCat.textContent = item.tag;
+    stageTitle.textContent = item.name;
+    stageDesc.textContent = item.desc;
+    stageMeta.textContent = 'Destination: ' + item.url + ' · Press Enter to inspect or launch';
+    playChime(440 + activeIdx * 32, 0.09);
+  }
+
+  function openModal(item) {
+    modalEyebrow.textContent = item.tag;
+    modalTitle.textContent = item.name;
+    modalBody.textContent = item.desc + ' Designed under the Lujan Creative Agency LLC system (Geist Pixel + Geist Mono, high-contrast dark canvas, D-pad & keyboard accessible).';
+    modalLaunchLink.href = item.url;
+    modal.hidden = false;
+    modalCloseBtn.focus();
+    playChime(587.33, 0.16);
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    var visible = tileEls.filter(function(el){ return !el.hidden; });
+    if (visible[activeIdx]) visible[activeIdx].focus();
+  }
+
+  TILES.forEach(function(t, i) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tv-tile';
+    btn.dataset.index = String(i);
+    btn.dataset.cat = t.cat;
+    btn.style.setProperty('--tc', t.color);
+    btn.innerHTML =
+      '<div><span class="t-cat">' + t.tag + '</span>' +
+      '<h2 class="t-name">' + t.name + '</h2>' +
+      '<p class="t-desc">' + t.desc + '</p></div>' +
+      '<div class="t-key"><span>CH 0' + (i + 1) + '</span><span>ENTER ↵</span></div>';
+    btn.addEventListener('focus', function() {
+      var visible = tileEls.filter(function(el){ return !el.hidden; });
+      var vIdx = visible.indexOf(btn);
+      if (vIdx > -1) selectTile(vIdx, false);
+    });
+    btn.addEventListener('click', function() {
+      var visible = tileEls.filter(function(el){ return !el.hidden; });
+      var vIdx = visible.indexOf(btn);
+      if (vIdx > -1) selectTile(vIdx, false);
+      openModal(t);
+    });
+    tileEls.push(btn);
+    grid.appendChild(btn);
+  });
+
+  stageOpenBtn.addEventListener('click', function() {
+    var visible = tileEls.filter(function(el){ return !el.hidden; });
+    if (!visible.length) return;
+    var item = TILES[Number(visible[activeIdx].dataset.index)];
+    openModal(item);
+  });
+
+  adbHelpBtn.addEventListener('click', function() {
+    openModal({
+      tag: 'Fire TV Deployment // ADB Over LAN',
+      name: 'Preview on Fire TV',
+      desc: 'Run ./scripts/deploy.sh <TV_IP> from your Mac to serve src/ on port 8080 and launch it on your Fire TV over ADB (port 5555).',
+      url: 'https://www.lujan.design/'
+    });
+  });
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalChimeBtn.addEventListener('click', function(){ playChime(783.99, 0.22); });
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+  document.querySelectorAll('.cat-btn').forEach(function(b) {
+    b.addEventListener('click', function() {
+      currentFilter = b.dataset.cat;
+      document.querySelectorAll('.cat-btn').forEach(function(x){
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+      tileEls.forEach(function(el){
+        el.hidden = !(currentFilter === 'all' || el.dataset.cat === currentFilter);
+      });
+      selectTile(0, false);
+    });
+  });
+
+  // D-Pad / Arrow Key Spatial Navigation
+  document.addEventListener('keydown', function(e) {
+    if (!modal.hidden) {
+      if (e.key === 'Escape' || e.key === 'Esc') { e.preventDefault(); closeModal(); }
+      return;
+    }
+    if (e.key === 'm' || e.key === 'M') {
+      toggleAmbient();
+      return;
+    }
+    var visible = tileEls.filter(function(el){ return !el.hidden; });
+    if (!visible.length) return;
+    var cols = Math.max(1, Math.round(grid.clientWidth / visible[0].clientWidth));
+    if (e.key === 'ArrowRight') { e.preventDefault(); selectTile(activeIdx + 1, true); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); selectTile(activeIdx - 1, true); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); selectTile(activeIdx + cols, true); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); selectTile(activeIdx - cols, true); }
+  });
+
+  // Clock
+  function updateClock() {
+    var d = new Date();
+    var hh = String(d.getHours()).padStart(2, '0');
+    var mm = String(d.getMinutes()).padStart(2, '0');
+    var cl = document.getElementById('tvClock');
+    if (cl) cl.textContent = hh + ':' + mm;
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  // Ambient Pixel Field Canvas
+  var cv = document.getElementById('tv-bg'), ctx = cv.getContext('2d');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pts = [];
+  for (var i = 0; i < 48; i++) {
+    pts.push({x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5) * 0.0004, vy: (Math.random() - 0.5) * 0.0004, c: i % 3 === 0 ? '#DD0070' : i % 3 === 1 ? '#FC8DC1' : '#2E2E2E', s: i % 4 === 0 ? 4 : 3});
+  }
+  function resizeBg() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  function drawBg() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    pts.forEach(function(p) {
+      if (!reduce) {
+        p.x = (p.x + p.vx + 1) % 1;
+        p.y = (p.y + p.vy + 1) % 1;
+      }
+      ctx.fillStyle = p.c;
+      ctx.fillRect(Math.round(p.x * cv.width), Math.round(p.y * cv.height), p.s, p.s);
+    });
+    if (!reduce) requestAnimationFrame(drawBg);
+  }
+  window.addEventListener('resize', resizeBg);
+  resizeBg();
+  drawBg();
+  selectTile(0, false);
+})();
+</script>
+</body>
+</html>

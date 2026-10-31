@@ -1,0 +1,32 @@
+<!-- LUJAN Squarespace 7.1 Header Code Injection v1 · Lujan Creative Agency LLC (lujan.design)
+     Paste into: Squarespace > Website > Pages > Custom Code > Code Injection > Header
+     Loads Geist Pixel, Geist Mono, and Geist site-wide, sets dark-mode surface defaults,
+     hides Squarespace stock header/footer when using .lj-nav / .lj-foot, and enables Letter @media print. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lj-bg: #111;
+  --lj-paper: #1B1B1B;
+  --lj-ink: #FEFEFE;
+  --lj-soft: #9B9B9B;
+  --lj-rule: #2E2E2E;
+  --lj-mag: #DD0070;
+  --lj-pink: #FC8DC1;
+}
+/* Remove default Squarespace 7.1 Code Block padding so .lj-* embeds align to the 75pc pica grid */
+.sqs-block-code .sqs-block-content { margin: 0; padding: 0; }
+/* Uncomment the line below if using lujan-nav-embed.html & lujan-footer-embed.html in Code Injection instead of Squarespace's native header/footer */
+/* header#header, footer#footer-sections { display: none !important; } */
+
+@media print {
+  @page { size: letter; margin: 0.65in; }
+  body, #siteWrapper, .page-section, .section-background { background: #fff !important; color: #000 !important; font-size: 10pt !important; line-height: 1.4 !important; }
+  header#header, footer#footer-sections, nav, .lj-nav, .lj-foot, .lj-skip, .no-print, .sqs-announcement-bar-dropzone { display: none !important; }
+  h1, h2, h3, .mark { break-after: avoid; color: #000 !important; }
+  .mark span { color: #000 !important; -webkit-text-stroke: 0 !important; }
+  section, figure, table, .card, .person, .stop { break-inside: avoid; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #333; }
+}
+</style>

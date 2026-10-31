@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luján: A Cultural Line Across the Americas · lujan.design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --paper:#F3F3F3; --ink:#121212; --soft:#5A5A5A;
+  --cochineal:#C4005F; --cochineal-text:#C4005F; --agave:#B83A7A; --marigold:#656565; --rule:#DDDDDD;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0);
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+    --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+    --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:1rem;line-height:1.75;-webkit-text-size-adjust:100%}
+.wrap{max-width:75pc;margin:0 auto;padding-left:1.25pc;padding-right:1.25pc}
+@media (max-width:560px){.wrap{padding-left:1pc;padding-right:1pc}}
+.display{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace}
+
+/* Hero */
+header{padding:2.5pc 0 2.5pc;position:relative}
+.mark{font-weight:800;font-size:clamp(2.75rem,13vw,8rem);line-height:.95;overflow-wrap:anywhere;margin:0;
+  letter-spacing:-.01em;color:var(--ink)}
+.mark span{display:block;color:transparent;-webkit-text-stroke:2px var(--cochineal)}
+.lede{max-width:34rem;margin:1.5pc 0 0;font-size:1.2rem;color:var(--soft)}
+.lede strong{color:var(--ink);font-weight:600}
+.span-bar{display:flex;gap:0;margin-top:2pc;height:10px;border-radius:0;overflow:hidden}
+.span-bar i{flex:1}
+.span-bar i:nth-child(1){background:var(--cochineal)}
+.span-bar i:nth-child(2){background:var(--marigold)}
+.span-bar i:nth-child(3){background:var(--agave)}
+.span-key{display:flex;justify-content:space-between;font-size:.85rem;color:var(--soft);margin-top:0.5pc}
+
+/* Route */
+.route{position:relative;margin:2pc 0 1pc;padding-left:3.25pc}
+.route::before{content:"";position:absolute;left:1.05rem;top:.6rem;bottom:.6rem;width:4px;
+  background:repeating-linear-gradient(var(--cochineal) 0 8px,transparent 8px 12px);border-radius:0}
+.stop{position:relative;padding:0 0 2.5pc}
+.stop::before{content:"";position:absolute;left:-2.62rem;top:.55rem;width:1.15rem;height:1.15rem;
+  border-radius:0;background:var(--bg);border:4px solid var(--c,var(--cochineal))}
+.when{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:700;
+  font-size:2.6rem;line-height:1;color:var(--c,var(--cochineal))}
+.where{font-weight:600;font-size:1.15rem;margin:0.25pc 0 0.25pc}
+.stop p{margin:0;max-width:36rem;color:var(--soft)}
+.region{display:inline-block;font-size:.8rem;padding:0 0.5pc;border-radius:0;
+  border:1px solid var(--c,var(--cochineal));color:var(--c,var(--cochineal));margin-left:0.5pc;vertical-align:middle;font-weight:600}
+.s-south{--c:var(--cochineal)}
+.s-road{--c:var(--marigold)}
+.s-north{--c:var(--agave)}
+
+/* Names grid */
+.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;
+  background:var(--rule);border:1px solid var(--rule);border-radius:0;margin-top:1pc}
+.names div{background:var(--paper);padding:1pc 1pc}
+.names b{display:block;font-weight:600}
+.names small{color:var(--soft);font-size:.9rem}
+
+/* Karina's branch */
+.branch{background:var(--paper);color:var(--ink);border-top:3px dashed var(--cochineal);border-bottom:3px dashed var(--cochineal);margin:3pc 0 0;padding:2.5pc 0 3pc}
+.branch h2{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:700;
+  font-size:clamp(2.6rem,8vw,4.2rem);line-height:.95;margin:0 0 0.75pc}
+.branch p{max-width:34rem;margin:0 0 2pc;opacity:.85}
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75pc;position:relative}
+.path::before{content:"";position:absolute;left:1rem;right:1rem;top:1.05rem;height:3px;background:var(--marigold)}
+.node{position:relative;padding-top:2.5pc}
+.node::before{content:"";position:absolute;top:.35rem;left:.35rem;width:1.4rem;height:1.4rem;border-radius:0;
+  background:var(--paper);border:4px solid var(--marigold)}
+.node:last-child::before{background:var(--cochineal);border-color:var(--cochineal)}
+.node b{display:block;font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:500;font-size:1.5rem;line-height:1.05}
+.node small{opacity:.75;font-size:.9rem}
+@media (max-width:620px){
+  .path{grid-template-columns:1fr;gap:0}
+  .path::before{left:1.03rem;right:auto;top:1rem;bottom:1rem;width:3px;height:auto}
+  .node{padding:0 0 1.5pc 3pc}
+  .node::before{top:.1rem}
+}
+
+
+/* Who's who */
+.who{margin-top:1pc}
+.who-intro{color:var(--soft);max-width:36rem;margin:0 0 1.5pc}
+.filters{display:flex;flex-wrap:wrap;gap:0.5pc;margin-bottom:1.5pc}
+.filters button{font:inherit;font-size:.9rem;padding:0.25pc 1pc;border-radius:0;cursor:pointer;
+  border:2px solid var(--ink);background:transparent;color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.filters button:focus-visible{outline:3px solid var(--marigold);outline-offset:0}
+.region-block{margin-bottom:2pc}
+.region-block h3{font-family:"Geist",system-ui,sans-serif;font-weight:300;font-size:1.8rem;
+  margin:0 0 0.5pc;display:flex;align-items:baseline;gap:0.5pc;color:var(--c)}
+.region-block h3 small{font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-weight:400;font-size:.9rem;color:var(--soft)}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75pc}
+.person{background:var(--paper);border-top:4px solid var(--c);padding:1pc 1pc 1pc;border-radius:0}
+.person b{display:block;font-weight:600;line-height:1.3}
+.person .yrs{font-size:.85rem;color:var(--soft)}
+.person p{margin:0.5pc 0 0;font-size:.95rem;color:var(--soft);line-height:1.5}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;margin-top:0.5pc;color:var(--c)}
+.person[hidden]{display:none}
+
+.origin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.25pc;margin-top:1pc}
+.origin-grid b{display:block;font-weight:500;font-size:2rem;line-height:1;color:var(--cochineal)}
+.origin-grid div:nth-child(2) b{color:var(--marigold)}
+.origin-grid div:nth-child(3) b{color:var(--agave)}
+.origin-grid p{margin:0.5pc 0 0;color:var(--soft);font-size:.95rem;line-height:1.55}
+/* DNA field */
+.dna{padding-top:1pc}
+.dna-intro{color:var(--soft);max-width:36rem;margin:0 0 1.25pc}
+.dna-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:0}
+.dna-plot{position:relative;min-width:680px;height:360px;background:var(--paper);border:1px solid var(--rule);border-radius:0;overflow:hidden}
+.dna-plot canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.zone{position:absolute;top:0;bottom:28px;border-left:1px dashed var(--marigold);border-right:1px dashed var(--marigold);background:color-mix(in srgb,var(--marigold) 10%,transparent)}
+.zone span{position:absolute;top:.4rem;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:600;color:var(--marigold);white-space:nowrap}
+.row-label{position:absolute;left:.6rem;font-size:.8rem;font-weight:600;transform:translateY(-140%)}
+.range{position:absolute;height:2px;transform:translateY(-1px);opacity:.45;border-radius:0}
+.dnode{position:absolute;transform:translate(-50%,-50%);border-radius:0;border:2px solid var(--paper);cursor:pointer;padding:0}
+.dnode:focus-visible{outline:3px solid var(--ink);outline-offset:0}
+.dnode[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:0.25pc}
+.axis{position:absolute;left:0;right:0;bottom:0;height:28px;border-top:1px solid var(--rule)}
+.axis span{position:absolute;top:6px;transform:translateX(-50%);font-size:.72rem;color:var(--soft);white-space:nowrap}
+.dna-detail{margin-top:1pc;min-height:5.5rem;background:var(--paper);border-left:4px solid var(--c,var(--marigold));padding:0.75pc 1pc;border-radius:0}
+.dna-detail b{display:block;font-weight:600}
+.dna-detail .meta{color:var(--soft);font-size:.9rem}
+.dna-detail p{margin:0.25pc 0 0;color:var(--soft);font-size:.95rem;line-height:1.5}
+.dna-legend{display:flex;flex-wrap:wrap;gap:1pc;margin-top:1pc;font-size:.85rem;color:var(--soft)}
+.dna-legend i{display:inline-block;width:.8rem;height:.8rem;border-radius:0;margin-right:0.25pc;vertical-align:-1px}
+.dna-note{font-size:.85rem;color:var(--soft);margin-top:1pc;max-width:40rem}
+.eyebrow{display:block;font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-weight:400;font-size:.72rem;color:var(--agave);margin-bottom:0.5pc;letter-spacing:.14em;text-transform:uppercase}
+.branch .eyebrow{color:var(--agave)}
+h2.sec{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:700;
+  font-size:clamp(2.2rem,6vw,3.2rem);line-height:1;margin:3pc 0 0.5pc}
+footer{padding:2pc 0 3pc;font-size:.85rem;color:var(--soft)}
+footer a{color:var(--cochineal-text)}
+.note{border-left:3px solid var(--marigold);padding-left:1pc;margin-top:1.5pc;max-width:40rem}
+.mark,h2.sec,.when,.branch h2,.node b,.display,.wordmark{font-weight:400}
+
+/* Accessibility */
+.skip{position:absolute;left:1rem;top:-4rem;z-index:20;background:var(--ink);color:var(--bg);padding:0.5pc 1pc;text-decoration:none}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + .75rem)}
+a{color:inherit;text-underline-offset:.2em}
+:focus-visible{outline:3px solid var(--agave);outline-offset:0.25pc}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.s-south .region,.s-south .when{color:var(--cochineal-text);border-color:var(--cochineal-text)}
+[style*="--c:var(--cochineal)"] .tag,[style*="--c:var(--cochineal)"] h3{color:var(--cochineal-text)}
+.dnode{min-width:44px;min-height:44px;background:transparent!important;box-shadow:none!important;border:0}
+.dnode::before{content:"";position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);transform:translate(-50%,-50%);background:var(--dc);box-shadow:0 0 14px var(--dc);border:2px solid var(--paper)}
+.dnode[data-r="am"]::before{background:var(--paper);border:3px solid var(--dc)}
+.dnode[data-r="eu"]::before{transform:translate(-50%,-50%) rotate(45deg);width:calc(var(--s) * .8);height:calc(var(--s) * .8)}
+.dna-legend .lg-am{background:transparent!important;border:2px solid var(--agave)}
+.dna-legend .lg-eu{transform:rotate(45deg) scale(.85)}
+.dna-callout{margin-top:1.5pc;padding:1.25pc;border:2px solid var(--agave);background:var(--paper)}
+.dna-callout .eyebrow{margin-bottom:.5pc}
+.dna-callout .wna-stat{font-weight:600;font-size:1.1rem;margin:0}
+.dna-callout .wna-num{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400;font-size:2.4rem;line-height:1;color:var(--agave);margin-right:.25pc;vertical-align:-.15em}
+.dna-callout p{margin:.5pc 0 0;max-width:40rem;color:var(--soft)}
+.dna-callout .wna-stat{color:var(--ink)}
+.dna-callout .wna-note{font-size:.88rem;border-left:3px solid var(--agave);padding-left:.75pc}
+.dna-scroll:focus-visible{outline:3px solid var(--agave);outline-offset:0.25pc}
+.dna-tools{display:flex;flex-wrap:wrap;gap:0.75pc;align-items:center;margin:0 0 1pc}
+.dna-tools button{font:inherit;font-size:.9rem;padding:0.5pc 1pc;min-height:44px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.dna-hint{font-size:.85rem;color:var(--soft)}
+.dna-list{margin-top:1.25pc}
+.dna-list summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.dna-table{overflow-x:auto}
+.dna-table table{border-collapse:collapse;width:100%;min-width:520px;font-size:.88rem}
+.dna-table th,.dna-table td{text-align:left;padding:0.5pc 0.5pc;border-bottom:1px solid var(--rule);vertical-align:top}
+.dna-table th{color:var(--soft);font-weight:400}
+.filters button{min-height:44px}
+@media (max-width:620px){
+  .route{padding-left:2.75pc}
+  .when{font-size:2rem}
+  .people{grid-template-columns:1fr}
+  .region-block h3{flex-wrap:wrap}
+  .foot{flex-direction:column}
+  .span-key{flex-direction:column;gap:0.25pc}
+}
+@media print{
+  @page{size:letter;margin:0.65in}
+  :root{--bg:#FFFFFF!important;--paper:#FFFFFF!important;--ink:#000000!important;--soft:#333333!important;--cochineal:#000000!important;--cochineal-text:#000000!important;--agave:#000000!important;--marigold:#444444!important;--rule:#999999!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt!important;line-height:1.4!important}
+  .lj-nav,.lj-foot,.lj-skip,.skip,.filters,.dna-tools,.span-bar{display:none!important}
+  .wrap{max-width:none!important;padding:0!important}
+  .mark span{color:#000!important;-webkit-text-stroke:0!important}
+  .person,.stop,section,table{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<style>
+.lj-nav{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-bottom:1px solid var(--lj-rule);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:16px;line-height:1.4;position:relative;z-index:50;
+  margin:0;padding:env(safe-area-inset-top,0) 0 0;width:auto;height:auto}
+.lj-nav *,.lj-nav *::before,.lj-nav *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-nav *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-nav .lj-in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;gap:0.75pc 1.75pc}
+.lj-nav a,.lj-nav button{color:var(--lj-ink);font:inherit;text-decoration:none;background:none;border:0;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lj-nav .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1;margin-right:auto;display:inline-flex;align-items:center;min-height:44px}
+.lj-nav .lj-links{display:flex;flex-wrap:wrap;align-items:center;gap:0.25pc 1.5pc;list-style:none}
+.lj-nav .lj-links>li{position:relative;list-style:none}
+.lj-nav .lj-link{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 0;background-image:none;position:relative}
+.lj-nav .lj-link::after{content:"";position:absolute;left:2px;right:2px;bottom:6px;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 6px,transparent 6px 9px);opacity:0}
+.lj-nav .lj-link:hover::after{opacity:.6}
+.lj-nav .lj-link[aria-current]::after,.lj-nav .lj-link[aria-expanded="true"]::after{opacity:1}
+.lj-nav .lj-caret{width:12px;height:8px;fill:currentColor;transition:transform .15s}
+.lj-nav [aria-expanded="true"] .lj-caret{transform:rotate(180deg)}
+.lj-nav .lj-cta{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 1pc;border:2px solid var(--lj-ink)}
+.lj-nav .lj-cta:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-nav .lj-cta svg{width:18px;height:14px;fill:currentColor}
+.lj-nav .lj-menu{position:absolute;top:calc(100% + 6px);left:-14px;min-width:300px;background:var(--lj-bg);border:2px solid var(--lj-ink);padding:0.5pc 0;list-style:none;z-index:60}
+.lj-nav .lj-menu[hidden]{display:none}
+.lj-nav .lj-menu a{display:flex;justify-content:space-between;align-items:center;gap:1pc;min-height:44px;padding:0 1pc}
+.lj-nav .lj-menu a:hover{background:#1f1f1f}
+.lj-nav .lj-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-nav a:focus-visible,.lj-nav button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-skip{position:absolute;left:12px;top:-60px;z-index:100;background:#FEFEFE;color:#121212;padding:0.5pc 1pc;font:600 15px/1 "Geist Mono",ui-monospace,monospace;text-decoration:none}
+.lj-skip:hover{color:#121212}
+.lj-skip:focus{top:calc(env(safe-area-inset-top,0px) + 10px)}
+@media (max-width:560px){
+  .lj-nav .lj-in{padding:1pc 1pc 0.75pc}
+  .lj-nav .lj-mark{font-size:30px;flex-basis:100%}
+  .lj-nav .lj-links{gap:0 1pc;width:100%}
+  .lj-nav .lj-cta{padding:0 0.75pc}
+  .lj-nav .lj-links{position:relative}
+  .lj-nav .lj-links>li{position:static}
+  .lj-nav .lj-menu{left:0;right:0;min-width:0;width:auto}
+}
+@media print{
+  @page{size:letter;margin:0.65in}
+  :root{--bg:#FFFFFF!important;--paper:#FFFFFF!important;--ink:#000000!important;--soft:#333333!important;--cochineal:#000000!important;--cochineal-text:#000000!important;--agave:#000000!important;--marigold:#444444!important;--rule:#999999!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt!important;line-height:1.4!important}
+  .lj-nav,.lj-foot,.lj-skip,.skip,.filters,.dna-tools,.span-bar{display:none!important}
+  .wrap{max-width:none!important;padding:0!important}
+  .mark span{color:#000!important;-webkit-text-stroke:0!important}
+  .person,.stop,section,table{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){.lj-nav *{transition:none!important}}
+</style>
+<a class="lj-skip" href="#main">Skip to content</a>
+<nav class="lj-nav" aria-label="Main">
+  <div class="lj-in">
+    <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+    <ul class="lj-links">
+      <li><a class="lj-link" href="https://www.lujan.design/#about">About</a></li>
+      <li>
+        <button class="lj-link" type="button" aria-expanded="false" data-lj-toggle>Work
+          <svg class="lj-caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M0 0h12v2h-2v2H8v2H4V4H2V2H0z"/></svg></button>
+        <ul class="lj-menu" hidden>
+          <li><a href="https://www.lujan.design/#work">Case studies</a></li>
+          <li><a href="https://www.lujan.design/#work">Color Grading Game <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://www.lujan.design/#work">Dark UX Patterns Web Audit <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://signalntx.com" target="_blank" rel="noopener">Signal NTX <span class="lj-tag">Art × Tech</span></a></li>
+          <li><a href="https://grounddart.webflow.io" target="_blank" rel="noopener">Ground’d NTX <span class="lj-tag">Grants</span></a></li>
+        </ul>
+      </li>
+      <li><a class="lj-link" href="https://www.lujan.design/research">Research</a></li>
+      <li><a class="lj-cta" href="https://www.lujan.design/inquire">Inquire
+        <svg viewBox="0 0 18 14" aria-hidden="true" focusable="false"><path d="M10 0h2v2h2v2h2v2h2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2V8H0V6h14V4h-2V2h-2z"/></svg></a></li>
+    </ul>
+  </div>
+</nav>
+<script>
+(function(){
+  var navs=document.querySelectorAll('.lj-nav:not([data-lj-ready])');
+  Array.prototype.forEach.call(navs,function(nav,n){
+    nav.setAttribute('data-lj-ready','1');
+    var btn=nav.querySelector('[data-lj-toggle]'),menu=btn&&btn.nextElementSibling;if(!btn||!menu)return;
+    var id='lj-work-menu-'+Math.random().toString(36).slice(2,8);menu.id=id;btn.setAttribute('aria-controls',id);
+    var li=btn.parentNode;
+    function setOpen(o,f){btn.setAttribute('aria-expanded',String(o));menu.hidden=!o;if(!o&&f)btn.focus();}
+    btn.addEventListener('click',function(){setOpen(btn.getAttribute('aria-expanded')!=='true');});
+    li.addEventListener('keydown',function(e){if((e.key==='Escape'||e.key==='Esc')&&!menu.hidden){e.preventDefault();setOpen(false,true);}});
+    document.addEventListener('click',function(e){if(!menu.hidden&&!li.contains(e.target))setOpen(false);});
+    li.addEventListener('focusout',function(e){if(!menu.hidden&&e.relatedTarget&&!li.contains(e.relatedTarget))setOpen(false);});
+    var here=location.pathname.replace(/\/+$/,'')||'/';
+    Array.prototype.forEach.call(nav.querySelectorAll('a.lj-link'),function(a){
+      try{var u=new URL(a.getAttribute('href'),location.href),p=u.pathname.replace(/\/+$/,'')||'/';
+      if(u.host===location.host&&p===here&&(!u.hash||u.hash===location.hash))a.setAttribute('aria-current','page');}catch(err){}
+    });
+  });
+})();
+</script>
+<header class="wrap">
+  <h1 class="mark display">Luján <span>Américas</span></h1>
+  <p class="lede"><strong>One name, two continents, five centuries.</strong> How Luján travelled from Spain to the Río de la Plata in the south and up the Camino Real to the Rio Grande in the north.</p>
+  <div class="span-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="span-key"><span>South · Argentina</span><span>The royal road</span><span>North · Nuevo México &amp; Texas</span></div>
+</header>
+
+<main id="main" tabindex="-1">
+<section class="wrap origin" aria-labelledby="origin-title">
+  <h2 class="sec" id="origin-title"><span class="eyebrow">01 / Origin</span>Where the name comes from</h2>
+  <div class="origin-grid">
+    <div><b class="display">Luxán</b><p>The earliest spelling. The x sounded like “sh” until the 1600s, when Spanish shifted it to the throaty j we hear in Luján today.</p></div>
+    <div><b class="display">Lucius</b><p>A Spanish place-name surname. A common theory traces it to a Roman estate named for a man called Lucius (<i>Lucianus</i>, “of Lucius”). The exact origin is uncertain.</p></div>
+    <div><b class="display">Madrid</b><p>The Luján family was prominent in medieval Madrid; their 15th-century Torre de los Lujanes still stands on the Plaza de la Villa.</p></div>
+    <div><b class="display">Río Luján</b><p>In the Americas the surname became a place: the river and town in Argentina are named for Pedro de Luján.</p></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <h2 class="sec" id="route-title"><span class="eyebrow">02 / Route</span>Five centuries, two continents</h2>
+  <section class="route" aria-labelledby="route-title">
+
+    <div class="stop s-south">
+      <div class="when">1500s</div>
+      <div class="where">Iberia to the New World <span class="region">Origin</span></div>
+      <p>Luján arrives in the Americas as a Spanish surname, carried by soldiers, settlers and clergy sailing for the viceroyalties of Peru and New Spain.</p>
+    </div>
+
+    <div class="stop s-south">
+      <div class="when">1536</div>
+      <div class="where">Río Luján, Buenos Aires <span class="region">South</span></div>
+      <p>Pedro de Luján, a captain on Pedro de Mendoza’s expedition, dies near a river west of Buenos Aires. The river takes his name, and later the town does too.</p>
+    </div>
+
+    <div class="stop s-south">
+      <div class="when">1630</div>
+      <div class="where">Our Lady of Luján <span class="region">South</span></div>
+      <p>By tradition, an ox cart carrying a small clay image of the Virgin, commissioned by rancher Antonio Farías de Sáa, refuses to move from the riverbank. Manuel Costa de los Ríos, an enslaved African man known as Negro Manuel, tends the shrine for 56 years until his death in 1686. Today she is the patroness of Argentina.</p>
+    </div>
+
+    <div class="stop s-road">
+      <div class="when">1598+</div>
+      <div class="where">Camino Real de Tierra Adentro <span class="region">The road</span></div>
+      <p>The royal road links Mexico City, Zacatecas and Chihuahua to Santa Fe. Luján families settle along its northern stretch. Juan Luján is living at La Cañada by 1601, among the first settlers. Juana Luján’s 1762 estate inventory still survives in the Spanish Archives of New Mexico.</p>
+    </div>
+
+    <div class="stop s-north">
+      <div class="when">1565–1815</div>
+      <div class="where">Manila galleons <span class="region">Pacific</span></div>
+      <p>For 250 years, Spanish galleons sailed between Manila and Acapulco, linking Asia to New Spain. They carried Filipino, Chinese and other Asian people, known in Mexico as <i>chinos</i>, who settled along the Pacific coast and in Mexico City. A small Filipino trace in Karina’s DNA may echo this route.</p>
+    </div>
+
+    <div class="stop s-south">
+      <div class="when">1800s</div>
+      <div class="where">Luján de Cuyo, Mendoza <span class="region">South</span></div>
+      <p>At the foot of the Andes, Luján de Cuyo grows into the heart of Argentine wine country, often called the cradle of Malbec.</p>
+    </div>
+
+    <div class="stop s-north">
+      <div class="when">1900s–now</div>
+      <div class="where">New Mexico public life <span class="region">North</span></div>
+      <p>The name becomes a fixture of public service in New Mexico, across multiple generations.</p>
+      <div class="names">
+        <div><b>Manuel Luján Jr.</b><small>U.S. Secretary of the Interior, 1989–1993</small></div>
+        <div><b>Michelle Lujan Grisham</b><small>Governor of New Mexico since 2019</small></div>
+        <div><b>Ben Ray Luján</b><small>U.S. Senator from New Mexico since 2021</small></div>
+      </div>
+    </div>
+
+  </section>
+  <h2 class="sec" id="whos-who"><span class="eyebrow">03 / People</span>Who’s who</h2>
+  <p class="who-intro">Every notable Luján we could verify, mapped by where they made their mark. New Mexico’s political Lujans are one extended family, from cousins to grandparents; elsewhere, the name is the thread.</p>
+  <div class="filters" role="group" aria-label="Filter by field">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="public" aria-pressed="false">Public life</button>
+    <button type="button" data-f="arts" aria-pressed="false">Arts &amp; film</button>
+    <button type="button" data-f="faith" aria-pressed="false">Faith &amp; founding</button>
+    <button type="button" data-f="sport" aria-pressed="false">Sport &amp; style</button>
+  </div>
+
+  <div class="region-block s-north" style="--c:var(--agave)">
+    <h3>New Mexico <small>The Luján heartland</small></h3>
+    <div class="people">
+      <div class="person" data-f="faith"><b>Diego Pérez de Luxán</b><span class="yrs">fl. 1582–1583</span><p>Chronicler of Antonio de Espejo’s expedition into New Mexico; his journal is an early written record of the region. Luxán is an older spelling of Luján.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="public"><b>Diego de Vargas Zapata y Luján</b><span class="yrs">1643–1704</span><p>Spanish governor of New Mexico who led the 1692 return to Santa Fe; Luján was his mother’s surname. His legacy is commemorated and contested.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="faith"><b>Juan Luján</b><span class="yrs">c. 1602–1663</span><p>Living at La Cañada by 1601; later a captain and alcalde mayor of the district.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="faith"><b>Juana Luján</b><span class="yrs">d. 1762</span><p>Landowner in the Santa Cruz area; her estate inventory survives in the Spanish Archives of New Mexico.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="arts"><b>Albert Lujan</b><span class="yrs">1892–1948</span><p>Taos Pueblo painter, largely self-taught; one of the “Three Taos Pueblo” painters, with over 2,000 works.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="public"><b>Eugene D. Lujan</b><span class="yrs">1887–1980</span><p>First Hispanic Chief Justice of the New Mexico Supreme Court (1951–1953); grandfather of Gov. Michelle Lujan Grisham.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="public"><b>Manuel Lujan Sr.</b><span class="yrs">20th century</span><p>Mayor of Santa Fe.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="public"><b>Manuel Lujan Jr.</b><span class="yrs">1928–2019</span><p>U.S. Representative, then Secretary of the Interior. The landmark case <i>Lujan v. Defenders of Wildlife</i> bears his name.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="public"><b>Ben Luján</b><span class="yrs">1935–2012</span><p>Longtime state legislator and Speaker of the New Mexico House of Representatives.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="public"><b>Ben Ray Luján</b><span class="yrs">b. 1972</span><p>U.S. Senator from New Mexico; son of Ben Luján.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="public"><b>Michelle Lujan Grisham</b><span class="yrs">b. 1959</span><p>Governor of New Mexico since 2019, the first Democratic Latina elected governor in the U.S.; former U.S. Representative.</p><span class="tag">Public life</span></div>
+    </div>
+  </div>
+
+  <div class="region-block" style="--c:var(--marigold)">
+    <h3>California &amp; Texas <small>The borderlands</small></h3>
+    <div class="people">
+      <div class="person" data-f="arts"><b>Gilbert “Magu” Luján</b><span class="yrs">1940–2011</span><p>Founder of the Chicano art collective Los Four. Known for lowriders, mythic dogs and the Hollywood/Vine Metro station.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="arts"><b>Otoño Luján</b><span class="yrs">Contemporary</span><p>Accordionist with Conjunto Los Pochos; son of Magu.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="public"><b>John Lujan</b><span class="yrs">Contemporary</span><p>Former member of the Texas House of Representatives.</p><span class="tag">Public life</span></div>
+      <div class="person" data-f="arts"><b>Diego Luján</b><span class="yrs">Austin × San Miguel de Allende, contemporary</span><p>Founder and creative director of Diego Luján Studio, a bilingual brand consultancy; raised between West Texas and Mexico.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="arts"><b>Karina Lujan</b><span class="yrs">Dallas, contemporary</span><p>Brand designer, artist and accessibility specialist with roots in Chihuahua and Eagle Pass. Founder of Lujan Creative Agency LLC in Garland, building brand, accessibility, innovation and empathy, and of Signal NTX, mapping North Texas art and technology.</p><span class="tag">Arts &amp; film</span></div>
+    </div>
+  </div>
+
+  <div class="region-block" style="--c:var(--cochineal)">
+    <h3>Mexico &amp; Colombia <small>The center</small></h3>
+    <div class="people">
+      <div class="person" data-f="arts"><b>Fernando Luján</b><span class="yrs">1939–2019</span><p>Mexican actor across film, theater and telenovelas.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="arts"><b>Daniela Luján</b><span class="yrs">b. 1988</span><p>Mexican actress and singer.</p><span class="tag">Arts &amp; film</span></div>
+      <div class="person" data-f="public"><b>Gabriel Silva Luján</b><span class="yrs">Contemporary</span><p>Colombian diplomat and former ambassador to the United States.</p><span class="tag">Public life</span></div>
+    </div>
+  </div>
+
+  <div class="region-block" style="--c:var(--cochineal)">
+    <h3>Argentina <small>The south</small></h3>
+    <div class="people">
+      <div class="person" data-f="faith"><b>Pedro de Luján</b><span class="yrs">d. 1536</span><p>Captain on Pedro de Mendoza’s expedition; the Río Luján carries his name.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="faith"><b>Antonio Farías de Sáa</b><span class="yrs">fl. 1630</span><p>Portuguese rancher in Sumampa who ordered the image of the Virgin from Brazil.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="faith"><b>Manuel Costa de los Ríos</b><span class="yrs">d. 1686</span><p>“Negro Manuel,” enslaved custodian of Our Lady of Luján for 56 years; his cause for beatification is open.</p><span class="tag">Faith &amp; founding</span></div>
+      <div class="person" data-f="sport"><b>Luján Fernández</b><span class="yrs">Contemporary</span><p>Argentine supermodel.</p><span class="tag">Sport &amp; style</span></div>
+      <div class="person" data-f="sport"><b>Walter Samuel</b><span class="yrs">b. 1978</span><p>Footballer, born Walter Adrián Luján.</p><span class="tag">Sport &amp; style</span></div>
+      <div class="person" data-f="sport"><b>Sebastián &amp; Micaela Luján</b><span class="yrs">Contemporary</span><p>Argentine professional boxers.</p><span class="tag">Sport &amp; style</span></div>
+    </div>
+  </div>
+
+  <div class="region-block" style="--c:var(--agave)">
+    <h3>The Pacific <small>Guam</small></h3>
+    <div class="people">
+      <div class="person" data-f="public"><b>Pilar C. Lujan</b><span class="yrs">Contemporary</span><p>Guamanian politician.</p><span class="tag">Public life</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="branch" aria-labelledby="lineage-title">
+  <div class="wrap">
+    <h2 id="lineage-title"><span class="eyebrow">04 / Lineage</span>The Lujan Creative line</h2>
+    <p>A living branch of the northern route: from a village in Chihuahua, across the border, to a design practice in North Texas.</p>
+    <ol class="path" role="list" style="list-style:none;margin:0;padding:0">
+      <li class="node"><b>Chihuahua</b><small>Village roots, on the old Camino Real corridor</small></li>
+      <li class="node"><b>Eagle Pass</b><small>Family on the Rio Grande, Texas</small></li>
+      <li class="node"><b>Dallas</b><small>Karina Lujan, designer &amp; artist</small></li>
+      <li class="node"><b>lujan.design</b><small>Lujan Creative Agency LLC, Garland</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap dna" aria-labelledby="dna-title">
+  <h2 class="sec" id="dna-title"><span class="eyebrow">05 / Genome</span>Karina’s line, in DNA</h2>
+  <p class="dna-intro">Twelve ancient people whose genomes share small segments with mine. Two currents, Iberian and Indigenous Mexican, run toward each other and peak at the same moment: medieval Spain and Chichén Itzá, 900–1100 CE. Tap or tab to a light to read it.</p>
+  <div class="dna-tools"><button type="button" id="dnaPause" aria-pressed="false">Pause motion</button><span class="dna-hint" id="dnaHint">Swipe sideways to see the full timeline.</span></div>
+  <div class="dna-scroll" tabindex="0" role="region" aria-label="Ancient DNA matches, 800 BCE to 1400 CE. Scrolls sideways.">
+    <div class="dna-plot" id="dnaPlot">
+      <canvas id="dnaCanvas" aria-hidden="true"></canvas>
+    </div>
+  </div>
+  <div class="dna-detail" id="dnaDetail" aria-live="polite"><b>Population echoes</b><p>Each light is one ancient individual. Size shows how much DNA we share; the thin line shows when they lived. Filled squares are Iberia, outlined squares the Americas, diamonds wider Europe.</p></div>
+  <aside class="dna-callout" aria-labelledby="wna-title">
+    <p class="eyebrow">Ancestry composition</p>
+    <p class="wna-stat" id="wna-title"><span class="wna-num">3.2%</span> Western North American</p>
+    <p>Indigenous ancestry that peaks across Arizona, New Mexico, Utah and Colorado, the same country the Camino Real crossed into Nuevo México. The Indigenous Peoples of this region are many distinct nations with their own languages and histories, present for thousands of years.</p>
+    <p class="wna-note">Shared ancestry is not the same as belonging to a nation; that is defined by community and kinship.</p>
+  </aside>
+  <div class="dna-legend" aria-hidden="true"><span><i style="background:var(--cochineal)"></i>Iberia</span><span><i class="lg-am" style="background:var(--agave)"></i>Indigenous Americas</span><span><i class="lg-eu" style="background:var(--marigold)"></i>Wider Europe &amp; steppe</span></div>
+  <details class="dna-list"><summary>View the 12 matches as a table</summary>
+    <div class="dna-table" tabindex="0" role="region" aria-label="DNA matches table"><table><caption class="sr-only">Ancient individuals sharing DNA segments with Karina</caption><thead><tr><th scope="col">Place</th><th scope="col">Lived</th><th scope="col">Shared DNA</th><th scope="col">Samples</th></tr></thead><tbody><tr><td>Early medieval Spain</td><td>900–1100 CE</td><td>0.15% (2 segments)</td><td>Ido038, Ido048, Ido046</td></tr><tr><td>Chichén Itzá, Yucatán, Mexico</td><td>500–995 CE</td><td>0.06–0.07% (1 segment each)</td><td>YCH041, YCH024, YCH033</td></tr><tr><td>Ceramic Age Hispaniola, Dominican Republic</td><td>1200–1400 CE</td><td>0.06–0.07% (1 segment each)</td><td>I15111, I12344</td></tr><tr><td>Imperial Rome, Italy</td><td>1–200 CE</td><td>0.07% (1 segment)</td><td>R111</td></tr><tr><td>Sarmatian, Carpathian Basin, Hungary</td><td>126–225 CE</td><td>0.07% (1 segment)</td><td>HVF-21</td></tr><tr><td>Viking Age, Norway</td><td>800–1100 CE</td><td>0.06% (1 segment)</td><td>VK386</td></tr><tr><td>Iron Age Scythian, Hungary</td><td>772–423 BCE</td><td>0.06% (1 segment)</td><td>DA195</td></tr></tbody></table></div>
+  </details>
+  <p class="dna-note">Shared segments of 0.06–0.15% reflect ancient populations, not direct ancestors. This is my own genetic data, shared by choice. Visual approach inspired by Refik Anadol’s data paintings and Dataland, where data becomes pigment.</p>
+</section>
+<div class="wrap"><p class="note">The Luján name is shared by many unrelated families. This piece traces the name as a cultural thread across the Americas, not a single bloodline.</p></div>
+</main>
+
+<style>
+.lj-foot{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-top:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.6;
+  margin:0;padding:0 0 env(safe-area-inset-bottom,0)}
+.lj-foot *,.lj-foot *::before,.lj-foot *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-foot *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-foot .lj-in{max-width:75pc;margin:0 auto;padding:2.25pc 1.25pc 1.75pc;display:grid;grid-template-columns:1fr auto;gap:1.5pc 2.5pc;align-items:start}
+.lj-foot a{color:var(--lj-ink);text-decoration:none;background:none}
+.lj-foot .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:30px;letter-spacing:.04em;line-height:1;display:inline-flex;align-items:center;min-height:44px}
+.lj-foot .lj-where{color:var(--lj-soft);margin-top:0.25pc}
+.lj-foot .lj-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);margin-bottom:0.5pc}
+.lj-foot ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 1.25pc}
+.lj-foot li{list-style:none}
+.lj-foot ul a{display:inline-flex;align-items:center;min-height:44px;position:relative}
+.lj-foot ul a::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 5px,transparent 5px 8px)}
+.lj-foot a:hover{color:var(--lj-pink)}
+.lj-foot a:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-foot .lj-legal{grid-column:1/-1;border-top:1px solid var(--lj-rule);padding-top:1pc;color:var(--lj-soft);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5pc 1.25pc}
+@media (max-width:560px){.lj-foot .lj-in{grid-template-columns:1fr;padding:1.75pc 1pc 1.5pc}}
+</style>
+<footer class="lj-foot">
+  <div class="lj-in">
+    <div>
+      <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+      <p class="lj-where">Garland, TX</p>
+    </div>
+    <nav aria-label="Also from Karina">
+      <p class="lj-label" id="lj-also">Also from Karina</p>
+      <ul aria-labelledby="lj-also">
+        <li><a href="https://signalntx.com">Signal NTX</a></li>
+        <li><a href="https://grounddart.webflow.io">Ground’d NTX</a></li>
+      </ul>
+    </nav>
+    <div class="lj-legal">
+      <span>Brand, accessibility, innovation, empathy.</span>
+      <span>© <span data-lj-year>2026</span> Lujan Creative Agency LLC. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){var y=document.querySelectorAll('[data-lj-year]');for(var i=0;i<y.length;i++)y[i].textContent=new Date().getFullYear();})();
+</script>
+
+<script>
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  const f=b.dataset.f;
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('.person').forEach(p=>{p.hidden=!(f==='all'||p.dataset.f===f)});
+  document.querySelectorAll('.region-block').forEach(r=>{r.hidden=![...r.querySelectorAll('.person')].some(p=>!p.hidden)});
+}));
+</script>
+<script>
+(function(){
+  const MIN=-800,MAX=1400,SPAN=MAX-MIN;
+  const BANDS={ib:24,am:56,eu:82};
+  const NAMES={ib:'Iberia',am:'Indigenous Americas',eu:'Wider Europe & steppe'};
+  const COL={ib:'--cochineal',am:'--agave',eu:'--marigold'};
+  const yr=y=>y<0?Math.abs(y)+' BCE':y+' CE';
+  const CHI='One of 64 children buried in a ritual chamber at Chichén Itzá, most between 800 and 1000 CE. Their DNA links them to Maya communities living in the Yucatán today.';
+  const CAR='Ceramic Age people of the Caribbean, genetically closest to Arawak-speaking groups of northeast South America.';
+  const D=[
+    {id:'Ido038',t:'Early medieval Spain',s:900,e:1100,p:.15,g:2,r:'ib',dy:-36,n:'Medieval Iberia was a crossroads of Roman, Visigothic, North African and local ancestries.'},
+    {id:'Ido048',t:'Early medieval Spain',s:900,e:1100,p:.15,g:2,r:'ib',dy:0,n:'Medieval Iberia was a crossroads of Roman, Visigothic, North African and local ancestries.'},
+    {id:'Ido046',t:'Early medieval Spain',s:900,e:1100,p:.15,g:2,r:'ib',dy:36,n:'Medieval Iberia was a crossroads of Roman, Visigothic, North African and local ancestries.'},
+    {id:'YCH041',t:'Chichén Itzá, Yucatán, Mexico',s:500,e:900,p:.07,g:1,r:'am',dy:0,n:CHI},
+    {id:'YCH024',t:'Chichén Itzá, Yucatán, Mexico',s:770,e:980,p:.06,g:1,r:'am',dy:-16,n:CHI},
+    {id:'YCH033',t:'Chichén Itzá, Yucatán, Mexico',s:890,e:995,p:.06,g:1,r:'am',dy:16,n:CHI},
+    {id:'I15111',t:'Ceramic Age Hispaniola, Dominican Republic',s:1280,e:1320,p:.07,g:1,r:'am',dy:-16,n:CAR},
+    {id:'I12344',t:'Ceramic Age Hispaniola, Dominican Republic',s:1200,e:1400,p:.06,g:1,r:'am',dy:16,n:CAR},
+    {id:'R111',t:'Imperial Rome, Italy',s:1,e:200,p:.07,g:1,r:'eu',dy:-16,n:'Roman-era ancestry that spread across the Mediterranean, including Iberia.'},
+    {id:'HVF-21',t:'Sarmatian, Carpathian Basin, Hungary',s:126,e:225,p:.07,g:1,r:'eu',dy:16,n:'Sarmatians were steppe peoples who settled the Carpathian Basin in the Roman period.'},
+    {id:'VK386',t:'Viking Age, Norway',s:800,e:1100,p:.06,g:1,r:'eu',dy:0,n:'A Viking Age individual from Norway.'},
+    {id:'DA195',t:'Iron Age Scythian, Hungary',s:-772,e:-423,p:.06,g:1,r:'eu',dy:0,n:'Scythians were Iron Age steppe peoples whose ancestry reached deep into Europe.'}
+  ];
+  const plot=document.getElementById('dnaPlot'),cv=document.getElementById('dnaCanvas'),ctx=cv.getContext('2d'),det=document.getElementById('dnaDetail');
+  const pct=y=>((y-MIN)/SPAN*100);
+  const z=document.createElement('div');z.className='zone';z.style.left=pct(900)+'%';z.style.width=(200/SPAN*100)+'%';z.innerHTML='<span>Strongest signal</span>';plot.appendChild(z);
+  for(const k in BANDS){const l=document.createElement('div');l.className='row-label';l.style.top=BANDS[k]+'%';l.style.color=k==='ib'?'var(--cochineal-text)':'var('+COL[k]+')';l.textContent=NAMES[k];plot.appendChild(l);}
+  const ax=document.createElement('div');ax.className='axis';[-600,-200,200,600,1000,1300].forEach(y=>{const s=document.createElement('span');s.style.left=pct(y)+'%';s.textContent=yr(y);ax.appendChild(s);});plot.appendChild(ax);
+  const btns=[];
+  D.forEach(d=>{
+    const r=document.createElement('div');r.className='range';r.style.left=pct(d.s)+'%';r.style.width=((d.e-d.s)/SPAN*100)+'%';r.style.top='calc('+BANDS[d.r]+'% + '+d.dy+'px)';r.style.background='var('+COL[d.r]+')';plot.appendChild(r);
+    const b=document.createElement('button');b.type='button';b.className='dnode';const sz=d.p>=.15?26:d.p>=.07?17:14;
+    b.dataset.r=d.r;b.style.setProperty('--s',sz+'px');b.style.setProperty('--dc','var('+COL[d.r]+')');b.style.width=b.style.height=Math.max(44,sz+8)+'px';b.style.left=pct((d.s+d.e)/2)+'%';b.style.top='calc('+BANDS[d.r]+'% + '+d.dy+'px)';
+    b.style.background='var('+COL[d.r]+')';b.style.boxShadow='0 0 14px var('+COL[d.r]+')';
+    b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',d.t+', '+yr(d.s)+' to '+yr(d.e)+', '+d.p+'% shared');
+    b.addEventListener('click',()=>{btns.forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+      det.style.setProperty('--c','var('+COL[d.r]+')');
+      det.innerHTML='<b>'+d.t+'</b><span class="meta">'+yr(d.s)+' to '+yr(d.e)+' · '+d.p.toFixed(2)+'% shared ('+d.g+' segment'+(d.g>1?'s':'')+') · sample '+d.id+'</span><p>'+d.n+'</p>';});
+    btns.push(b);plot.appendChild(b);
+  });
+  // particle field
+  let reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;let raf=0;
+  const pb=document.getElementById('dnaPause');if(reduce){pb.hidden=true;}
+  pb.addEventListener('click',()=>{reduce=!reduce;pb.setAttribute('aria-pressed',String(reduce));pb.textContent=reduce?'Play motion':'Pause motion';if(!reduce)raf=requestAnimationFrame(draw);});
+  const sc=plot.parentElement,hint=document.getElementById('dnaHint');const chk=()=>{hint.hidden=sc.scrollWidth<=sc.clientWidth+2;};
+  let W=0,H=0,colors={};
+  function readColors(){const cs=getComputedStyle(document.documentElement);for(const k in COL)colors[k]=cs.getPropertyValue(COL[k]).trim();}
+  function size(){const r=plot.getBoundingClientRect(),dpr=window.devicePixelRatio||1;W=r.width;H=r.height-28;cv.width=W*dpr;cv.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  const P=[];const keys=['ib','ib','am','am','eu'];
+  for(let i=0;i<260;i++){P.push({r:keys[i%5],x:MIN+Math.random()*SPAN,v:.5+Math.random()*1.1,ph:Math.random()*6.28,amp:4+Math.random()*12,rad:.8+Math.random()*1.6});}
+  function draw(t){
+    ctx.clearRect(0,0,W,H+28);
+    const mid=(BANDS.ib+BANDS.am)/2;
+    for(const p of P){
+      if(!reduce){p.x+=p.v;if(p.x>MAX)p.x=MIN;}
+      const w=Math.max(0,1-Math.abs(p.x-1000)/260);
+      let base=BANDS[p.r];if(p.r!=='eu')base=base+(mid-base)*w*.55;
+      const y=base/100*H+Math.sin(t*.0015+p.ph+p.x*.01)*p.amp;
+      const x=(p.x-MIN)/SPAN*W;
+      ctx.globalAlpha=p.r==='eu'?.28:.22+.6*w;
+      ctx.fillStyle=colors[p.r];{const q=(p.rad+(p.r!=='eu'?w*1.4:0))*2;ctx.fillRect(Math.round(x-q/2),Math.round(y-q/2),q,q);}
+    }
+    ctx.globalAlpha=1;
+    if(!reduce)raf=requestAnimationFrame(draw);
+  }
+  readColors();size();
+  window.addEventListener('resize',()=>{size();chk();if(reduce)draw(0);});chk();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{readColors();if(reduce)draw(0);});
+  if(reduce)draw(0);else raf=requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

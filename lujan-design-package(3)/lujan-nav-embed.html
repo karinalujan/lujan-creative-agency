@@ -1,0 +1,88 @@
+<!-- LUJAN nav embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element at the top of the page (or in a Symbol).
+     Needs: Geist Pixel + Geist Mono loaded site-wide, and your page content wrapped in an element with id="main". -->
+<style>
+.lj-nav{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-bottom:1px solid var(--lj-rule);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:16px;line-height:1.4;position:relative;z-index:50;
+  margin:0;padding:env(safe-area-inset-top,0) 0 0;width:auto;height:auto}
+.lj-nav *,.lj-nav *::before,.lj-nav *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-nav *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-nav .lj-in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;gap:0.75pc 1.75pc}
+.lj-nav a,.lj-nav button{color:var(--lj-ink);font:inherit;text-decoration:none;background:none;border:0;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lj-nav .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1;margin-right:auto;display:inline-flex;align-items:center;min-height:44px}
+.lj-nav .lj-links{display:flex;flex-wrap:wrap;align-items:center;gap:0.25pc 1.5pc;list-style:none}
+.lj-nav .lj-links>li{position:relative;list-style:none}
+.lj-nav .lj-link{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 0;background-image:none;position:relative}
+.lj-nav .lj-link::after{content:"";position:absolute;left:2px;right:2px;bottom:6px;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 6px,transparent 6px 9px);opacity:0}
+.lj-nav .lj-link:hover::after{opacity:.6}
+.lj-nav .lj-link[aria-current]::after,.lj-nav .lj-link[aria-expanded="true"]::after{opacity:1}
+.lj-nav .lj-caret{width:12px;height:8px;fill:currentColor;transition:transform .15s}
+.lj-nav [aria-expanded="true"] .lj-caret{transform:rotate(180deg)}
+.lj-nav .lj-cta{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 1pc;border:2px solid var(--lj-ink)}
+.lj-nav .lj-cta:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-nav .lj-cta svg{width:18px;height:14px;fill:currentColor}
+.lj-nav .lj-menu{position:absolute;top:calc(100% + 6px);left:-14px;min-width:300px;background:var(--lj-bg);border:2px solid var(--lj-ink);padding:0.5pc 0;list-style:none;z-index:60}
+.lj-nav .lj-menu[hidden]{display:none}
+.lj-nav .lj-menu a{display:flex;justify-content:space-between;align-items:center;gap:1pc;min-height:44px;padding:0 1pc}
+.lj-nav .lj-menu a:hover{background:#1f1f1f}
+.lj-nav .lj-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-nav a:focus-visible,.lj-nav button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-skip{position:absolute;left:12px;top:-60px;z-index:100;background:#FEFEFE;color:#121212;padding:0.5pc 1pc;font:600 15px/1 "Geist Mono",ui-monospace,monospace;text-decoration:none}
+.lj-skip:hover{color:#121212}
+.lj-skip:focus{top:calc(env(safe-area-inset-top,0px) + 10px)}
+@media (max-width:560px){
+  .lj-nav .lj-in{padding:1pc 1pc 0.75pc}
+  .lj-nav .lj-mark{font-size:30px;flex-basis:100%}
+  .lj-nav .lj-links{gap:0 1pc;width:100%;position:relative}
+  .lj-nav .lj-cta{padding:0 0.75pc}
+  .lj-nav .lj-links>li{position:static}
+  .lj-nav .lj-menu{left:0;right:0;min-width:0;width:auto}
+}
+@media (prefers-reduced-motion:reduce){.lj-nav *{transition:none!important}}
+</style>
+<a class="lj-skip" href="#main">Skip to content</a>
+<nav class="lj-nav" aria-label="Main">
+  <div class="lj-in">
+    <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+    <ul class="lj-links">
+      <li><a class="lj-link" href="https://www.lujan.design/#about">About</a></li>
+      <li>
+        <button class="lj-link" type="button" aria-expanded="false" data-lj-toggle>Work
+          <svg class="lj-caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M0 0h12v2h-2v2H8v2H4V4H2V2H0z"/></svg></button>
+        <ul class="lj-menu" hidden>
+          <li><a href="https://www.lujan.design/#work">Case studies</a></li>
+          <li><a href="https://www.lujan.design/#work">Color Grading Game <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://www.lujan.design/#work">Dark UX Patterns Web Audit <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://signalntx.com" target="_blank" rel="noopener">Signal NTX <span class="lj-tag">Art × Tech</span></a></li>
+          <li><a href="https://grounddart.webflow.io" target="_blank" rel="noopener">Ground’d NTX <span class="lj-tag">Grants</span></a></li>
+        </ul>
+      </li>
+      <li><a class="lj-link" href="https://www.lujan.design/research">Research</a></li>
+      <li><a class="lj-cta" href="https://www.lujan.design/inquire">Inquire
+        <svg viewBox="0 0 18 14" aria-hidden="true" focusable="false"><path d="M10 0h2v2h2v2h2v2h2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2V8H0V6h14V4h-2V2h-2z"/></svg></a></li>
+    </ul>
+  </div>
+</nav>
+<script>
+(function(){
+  var navs=document.querySelectorAll('.lj-nav:not([data-lj-ready])');
+  Array.prototype.forEach.call(navs,function(nav){
+    nav.setAttribute('data-lj-ready','1');
+    var btn=nav.querySelector('[data-lj-toggle]'),menu=btn&&btn.nextElementSibling;if(!btn||!menu)return;
+    var id='lj-work-menu-'+Math.random().toString(36).slice(2,8);menu.id=id;btn.setAttribute('aria-controls',id);
+    var li=btn.parentNode;
+    function setOpen(o,f){btn.setAttribute('aria-expanded',String(o));menu.hidden=!o;if(!o&&f)btn.focus();}
+    btn.addEventListener('click',function(){setOpen(btn.getAttribute('aria-expanded')!=='true');});
+    li.addEventListener('keydown',function(e){if((e.key==='Escape'||e.key==='Esc')&&!menu.hidden){e.preventDefault();setOpen(false,true);}});
+    document.addEventListener('click',function(e){if(!menu.hidden&&!li.contains(e.target))setOpen(false);});
+    li.addEventListener('focusout',function(e){if(!menu.hidden&&e.relatedTarget&&!li.contains(e.relatedTarget))setOpen(false);});
+    var here=location.pathname.replace(/\/+$/,'')||'/';
+    Array.prototype.forEach.call(nav.querySelectorAll('a.lj-link'),function(a){
+      try{var u=new URL(a.getAttribute('href'),location.href),p=u.pathname.replace(/\/+$/,'')||'/';
+      if(u.host===location.host&&p===here&&(!u.hash||u.hash===location.hash))a.setAttribute('aria-current','page');}catch(err){}
+    });
+  });
+})();
+</script>

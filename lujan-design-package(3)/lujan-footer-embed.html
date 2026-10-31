@@ -1,0 +1,47 @@
+<!-- LUJAN footer embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element at the bottom of the page (or in a Symbol).
+     Needs: Geist Pixel + Geist Mono loaded site-wide. -->
+<style>
+.lj-foot{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-top:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.6;
+  margin:0;padding:0 0 env(safe-area-inset-bottom,0)}
+.lj-foot *,.lj-foot *::before,.lj-foot *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-foot *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-foot .lj-in{max-width:75pc;margin:0 auto;padding:2.25pc 1.25pc 1.75pc;display:grid;grid-template-columns:1fr auto;gap:1.5pc 2.5pc;align-items:start}
+.lj-foot a{color:var(--lj-ink);text-decoration:none;background:none}
+.lj-foot .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:30px;letter-spacing:.04em;line-height:1;display:inline-flex;align-items:center;min-height:44px}
+.lj-foot .lj-where{color:var(--lj-soft);margin-top:0.25pc}
+.lj-foot .lj-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);margin-bottom:0.5pc}
+.lj-foot ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 1.25pc}
+.lj-foot li{list-style:none}
+.lj-foot ul a{display:inline-flex;align-items:center;min-height:44px;position:relative}
+.lj-foot ul a::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 5px,transparent 5px 8px)}
+.lj-foot a:hover{color:var(--lj-pink)}
+.lj-foot a:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-foot .lj-legal{grid-column:1/-1;border-top:1px solid var(--lj-rule);padding-top:1pc;color:var(--lj-soft);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5pc 1.25pc}
+@media (max-width:560px){.lj-foot .lj-in{grid-template-columns:1fr;padding:1.75pc 1pc 1.5pc}}
+</style>
+<footer class="lj-foot">
+  <div class="lj-in">
+    <div>
+      <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+      <p class="lj-where">Garland, TX</p>
+    </div>
+    <nav aria-label="Also from Karina">
+      <p class="lj-label" id="lj-also">Also from Karina</p>
+      <ul aria-labelledby="lj-also">
+        <li><a href="https://signalntx.com">Signal NTX</a></li>
+        <li><a href="https://grounddart.webflow.io">Ground’d NTX</a></li>
+      </ul>
+    </nav>
+    <div class="lj-legal">
+      <span>Brand, accessibility, innovation, empathy.</span>
+      <span>© <span data-lj-year>2026</span> Lujan Creative Agency LLC. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){var y=document.querySelectorAll('[data-lj-year]');for(var i=0;i<y.length;i++)y[i].textContent=new Date().getFullYear();})();
+</script>

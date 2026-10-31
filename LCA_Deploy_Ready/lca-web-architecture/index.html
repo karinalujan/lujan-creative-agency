@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Printable Web: Open HTML &amp; CSS Over PDF · lujan.design</title>
+<meta name="description" content="Why accessible semantic HTML and CSS replace proprietary PDF workflows for documents that need to be read, printed, and WCAG / ADA Title III compliant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --paper:#F3F3F3; --ink:#121212; --soft:#5A5A5A;
+  --cochineal:#C4005F; --cochineal-text:#C4005F; --agave:#B83A7A; --marigold:#656565; --rule:#DDDDDD;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0);
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+    --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+  --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:1rem;line-height:1.75;-webkit-text-size-adjust:100%}
+.wrap{max-width:75pc;margin:0 auto;padding-left:1.25pc;padding-right:1.25pc}
+@media (max-width:560px){.wrap{padding-left:1pc;padding-right:1pc}}
+.display,.mark,h2.sec,.stat-num{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400}
+
+/* Hero */
+header.hero{padding:2.5pc 0 2pc;position:relative}
+.mark{font-size:clamp(2.75rem,12vw,7.5rem);line-height:.95;overflow-wrap:anywhere;margin:0;letter-spacing:-.01em;color:var(--ink)}
+.mark span{display:block;color:transparent;-webkit-text-stroke:2px var(--cochineal)}
+.lede{max-width:40rem;margin:1.5pc 0 0;font-size:1.15rem;color:var(--soft)}
+.lede strong{color:var(--ink);font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0.75pc 1pc;margin-top:1.5pc}
+.btn-action{font:inherit;font-size:.95rem;min-height:44px;padding:0 1pc;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:.5pc;text-decoration:none}
+.btn-action:hover{background:var(--ink);color:var(--bg)}
+.btn-action.primary{background:var(--cochineal);border-color:var(--cochineal);color:#FEFEFE}
+.btn-action.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.print-hint{font-size:.85rem;color:var(--soft)}
+.span-bar{display:flex;gap:0;margin-top:2pc;height:10px;overflow:hidden}
+.span-bar i{flex:1}
+.span-bar i:nth-child(1){background:var(--cochineal)}
+.span-bar i:nth-child(2){background:var(--marigold)}
+.span-bar i:nth-child(3){background:var(--agave)}
+.span-key{display:flex;justify-content:space-between;font-size:.85rem;color:var(--soft);margin-top:0.5pc}
+
+/* Typography & Sections */
+.eyebrow{display:block;font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-weight:400;font-size:.72rem;color:var(--agave);margin-bottom:0.5pc;letter-spacing:.14em;text-transform:uppercase}
+h2.sec{font-size:clamp(2.1rem,5.5vw,3.1rem);line-height:1;margin:3pc 0 0.75pc}
+.sec-intro{color:var(--soft);max-width:42rem;margin:0 0 1.5pc}
+
+/* Grid & Cards */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1pc;margin-top:1pc}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1pc;margin-top:1pc}
+.card{background:var(--paper);border-top:4px solid var(--c,var(--cochineal));padding:1.25pc;display:flex;flex-direction:column;gap:.5pc}
+.card h3{font-family:"Geist",system-ui,sans-serif;font-weight:600;font-size:1.2rem;margin:0;color:var(--ink)}
+.card p{margin:0;font-size:.95rem;color:var(--soft);line-height:1.6}
+.card .tag{font-size:.75rem;font-weight:600;color:var(--c,var(--cochineal-text));letter-spacing:.08em;text-transform:uppercase;margin-top:auto;padding-top:.5pc}
+[style*="--c:var(--cochineal)"] .tag{color:var(--cochineal-text)}
+
+/* Callout band */
+.band{background:var(--paper);color:var(--ink);border-top:3px dashed var(--cochineal);border-bottom:3px dashed var(--cochineal);margin:3pc 0 0;padding:2.5pc 0}
+.band h2{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400;font-size:clamp(2.2rem,6vw,3.5rem);line-height:.98;margin:0 0 .75pc}
+.band p{max-width:40rem;margin:0 0 1.5pc;color:var(--soft)}
+
+/* Comparison Table */
+.spec-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:1.25pc;border:1px solid var(--rule);background:var(--paper)}
+.spec-table{width:100%;min-width:540px;border-collapse:collapse;font-size:.92rem}
+.spec-table th,.spec-table td{text-align:left;padding:.85pc 1pc;border-bottom:1px solid var(--rule);vertical-align:top}
+.spec-table th{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--agave);font-weight:400}
+.spec-table td b{color:var(--ink);font-weight:600}
+
+.note{border-left:3px solid var(--cochineal);padding-left:1pc;margin:2.5pc 0;max-width:42rem;color:var(--soft);font-size:.92rem}
+a{color:inherit;text-underline-offset:.2em}
+:focus-visible{outline:3px solid var(--agave);outline-offset:0.25pc}
+
+@media (max-width:620px){
+  .span-key{flex-direction:column;gap:0.25pc}
+}
+
+/* Native Letter-Size Print Architecture (Compact 2-Page Reference Brief) */
+@media print {
+  @page { size: letter; margin: 0.55in; }
+  :root {
+    --bg:#FFFFFF!important; --paper:#FFFFFF!important; --ink:#000000!important; --soft:#333333!important;
+    --cochineal:#000000!important; --cochineal-text:#000000!important; --agave:#000000!important; --marigold:#444444!important; --rule:#999999!important;
+  }
+  body { background:#fff!important; color:#000!important; font-size:9.5pt!important; line-height:1.38!important; }
+  .lj-nav, .lj-foot, .lj-skip, .no-print, .hero-actions, .span-bar { display:none!important; }
+  .wrap { max-width:none!important; padding:0!important; }
+  header.hero { padding:0 0 8pt!important; border-bottom:1.5pt solid #000; }
+  .mark { font-size:22pt!important; line-height:1!important; }
+  .mark span { display:inline!important; color:#000!important; -webkit-text-stroke:0!important; }
+  .lede { margin:6pt 0 0!important; font-size:10pt!important; max-width:none!important; }
+  h2.sec, .band h2 { font-size:13pt!important; margin:12pt 0 4pt!important; break-after:avoid; }
+  .sec-intro, .band p { margin:0 0 6pt!important; max-width:none!important; }
+  .grid-2, .grid-4 { grid-template-columns:repeat(2,1fr)!important; gap:6pt!important; margin-top:4pt!important; }
+  .band { border-top:1pt solid #000!important; border-bottom:1pt solid #000!important; padding:8pt 0!important; margin:10pt 0!important; }
+  .card, section, table, tr, .lj-log { break-inside:avoid; }
+  .card { border:1pt solid #999!important; border-top:2.5pt solid #000!important; padding:6pt!important; }
+  .spec-table th, .spec-table td { padding:4pt 6pt!important; font-size:8.5pt!important; }
+  #logs-section { padding-top:10pt!important; }
+  .lj-log { padding:8pt!important; border:1pt dashed #000!important; }
+  .lj-log button { display:none!important; }
+  .note { margin:8pt 0 0!important; }
+  a[href^="http"]::after { content:" (" attr(href) ")"; font-size:8pt; color:#333; }
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<!-- LUJAN nav embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element at the top of the page (or in a Symbol).
+     Needs: Geist Pixel + Geist Mono loaded site-wide, and your page content wrapped in an element with id="main". -->
+<style>
+.lj-nav{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-bottom:1px solid var(--lj-rule);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:16px;line-height:1.4;position:relative;z-index:50;
+  margin:0;padding:env(safe-area-inset-top,0) 0 0;width:auto;height:auto}
+.lj-nav *,.lj-nav *::before,.lj-nav *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-nav *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-nav .lj-in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;gap:0.75pc 1.75pc}
+.lj-nav a,.lj-nav button{color:var(--lj-ink);font:inherit;text-decoration:none;background:none;border:0;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lj-nav .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1;margin-right:auto;display:inline-flex;align-items:center;min-height:44px}
+.lj-nav .lj-links{display:flex;flex-wrap:wrap;align-items:center;gap:0.25pc 1.5pc;list-style:none}
+.lj-nav .lj-links>li{position:relative;list-style:none}
+.lj-nav .lj-link{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 0;background-image:none;position:relative}
+.lj-nav .lj-link::after{content:"";position:absolute;left:2px;right:2px;bottom:6px;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 6px,transparent 6px 9px);opacity:0}
+.lj-nav .lj-link:hover::after{opacity:.6}
+.lj-nav .lj-link[aria-current]::after,.lj-nav .lj-link[aria-expanded="true"]::after{opacity:1}
+.lj-nav .lj-caret{width:12px;height:8px;fill:currentColor;transition:transform .15s}
+.lj-nav [aria-expanded="true"] .lj-caret{transform:rotate(180deg)}
+.lj-nav .lj-cta{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 1pc;border:2px solid var(--lj-ink)}
+.lj-nav .lj-cta:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-nav .lj-cta svg{width:18px;height:14px;fill:currentColor}
+.lj-nav .lj-menu{position:absolute;top:calc(100% + 6px);left:-14px;min-width:300px;background:var(--lj-bg);border:2px solid var(--lj-ink);padding:0.5pc 0;list-style:none;z-index:60}
+.lj-nav .lj-menu[hidden]{display:none}
+.lj-nav .lj-menu a{display:flex;justify-content:space-between;align-items:center;gap:1pc;min-height:44px;padding:0 1pc}
+.lj-nav .lj-menu a:hover{background:#1f1f1f}
+.lj-nav .lj-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-nav a:focus-visible,.lj-nav button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-skip{position:absolute;left:12px;top:-60px;z-index:100;background:#FEFEFE;color:#121212;padding:0.5pc 1pc;font:600 15px/1 "Geist Mono",ui-monospace,monospace;text-decoration:none}
+.lj-skip:hover{color:#121212}
+.lj-skip:focus{top:calc(env(safe-area-inset-top,0px) + 10px)}
+@media (max-width:560px){
+  .lj-nav .lj-in{padding:1pc 1pc 0.75pc}
+  .lj-nav .lj-mark{font-size:30px;flex-basis:100%}
+  .lj-nav .lj-links{gap:0 1pc;width:100%;position:relative}
+  .lj-nav .lj-cta{padding:0 0.75pc}
+  .lj-nav .lj-links>li{position:static}
+  .lj-nav .lj-menu{left:0;right:0;min-width:0;width:auto}
+}
+@media (prefers-reduced-motion:reduce){.lj-nav *{transition:none!important}}
+</style>
+<a class="lj-skip" href="#main">Skip to content</a>
+<nav class="lj-nav" aria-label="Main">
+  <div class="lj-in">
+    <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+    <ul class="lj-links">
+      <li><a class="lj-link" href="https://www.lujan.design/#about">About</a></li>
+      <li>
+        <button class="lj-link" type="button" aria-expanded="false" data-lj-toggle>Work
+          <svg class="lj-caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M0 0h12v2h-2v2H8v2H4V4H2V2H0z"/></svg></button>
+        <ul class="lj-menu" hidden>
+          <li><a href="https://www.lujan.design/#work">Case studies</a></li>
+          <li><a href="https://www.lujan.design/#work">Color Grading Game <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://www.lujan.design/#work">Dark UX Patterns Web Audit <span class="lj-tag">Example</span></a></li>
+          <li><a href="https://signalntx.com" target="_blank" rel="noopener">Signal NTX <span class="lj-tag">Art × Tech</span></a></li>
+          <li><a href="https://grounddart.webflow.io" target="_blank" rel="noopener">Ground’d NTX <span class="lj-tag">Grants</span></a></li>
+        </ul>
+      </li>
+      <li><a class="lj-link" href="https://www.lujan.design/research">Research</a></li>
+      <li><a class="lj-cta" href="https://www.lujan.design/inquire">Inquire
+        <svg viewBox="0 0 18 14" aria-hidden="true" focusable="false"><path d="M10 0h2v2h2v2h2v2h2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2V8H0V6h14V4h-2V2h-2z"/></svg></a></li>
+    </ul>
+  </div>
+</nav>
+<script>
+(function(){
+  var navs=document.querySelectorAll('.lj-nav:not([data-lj-ready])');
+  Array.prototype.forEach.call(navs,function(nav){
+    nav.setAttribute('data-lj-ready','1');
+    var btn=nav.querySelector('[data-lj-toggle]'),menu=btn&&btn.nextElementSibling;if(!btn||!menu)return;
+    var id='lj-work-menu-'+Math.random().toString(36).slice(2,8);menu.id=id;btn.setAttribute('aria-controls',id);
+    var li=btn.parentNode;
+    function setOpen(o,f){btn.setAttribute('aria-expanded',String(o));menu.hidden=!o;if(!o&&f)btn.focus();}
+    btn.addEventListener('click',function(){setOpen(btn.getAttribute('aria-expanded')!=='true');});
+    li.addEventListener('keydown',function(e){if((e.key==='Escape'||e.key==='Esc')&&!menu.hidden){e.preventDefault();setOpen(false,true);}});
+    document.addEventListener('click',function(e){if(!menu.hidden&&!li.contains(e.target))setOpen(false);});
+    li.addEventListener('focusout',function(e){if(!menu.hidden&&e.relatedTarget&&!li.contains(e.relatedTarget))setOpen(false);});
+    var here=location.pathname.replace(/\/+$/,'')||'/';
+    Array.prototype.forEach.call(nav.querySelectorAll('a.lj-link'),function(a){
+      try{var u=new URL(a.getAttribute('href'),location.href),p=u.pathname.replace(/\/+$/,'')||'/';
+      if(u.host===location.host&&p===here&&(!u.hash||u.hash===location.hash))a.setAttribute('aria-current','page');}catch(err){}
+    });
+  });
+})();
+</script>
+
+<header class="wrap hero">
+  <span class="eyebrow">Reference Architecture // Open Web Standards</span>
+  <h1 class="mark display">Printable <span>Web</span></h1>
+  <p class="lede"><strong>Accessible HTML and CSS as an open alternative to the PDF.</strong> Semantic web documents read natively with screen readers, adapt to every screen width, and print cleanly onto standard 8.5×11" letter paper without proprietary software subscriptions.</p>
+  <div class="hero-actions no-print">
+    <button class="btn-action primary" type="button" id="printPageBtn">Print this page (Letter)</button>
+    <a class="btn-action" href="#logs-section">View removed post log</a>
+    <span class="print-hint">Press Ctrl+P / Cmd+P to test the native print stylesheet.</span>
+  </div>
+  <div class="span-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="span-key"><span>01 · Semantic HTML &amp; WCAG 2.1 AA</span><span>02 · Native @media print CSS</span><span>03 · Open Web Sovereignty</span></div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="wrap" aria-labelledby="s1">
+    <h2 class="sec" id="s1"><span class="eyebrow">01 / Purpose</span>Executive summary and purpose</h2>
+    <p class="sec-intro">This reference architecture establishes the technical thesis, civil-rights grounding, and design patterns for three connected priorities at Lujan Creative Agency LLC: ending proprietary document lock-in, meeting ADA Title II/III and Section 508 mandates natively, and publishing resilient open-web documents.</p>
+    <div class="grid-2">
+      <div class="card" style="--c:var(--cochineal)">
+        <h3>Civil rights mandates vs. vendor lock-in</h3>
+        <p>Federal accessibility mandates (ADA Title II/III and Section 508) require compliance with WCAG 2.1 AA and open ISO standards—not recurring software taxes paid to remediate untagged fixed-layout files.</p>
+        <span class="tag">ADA Title III · WCAG 2.1 AA</span>
+      </div>
+      <div class="card" style="--c:var(--agave)">
+        <h3>The self-demonstrating document</h3>
+        <p>This page is its own proof of concept. Written in semantic HTML with pica-grid proportions and a dedicated print stylesheet, it navigates cleanly by keyboard or screen reader and prints as a crisp letter-size brief.</p>
+        <span class="tag">Zero PDF Middleware</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="s2">
+    <h2 class="sec" id="s2"><span class="eyebrow">02 / The Core Thesis</span>Why fixed print artifacts fail the modern web</h2>
+    <p class="sec-intro">The Portable Document Format is a 30-year-old print emulation format treated as a web default. Relying on static 8.5×11" binary blobs introduces avoidable friction for readers, mobile users, and assistive technology.</p>
+    <div class="spec-scroll" tabindex="0" role="region" aria-label="Comparison between The Printable Web and legacy PDF workflows">
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">The Printable Web (HTML + CSS)</th>
+            <th scope="col">Legacy Untagged / Remediated PDF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Screen Reader Tree</b></td>
+            <td>Native DOM landmarks (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;table&gt;</code>) work out of the box.</td>
+            <td>Requires manual tag-tree reconstruction in proprietary desktop software after export.</td>
+          </tr>
+          <tr>
+            <td><b>Mobile Viewport</b></td>
+            <td>Reflows fluidly from 320px phones to 75pc desktop monitors and respects user zoom.</td>
+            <td>Forces horizontal pinching and zooming across rigid two-column print blocks.</td>
+          </tr>
+          <tr>
+            <td><b>Physical Print Output</b></td>
+            <td><code>@media print</code> formats letter-size margins, page breaks, and full URL citations on demand.</td>
+            <td>Locked to a single page size; broken links and dark backgrounds waste toner.</td>
+          </tr>
+          <tr>
+            <td><b>Ownership &amp; Cost</b></td>
+            <td>100% open web standards, version-controlled in Git, zero per-seat licensing.</td>
+            <td>Recurring subscription overhead and fragile binary files that rot outside version control.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="s3">
+    <div class="wrap">
+      <h2 id="s3"><span class="eyebrow">03 / Architecture</span>Four pillars of the Printable Web</h2>
+      <p>Instead of forcing audiences to download non-responsive attachments, publish live HTML pages engineered for both screen and paper.</p>
+      <div class="grid-4">
+        <div class="card" style="--c:var(--cochineal)">
+          <h3>Semantic landmarks</h3>
+          <p>Strict heading hierarchy, explicit table headers (<code>scope="col"</code>), and ARIA live regions provide immediate screen-reader clarity.</p>
+          <span class="tag">01 / DOM</span>
+        </div>
+        <div class="card" style="--c:var(--agave)">
+          <h3>Fluid pica grid</h3>
+          <p>Quarter-pica spacing steps (<code>1pc = 16px</code>) and 44×44px minimum touch targets keep interfaces comfortable across every device.</p>
+          <span class="tag">02 / Layout</span>
+        </div>
+        <div class="card" style="--c:var(--marigold)">
+          <h3>Print media queries</h3>
+          <p><code>@page { size: letter; margin: 0.55in; }</code> strips chrome, enforces high-contrast ink on paper, and prevents awkward mid-card breaks.</p>
+          <span class="tag">03 / @media print</span>
+        </div>
+        <div class="card" style="--c:var(--cochineal)">
+          <h3>Code-driven identity</h3>
+          <p>Living design tokens (<code>--lj-mag</code>, <code>--lj-pink</code>, <code>Geist Pixel</code>, <code>Geist Mono</code>) replace static PDF brand books with reusable code.</p>
+          <span class="tag">04 / Systems</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="logs-section" aria-labelledby="s4" style="padding-top:3pc">
+    <h2 class="sec" id="s4" style="margin-top:0"><span class="eyebrow">04 / Public Audit</span>Verifiable platform receipts</h2>
+    <p class="sec-intro">Open web sovereignty means keeping our own records. Below is the live embed component that reads timestamped platform moderation receipts directly from this repository’s CSV/JSON pipeline.</p>
+    <!-- LUJAN removed-posts log embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element on lujan.design/logs. Needs Geist Pixel + Geist Mono loaded site-wide.
+     Set GH_USER and GH_REPO below if your GitHub username or repository name changes. -->
+<style>
+.lj-log,.lca-log{--lj-bg:#111;--lj-paper:#1B1B1B;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;margin:0 auto;padding:1.5pc;background:var(--lj-bg);color:var(--lj-ink);border:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.5;max-width:75pc}
+.lj-log *,.lca-log *{box-sizing:inherit;margin:0;padding:0;font:inherit;color:inherit;border:0;background:transparent}
+.lj-log .lj-log-head{display:flex;flex-wrap:wrap;gap:.75pc 1.25pc;justify-content:space-between;align-items:flex-end;margin-bottom:1.25pc;padding-bottom:1pc;border-bottom:1px solid var(--lj-rule)}
+.lj-log .lj-label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);margin-bottom:.25pc}
+.lj-log .lj-title{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:28px;line-height:1.1;font-weight:400;margin:0}
+.lj-log .lj-log-meta{font-size:13px;color:var(--lj-soft);margin-top:.25pc}
+.lj-log button{display:inline-flex;align-items:center;min-height:44px;padding:0 .75pc;border:2px solid var(--lj-ink);border-radius:0;background:transparent;color:var(--lj-ink);cursor:pointer;font-size:13px}
+.lj-log button:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-log button:focus-visible,.lj-log a:focus-visible{outline:3px solid var(--lj-pink);outline-offset:2px}
+.lj-log .lj-log-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:.75pc}
+.lj-log table{width:100%;min-width:520px;border-collapse:collapse;font-size:14px}
+.lj-log th,.lj-log td{text-align:left;vertical-align:top;padding:.65pc .5pc;border-bottom:1px solid var(--lj-rule)}
+.lj-log th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);font-weight:400}
+.lj-log a{color:var(--lj-ink);text-decoration:none;border-bottom:2px dashed var(--lj-mag);padding-bottom:1px}
+.lj-log a:hover{color:var(--lj-pink)}
+.lj-log caption{text-align:left;caption-side:bottom;padding-top:.75pc;font-size:12px;color:var(--lj-soft)}
+.lj-log [hidden]{display:none}
+@media (max-width:560px){.lj-log,.lca-log{padding:1pc}.lj-log .lj-title{font-size:24px}}
+</style>
+
+<section class="lj-log lca-log" aria-label="Removed post log">
+  <div class="lj-log-head">
+    <div>
+      <span class="lj-label">Public audit // Open receipts</span>
+      <h2 class="lj-title">Removed post log</h2>
+      <p class="lj-log-meta">Posts of mine that platforms removed or restricted, backed by timestamped evidence.</p>
+    </div>
+    <button type="button" data-lj-refresh>Refresh log</button>
+  </div>
+  <p class="lj-log-meta" data-lj-status role="status" aria-live="polite">Loading…</p>
+  <div class="lj-log-scroll" tabindex="0" role="region" aria-label="Removed posts table">
+    <table data-lj-table hidden>
+      <caption>Source: public GitHub repository (<span data-lj-repo-label>karlujan/lca-web-architecture</span>), updated by hand.</caption>
+      <thead>
+        <tr><th scope="col">Date</th><th scope="col">Platform</th><th scope="col">What happened</th><th scope="col">Evidence</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+(function () {
+  var GH_USER = "karlujan";
+  var GH_REPO = "lca-web-architecture";
+  var BRANCH = "main";
+  var base = "https://raw.githubusercontent.com/" + GH_USER + "/" + GH_REPO + "/" + BRANCH + "/";
+  var repo = "https://github.com/" + GH_USER + "/" + GH_REPO + "/blob/" + BRANCH + "/";
+
+  var roots = document.querySelectorAll(".lj-log:not([data-lj-ready])");
+  Array.prototype.forEach.call(roots, function (root) {
+    root.setAttribute("data-lj-ready", "1");
+    var status = root.querySelector("[data-lj-status]");
+    var table = root.querySelector("[data-lj-table]");
+    var tbody = table.querySelector("tbody");
+    var refreshBtn = root.querySelector("[data-lj-refresh]");
+    var repoLabel = root.querySelector("[data-lj-repo-label]");
+    if (repoLabel) repoLabel.textContent = GH_USER + "/" + GH_REPO;
+
+    function safeHref(url) {
+      if (!url) return null;
+      var s = String(url).trim();
+      return /^https?:\/\//i.test(s) ? s : null;
+    }
+
+    function cell(tr, text, href) {
+      var td = document.createElement("td");
+      var cleanUrl = safeHref(href);
+      if (cleanUrl) {
+        var a = document.createElement("a");
+        a.href = cleanUrl; a.textContent = text; a.rel = "noopener"; a.target = "_blank";
+        td.appendChild(a);
+      } else {
+        td.textContent = text || "";
+      }
+      tr.appendChild(td);
+    }
+
+    function fetchLogs() {
+      status.textContent = "Loading…";
+      fetch(base + "data/removed-posts.json?t=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (rows) {
+          tbody.textContent = "";
+          if (!Array.isArray(rows) || !rows.length) {
+            table.hidden = true;
+            status.textContent = "No entries logged yet. Add a row to data/removed-posts.csv to publish.";
+            return;
+          }
+          rows.forEach(function (row) {
+            var tr = document.createElement("tr");
+            var ev = (row.evidence_file || "").replace(/^\/+/, "");
+            cell(tr, row.date);
+            cell(tr, row.platform, row.post_link || null);
+            cell(tr, row.what_happened);
+            cell(tr, ev ? "Screenshot" : "", ev ? repo + "evidence/" + encodeURIComponent(ev) : null);
+            tbody.appendChild(tr);
+          });
+          table.hidden = false;
+          status.textContent = rows.length + (rows.length === 1 ? " entry verified" : " entries verified");
+        })
+        .catch(function (err) {
+          table.hidden = true;
+          status.textContent = "Couldn’t load the live log (" + err.message + "). Verify that " + GH_USER + "/" + GH_REPO + " is public on GitHub.";
+        });
+    }
+
+    if (refreshBtn) refreshBtn.addEventListener("click", fetchLogs);
+    fetchLogs();
+  });
+})();
+</script>
+
+    <p class="note">Maintained by Karina Lujan · Lujan Creative Agency LLC, Garland, Texas (<a href="https://www.lujan.design/">lujan.design</a>). Licensed under GPL-3.0.</p>
+  </section>
+</main>
+<!-- LUJAN footer embed v2 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element at the bottom of the page (or in a Symbol).
+     Needs: Geist Pixel + Geist Mono loaded site-wide. -->
+<style>
+.lj-foot{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-top:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.6;
+  margin:0;padding:0 0 env(safe-area-inset-bottom,0)}
+.lj-foot *,.lj-foot *::before,.lj-foot *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-foot *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-foot .lj-in{max-width:75pc;margin:0 auto;padding:2.25pc 1.25pc 1.75pc;display:grid;grid-template-columns:1fr auto;gap:1.5pc 2.5pc;align-items:start}
+.lj-foot a{color:var(--lj-ink);text-decoration:none;background:none}
+.lj-foot .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:30px;letter-spacing:.04em;line-height:1;display:inline-flex;align-items:center;min-height:44px}
+.lj-foot .lj-where{color:var(--lj-soft);margin-top:0.25pc}
+.lj-foot .lj-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);margin-bottom:0.5pc}
+.lj-foot ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 1.25pc}
+.lj-foot li{list-style:none}
+.lj-foot ul a{display:inline-flex;align-items:center;min-height:44px;position:relative}
+.lj-foot ul a::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 5px,transparent 5px 8px)}
+.lj-foot a:hover{color:var(--lj-pink)}
+.lj-foot a:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-foot .lj-legal{grid-column:1/-1;border-top:1px solid var(--lj-rule);padding-top:1pc;color:var(--lj-soft);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5pc 1.25pc}
+@media (max-width:560px){.lj-foot .lj-in{grid-template-columns:1fr;padding:1.75pc 1pc 1.5pc}}
+</style>
+<footer class="lj-foot">
+  <div class="lj-in">
+    <div>
+      <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+      <p class="lj-where">Garland, TX</p>
+    </div>
+    <nav aria-label="Also from Karina">
+      <p class="lj-label" id="lj-also">Also from Karina</p>
+      <ul aria-labelledby="lj-also">
+        <li><a href="https://signalntx.com">Signal NTX</a></li>
+        <li><a href="https://grounddart.webflow.io">Ground’d NTX</a></li>
+      </ul>
+    </nav>
+    <div class="lj-legal">
+      <span>Brand, accessibility, innovation, empathy.</span>
+      <span>© <span data-lj-year>2026</span> Lujan Creative Agency LLC. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){var y=document.querySelectorAll('[data-lj-year]');for(var i=0;i<y.length;i++)y[i].textContent=new Date().getFullYear();})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('printPageBtn');
+  if(btn)btn.addEventListener('click',function(){window.print();});
+})();
+</script>
+</body>
+</html>

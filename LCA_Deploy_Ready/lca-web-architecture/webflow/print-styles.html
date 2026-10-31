@@ -1,0 +1,26 @@
+<!-- LUJAN print stylesheet v2 · Lujan Creative Agency LLC (lujan.design)
+     Webflow: Page settings > Custom code > Inside <head> tag.
+     Makes any lujan.design page print as a clean letter-size document with zero PDF middleware. -->
+<style>
+@media print {
+  @page { size: letter; margin: 0.65in; }
+  :root {
+    --bg: #FFFFFF !important;
+    --paper: #FFFFFF !important;
+    --ink: #000000 !important;
+    --soft: #333333 !important;
+    --cochineal: #000000 !important;
+    --cochineal-text: #000000 !important;
+    --agave: #000000 !important;
+    --marigold: #444444 !important;
+    --rule: #999999 !important;
+  }
+  body { background: #fff !important; color: #000 !important; font-size: 10pt !important; line-height: 1.4 !important; }
+  nav, .w-nav, .lj-nav, footer, .lj-foot, .lj-skip, .skip, .no-print, .w-webflow-badge, .filters, .dna-tools { display: none !important; }
+  .wrap { max-width: none !important; padding: 0 !important; }
+  h1, h2, h3, .mark { break-after: avoid; color: #000 !important; }
+  .mark span { color: #000 !important; -webkit-text-stroke: 0 !important; }
+  section, figure, table, .card, .person, .stop { break-inside: avoid; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #333; }
+}
+</style>
