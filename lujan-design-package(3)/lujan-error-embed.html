@@ -1,0 +1,63 @@
+<!-- LUJAN error page embed v1 · Lujan Creative Agency LLC (lujan.design)
+     Paste into a Webflow Embed element on your 404 / error page. Needs Geist Pixel + Geist Mono loaded site-wide.
+     Set the code on the section below: data-lj-code="404". Supported: 400 401 403 404 405 408 410 429 500 501 502 503 504 505.
+     Any other code falls back to a generic message. Edit the MESSAGES object to change wording. -->
+<style>
+.lj-err{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#BDBDBD;--lj-rule:#454545;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;margin:0 auto;padding:clamp(1.5rem,6vw,4rem) 1.5pc;background:var(--lj-bg);color:var(--lj-ink);border:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.6;max-width:75pc}
+.lj-err *{box-sizing:inherit;margin:0;padding:0;font:inherit;color:inherit;border:0;background:transparent;text-decoration:none}
+.lj-err .lj-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-err .lj-code{display:block;margin:.25rem 0 0;font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:clamp(4rem,18vw,9rem);line-height:.95;letter-spacing:-.07em}
+.lj-err .lj-title{margin:.5rem 0 1rem;font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:clamp(1.6rem,5vw,2.5rem);line-height:1.1;letter-spacing:-.03em}
+.lj-err .lj-msg{max-width:40rem;color:var(--lj-soft);font-size:clamp(1rem,2.5vw,1.15rem)}
+.lj-err .lj-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.lj-err .lj-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 1.25rem;border:2px solid var(--lj-ink);border-radius:0;cursor:pointer}
+.lj-err .lj-btn[hidden]{display:none}
+.lj-err .lj-btn:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-err .lj-btn.is-mag{background:var(--lj-mag);border-color:var(--lj-mag)}
+.lj-err .lj-btn.is-mag:hover{background:var(--lj-ink);border-color:var(--lj-ink);color:var(--lj-bg)}
+.lj-err a:focus-visible,.lj-err button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:4px}
+</style>
+<section class="lj-err" data-lj-code="404" aria-labelledby="lj-err-title">
+  <p class="lj-eyebrow">Error <span data-lj-code-text>404</span></p>
+  <span class="lj-code" aria-hidden="true" data-lj-code-big>404</span>
+  <h1 class="lj-title" id="lj-err-title" data-lj-title>Track not found</h1>
+  <p class="lj-msg" data-lj-msg>That page isn't on the playlist. It may have moved or never existed.</p>
+  <div class="lj-actions">
+    <a class="lj-btn is-mag" href="/">Back to home</a>
+    <button class="lj-btn" type="button" data-lj-retry hidden>Try again</button>
+  </div>
+</section>
+<script>
+(function(){
+  var MESSAGES={
+    400:["Bad request","Something about that request didn't look right. Check the address and try again."],
+    401:["Sign in required","You need to sign in to see this page."],
+    403:["Access denied","You don't have permission to open this page."],
+    404:["Track not found","That page isn't on the playlist. It may have moved or never existed."],
+    405:["Method not allowed","This page doesn't accept that kind of request."],
+    408:["Request timed out","The connection took too long. Please try again."],
+    410:["Gone","This page was removed and isn't coming back."],
+    429:["Too many requests","Slow down a little and try again in a minute."],
+    500:["Something broke on our end","The server hit an unexpected error. It isn't you. Please try again in a few minutes."],
+    501:["Not implemented","The server doesn't support what this page needs."],
+    502:["Bad gateway","A server between you and the site sent back a bad response. Please try again shortly."],
+    503:["Back in a moment","The site is briefly unavailable, likely for maintenance or high traffic. Please try again soon."],
+    504:["Gateway timeout","A server took too long to respond. Please try again shortly."],
+    505:["HTTP version not supported","The server can't handle the protocol version your browser used. Try a different or updated browser."]
+  };
+  var RETRY={408:1,429:1,500:1,502:1,503:1,504:1};
+  Array.prototype.forEach.call(document.querySelectorAll(".lj-err:not([data-lj-ready])"),function(root){
+    root.setAttribute("data-lj-ready","1");
+    var code=parseInt(root.getAttribute("data-lj-code"),10);
+    var m=MESSAGES[code]||["Something went wrong","This page couldn't be shown. Please head back home and try again."];
+    function set(sel,txt){var el=root.querySelector(sel);if(el)el.textContent=txt;}
+    var label=isNaN(code)?"Error":String(code);
+    set("[data-lj-code-text]",label);set("[data-lj-code-big]",label);set("[data-lj-title]",m[0]);set("[data-lj-msg]",m[1]);
+    var retry=root.querySelector("[data-lj-retry]");
+    if(retry&&RETRY[code]){retry.hidden=false;retry.addEventListener("click",function(){location.reload();});}
+    if(!isNaN(code)&&code!==404)document.title=code+" "+m[0]+" · Lujan Creative Agency";
+  });
+})();
+</script>
