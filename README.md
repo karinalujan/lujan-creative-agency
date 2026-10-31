@@ -22,6 +22,13 @@ Karina Lujan here. I'm a Brand Designer and Accessibility Specialist, Founder of
 The repository is organized as follows:
 ```text
 ├── index.html                         # Agency landing page
+├── assets/cd-nav.js                   # Spinning-CD site menu (self-injecting, loaded on every page)
+├── logs.html                          # Removed Post Log
+├── pollinators.html                   # Pollinator Meadow
+├── playlist.html                      # The Iconic Playlist
+├── checkout.html                      # Book & Pay (Square)
+├── heritage-blueprint.html            # Heritage Blueprint (with JSON-LD)
+├── garden-gate/                       # Garden Gate PWA (own service worker, scoped to this folder)
 ├── CNAME                              # Custom domain for GitHub Pages
 ├── .github/workflows/pages.yml        # Publishes the site on pushes to main
 ├── LCA_Deploy_Ready/                  # Printable Web and Lujan TV OS projects

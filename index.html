@@ -45,6 +45,12 @@
       border-bottom: 1px solid var(--rule);
     }
 
+    .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; }
+    .site-nav ul { display: flex; flex-wrap: wrap; gap: 0 1.25rem; margin: 0; padding: 0; list-style: none; }
+    .site-nav a { display: inline-flex; min-height: 44px; align-items: center; font-size: .85rem; }
+    .site-nav a[aria-current="page"] { color: var(--pink); }
+    .skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; padding: .75rem 1rem; background: #fefefe; color: #111; font-weight: 600; text-decoration: none; }
+    .skip:focus { top: 1rem; }
     .wordmark {
       display: inline-flex;
       min-height: 44px;
@@ -100,7 +106,7 @@
     .card p { margin: 0; color: var(--muted); }
 
     footer {
-      padding-block: 1.5rem;
+      padding-block: 1.5rem 6rem;
       border-top: 1px solid var(--rule);
       color: var(--muted);
       font-size: .85rem;
@@ -112,16 +118,28 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to main content</a>
   <header>
-    <div class="wrap">
+    <div class="wrap bar">
       <a class="wordmark" href="./" aria-label="Lujan Creative Agency home">LUJAN</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="logs.html">Logs</a></li>
+          <li><a href="pollinators.html">Pollinators</a></li>
+          <li><a href="playlist.html">Playlist</a></li>
+          <li><a href="checkout.html">Book &amp; Pay</a></li>
+          <li><a href="heritage-blueprint.html">Heritage</a></li>
+          <li><a href="garden-gate/">Garden Gate</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
-  <main class="wrap">
+  <main id="main" class="wrap">
     <p class="eyebrow">Brand design · Accessibility · Digital experiences</p>
     <h1>Lujan Creative Agency</h1>
     <p class="intro">Karina Lujan is a brand designer and accessibility specialist creating clear, inclusive digital experiences.</p>
-    <section class="work" aria-label="Selected work">
+    <section class="work" id="work" aria-label="Selected work">
       <a class="card" href="./LCA_Deploy_Ready/lca-web-architecture/">
         <h2>The Printable Web</h2>
         <p>An accessible, print-ready alternative to document-first publishing.</p>
@@ -134,10 +152,39 @@
         <h2>Lujan TV OS</h2>
         <p>An experimental, remote-friendly launcher interface.</p>
       </a>
+      <a class="card" href="./logs.html">
+        <h2>Removed Post Log</h2>
+        <p>A public log of removed posts, pulled live from the archive.</p>
+      </a>
+      <a class="card" href="./pollinators.html">
+        <h2>Pollinator Meadow</h2>
+        <p>A new meadow of Texas native wildflowers grows on every visit.</p>
+      </a>
+      <a class="card" href="./playlist.html">
+        <h2>The Iconic Playlist</h2>
+        <p>Spin the disc and listen to the iconic playlist.</p>
+      </a>
+      <a class="card" href="./checkout.html">
+        <h2>Book &amp; Pay</h2>
+        <p>Payment links, invoices, and appointments through Square.</p>
+      </a>
+      <a class="card" href="./heritage-blueprint.html">
+        <h2>Heritage Blueprint</h2>
+        <p>A direct-access guide to lineage, region, and leverage.</p>
+      </a>
+      <a class="card" href="./garden-gate/">
+        <h2>Garden Gate</h2>
+        <p>An installable accessible-typography app that works offline.</p>
+      </a>
+      <a class="card" href="./lujan-design-package%283%29/lca-printable-web.html">
+        <h2>Printable Web: Print Edition</h2>
+        <p>The print-ready edition of The Printable Web.</p>
+      </a>
     </section>
   </main>
   <footer>
     <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
   </footer>
+  <script src="assets/cd-nav.js"></script>
 </body>
 </html>
