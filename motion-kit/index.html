@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Motion Kit | Lujan</title>
+<meta name="description" content="The Lujan motion kit: pixel field, dissolving headline, block cursor, glitch wordmark and more, previewed with copy-paste embeds.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap">
+<style>
+/* Layout: the page wears the studio's own skin. A live replica of the Lujan homepage on top, then a specimen grid of effects, each with a copy-paste embed. */
+:root{
+  /* studio palette: every snippet reads these */
+  --lcs-ink:#FFFFFF; --lcs-paper:#111111; --lcs-accent:#E4007C; --lcs-accent-2:#FF9ACB;
+  /* stand-ins for the site's pixel display face and mono body face */
+  --lcs-display:"Geist Pixel","Pixelify Sans", "Courier New", monospace;
+  --lcs-mono:"Fira Mono", ui-monospace, Menlo, Consolas, monospace;
+  /* page chrome derives from the studio palette so presets restyle everything */
+  --bg:var(--lcs-paper); --fg:var(--lcs-ink);
+  --muted:color-mix(in srgb, var(--lcs-ink) 62%, var(--lcs-paper));
+  --line:color-mix(in srgb, var(--lcs-ink) 18%, var(--lcs-paper));
+  --raise:color-mix(in srgb, var(--lcs-ink) 5%, var(--lcs-paper));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.65 var(--lcs-mono);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 72px}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:var(--lcs-display);font-weight:700;margin:0;line-height:1.02;text-wrap:balance}
+a{color:var(--fg)}
+:focus-visible{outline:2px solid var(--lcs-accent);outline-offset:3px}
+.label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---- homepage replica ---- */
+.site{position:relative;margin-top:24px;border:1px solid var(--line);overflow:hidden;display:grid;gap:clamp(48px,9vw,120px);
+  padding:clamp(20px,4vw,48px)}
+#hero-field{position:absolute;inset:0}
+.site>*:not(#hero-field){position:relative;z-index:1}
+.site__nav{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 36px}
+.site__nav .lcs-glitch{font-size:clamp(34px,4.4vw,52px)}
+.site__links{display:flex;gap:28px;flex-wrap:wrap;font-size:16px}
+.site__body{display:grid;gap:clamp(24px,4vw,48px)}
+.site__body .lcs-dissolve{font-size:clamp(34px,6.6vw,88px);margin:0;max-width:16ch}
+.site__body .lcs-type{font-size:clamp(17px,2.5vw,32px)}
+.site__foot{display:flex;flex-wrap:wrap;gap:10px 40px;align-items:baseline;font-size:14px}
+.site__foot b{font:700 26px/1 var(--lcs-display)}
+.site__foot .loc{font:500 18px/1 var(--lcs-display)}
+.site__foot time{font-variant-numeric:tabular-nums}
+.foot-stitch{width:56px;margin-left:auto;align-self:center}
+.stage .lcs-stitch{width:100%;max-width:440px}
+
+/* ---- intro + palette ---- */
+.intro{display:grid;gap:20px;padding-block:44px 28px;grid-template-columns:1fr}
+@media (min-width:880px){.intro{grid-template-columns:1fr 1.1fr;align-items:end}}
+.intro h2{font-size:clamp(30px,4.2vw,54px)}
+.intro p{margin:0;color:var(--muted);max-width:62ch}
+.palette{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;padding-block:18px;border-block:1px solid var(--line)}
+.presets,.swatches{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:500 13px/1 var(--lcs-mono);color:var(--fg);background:var(--raise);border:1px solid var(--line);padding:9px 12px;min-height:44px;display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--fg)}
+.chip i{display:inline-flex;border:1px solid var(--line)}
+.chip i b{width:9px;height:14px;display:block}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer}
+.swatch input{width:44px;height:44px;padding:0;border:1px solid var(--line);background:none;cursor:pointer}
+.btn{font:500 13px/1 var(--lcs-mono);color:var(--fg);background:var(--raise);border:1px solid var(--line);padding:10px 14px;min-height:44px;cursor:pointer}
+.btn:hover{border-color:var(--fg)}
+.btn--solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.palette .btn{margin-left:auto}
+@media (max-width:640px){.palette .btn{margin-left:0}}
+
+/* ---- effect grid ---- */
+.grid{display:grid;gap:20px;padding-block:28px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card--wide{grid-column:1/-1}}
+.card{border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.card>*{min-width:0}
+.stage{position:relative;background:var(--lcs-paper);color:var(--lcs-ink);min-height:250px;display:grid;place-items:center;padding:32px 24px;overflow:hidden;border-bottom:1px solid var(--line)}
+.stage--bleed{padding:0;place-items:stretch}
+.stage--field{min-height:340px}
+.stage .lcs-dissolve{font-size:clamp(30px,5vw,58px);margin:0;max-width:14ch;justify-self:start}
+.stage .lcs-type{font-size:clamp(17px,2.2vw,24px);justify-self:start}
+.stage .lcs-glitch{font-size:clamp(60px,11vw,128px)}
+.stage .lcs-i35{width:100%;max-width:560px}
+.stage .lcs-nav{font-size:17px}
+.stage-hint{position:absolute;left:16px;bottom:14px;font-size:12px;color:var(--muted);z-index:1;pointer-events:none}
+.meta{padding:16px 18px 8px;display:grid;gap:8px}
+.meta__top{display:flex;gap:12px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.meta h3{font-size:24px}
+.meta .from{margin:0;color:var(--muted);font-size:14px;max-width:66ch}
+.meta .from b{color:var(--fg);font-weight:500}
+.meta .from code{font:inherit;color:var(--fg);background:var(--raise);padding:0 4px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;padding:4px 18px 14px}
+details{border-top:1px solid var(--line);margin:0 18px;padding-block:0 14px;min-width:0}
+summary{cursor:pointer;font-size:13px;color:var(--muted);padding-block:12px}
+pre{margin:10px 0 0;max-height:320px;max-width:100%;overflow:auto;background:var(--raise);border:1px solid var(--line);padding:14px;font:12px/1.55 var(--lcs-mono);color:var(--fg);white-space:pre}
+
+/* ---- install ---- */
+.install{border-top:1px solid var(--line);padding-block:36px 0;display:grid;gap:20px}
+.install h2{font-size:clamp(26px,3.2vw,40px)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;grid-template-columns:1fr;counter-reset:s}
+@media (min-width:880px){.steps{grid-template-columns:repeat(3,1fr)}}
+.steps li{counter-increment:s;border:1px solid var(--line);padding:18px;min-width:0}
+.steps li::before{content:counter(s);font:700 34px/1 var(--lcs-display);display:block;margin-bottom:10px}
+.steps p{margin:0;color:var(--muted);font-size:14px}
+.steps strong{color:var(--fg);font-weight:500}
+.steps code{color:var(--fg)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%) translateY(16px);opacity:0;
+  background:var(--fg);color:var(--bg);font:500 13px var(--lcs-mono);padding:10px 16px;transition:.2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
+<style>
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.w-form-done,.w-form-fail{display:none}
+/* Hit areas: the look stays the same, the tappable box grows to 44px. */
+.lcs-pxlink::before{content:"";position:absolute;inset:-8px -4px}
+.lcs-glitch{padding-block:5px;margin-block:-5px}
+.lcs-inquire{min-height:44px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="site" aria-label="Homepage preview with effects applied">
+    <div id="hero-field"></div>
+    <header class="site__nav">
+      <span id="hero-logo"></span>
+      <nav class="site__links" aria-label="Preview navigation">
+        <a class="lcs-pxlink" href="#about">About</a>
+        <a class="lcs-pxlink" href="#work">Work</a>
+        <a class="lcs-pxlink" href="#research">Research</a>
+        <a class="lcs-pxlink" href="#inquire">Inquire</a>
+      </nav>
+    </header>
+    <div class="site__body">
+      <div id="hero-h"></div>
+      <div id="hero-type"></div>
+    </div>
+    <footer class="site__foot">
+      <b>LUJAN</b><span class="loc">Garland, TX</span><time id="clock"></time><span id="hero-stitch" class="foot-stitch"></span>
+    </footer>
+  </section>
+
+  <section class="intro">
+    <div style="display:grid;gap:12px">
+      <span class="label">Motion kit · Lujan · Garland, TX</span>
+      <h2>Pixel-sharp motion for a design agency from Texas</h2>
+    </div>
+    <p>The preview above is your homepage with four of the effects stacked: a pixel field behind everything, a glitching wordmark, a headline that dissolves in block by block, and the values line typed by a block cursor. The pinks are rosa mexicano and a soft pink, after the colors of Otomí Tenango embroidery, and the kit now includes a stitched motif in that spirit. Pick Mono above for pure black and white.</p>
+  </section>
+
+  <section class="palette" aria-label="Studio colors">
+    <span class="label">Colors</span>
+    <div class="presets" id="presets"></div>
+    <div class="swatches" id="swatches"></div>
+    <button class="btn btn--solid" type="button" id="copy-vars">Copy variables</button>
+  </section>
+
+  <main class="grid" id="grid"></main>
+
+  <section class="install">
+    <h2>Adding them in Webflow</h2>
+    <ol class="steps">
+      <li><p><strong>Paste the variables once.</strong> Site settings → Custom code → Head code. Leave the two font lines commented out and the effects use the fonts already on your page.</p></li>
+      <li><p><strong>Drop in a Code Embed</strong> where the effect belongs and paste its snippet. For the pixel field, put the embed first inside the hero section, set that section to <code>position: relative</code> and give the hero content <code>z-index: 1</code>.</p></li>
+      <li><p><strong>Publish to test.</strong> The Designer shows markup but doesn't run scripts, so most effects only move on the staging or live site.</p></li>
+    </ol>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =================== SNIPPETS (exactly what gets copied) =================== */
+const S = {};
+
+S.dissolve = { html: `<h1 class="lcs-dissolve" data-cell="10" data-duration="1300">A new design agency from Texas.</h1>
+<style>
+.lcs-dissolve{position:relative;font-family:var(--lcs-display,inherit);color:var(--lcs-ink,#fff)}
+.lcs-dissolve__veil{position:absolute;left:-2px;top:-2px;width:calc(100% + 4px);height:calc(100% + 4px);fill:var(--lcs-paper,#111);pointer-events:none}
+.lcs-dissolve__flash{fill:var(--lcs-accent,#E4007C)}
+.lcs-dissolve__flash--b{fill:var(--lcs-accent-2,#FF9ACB)}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-dissolve:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var cell=+el.getAttribute('data-cell')||10,dur=+el.getAttribute('data-duration')||1300,rects=[];
+    var veil=document.createElementNS(NS,'svg');
+    veil.setAttribute('class','lcs-dissolve__veil');veil.setAttribute('aria-hidden','true');
+    veil.setAttribute('preserveAspectRatio','none');veil.setAttribute('shape-rendering','crispEdges');
+    el.appendChild(veil);
+    function build(){
+      var w=Math.max(1,Math.ceil(el.offsetWidth)),h=Math.max(1,Math.ceil(el.offsetHeight));
+      veil.setAttribute('viewBox','0 0 '+w+' '+h);veil.textContent='';rects=[];
+      for(var y=0;y<h;y+=cell)for(var x=0;x<w;x+=cell){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',cell+.6);r.setAttribute('height',cell+.6);
+        veil.appendChild(r);rects.push(r);
+      }
+      for(var i=rects.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=rects[i];rects[i]=rects[j];rects[j]=t;}
+    }
+    function play(){
+      var t0=0,done=0,flashing=[],N=rects.length;
+      function tick(t){
+        if(!t0)t0=t;
+        var p=Math.min(1,(t-t0)/dur),e=p<.5?2*p*p:1-Math.pow(2-2*p,2)/2,target=Math.floor(N*e);
+        while(done<target){var r=rects[done++];r.setAttribute('class',Math.random()<.5?'lcs-dissolve__flash':'lcs-dissolve__flash lcs-dissolve__flash--b');flashing.push([r,t]);}
+        while(flashing.length&&t-flashing[0][1]>70){flashing.shift()[0].remove();}
+        if(p<1||flashing.length)requestAnimationFrame(tick);else veil.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+    build();
+    function go(){build();play();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go();}},{threshold:.3});io.observe(el);
+    }else go();
+  });
+})();` };
+
+S.type = { html: `<p class="lcs-type" data-text="Empathy + Accessibility + Brand + by Design|Because design is everything.">
+  <span class="lcs-type__sr"></span><span class="lcs-type__out" aria-hidden="true"></span><svg class="lcs-type__cursor" viewBox="0 0 6 11" aria-hidden="true"><rect width="6" height="11"/></svg>
+</p>
+<style>
+.lcs-type{margin:0;min-height:1.3em;font-family:var(--lcs-mono,inherit);color:var(--lcs-ink,#fff)}
+.lcs-type__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.lcs-type__cursor{display:inline-block;width:.6em;height:1.1em;margin-left:.08em;vertical-align:-.18em;fill:var(--lcs-accent,#E4007C)}
+.lcs-type.is-idle .lcs-type__cursor{animation:lcs-type-blink 1.05s steps(1) infinite}
+@keyframes lcs-type-blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.lcs-type.is-idle .lcs-type__cursor{animation:none}}
+</style>`, js: `(function(){
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-type:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var phrases=(el.getAttribute('data-text')||'').split('|'),out=el.querySelector('.lcs-type__out');
+    el.querySelector('.lcs-type__sr').textContent=phrases.join(' ');
+    if(rm){out.textContent=phrases[0];el.classList.add('is-idle');return;}
+    out.textContent='';
+    function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+    async function run(){
+      var i=0;
+      while(el.isConnected){
+        var s=phrases[i%phrases.length];el.classList.remove('is-idle');
+        for(var j=1;j<=s.length;j++){out.textContent=s.slice(0,j);await wait(s.charAt(j-1)===' '?95:38+Math.random()*58);}
+        el.classList.add('is-idle');
+        if(phrases.length<2)return;
+        await wait(2600);el.classList.remove('is-idle');
+        for(var k=s.length;k>=0;k--){out.textContent=s.slice(0,k);await wait(16);}
+        await wait(380);i++;
+      }
+    }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run();}},{threshold:.4});io.observe(el);
+    }else run();
+  });
+})();` };
+
+S.field = { html: `<div class="lcs-field" data-cell="24" aria-hidden="true"></div>
+<style>
+.lcs-field{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.lcs-field svg{display:block;width:100%;height:100%}
+.lcs-field rect{fill:var(--lcs-ink,#fff);opacity:.08;transform-box:fill-box;transform-origin:center;transition:transform .2s steps(2)}
+.lcs-field rect.is-mid{fill:var(--lcs-accent-2,#FF9ACB)}
+.lcs-field rect.is-big{fill:var(--lcs-accent,#E4007C);transform:scale(2.4)}
+@media (prefers-reduced-motion:reduce){.lcs-field rect{transition:none}}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-field:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var cell=+el.getAttribute('data-cell')||24,svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('shape-rendering','crispEdges');el.appendChild(svg);
+    var dots=[],px=-9999,py=-9999,rip=[],lastMove=-99,lastAuto=0,vis=true,running=false;
+    function build(){
+      var W=el.clientWidth,H=el.clientHeight;if(!W||!H)return;
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.textContent='';dots=[];
+      var s=Math.max(2,Math.round(cell*.16));
+      for(var y=cell/2;y<H;y+=cell)for(var x=cell/2;x<W;x+=cell){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',(x-s/2).toFixed(1));r.setAttribute('y',(y-s/2).toFixed(1));r.setAttribute('width',s);r.setAttribute('height',s);
+        svg.appendChild(r);dots.push({r:r,x:x,y:y,o:-1,k:-1});
+      }
+    }
+    function frame(T){
+      rip=rip.filter(function(R){return T-R.t<2.2;});
+      var band=cell*1.3;
+      for(var i=0;i<dots.length;i++){
+        var d=dots[i],v=.07+.06*Math.sin(d.x*.012+d.y*.02-T*1.3);
+        var dx=d.x-px,dy=d.y-py,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<170)v+=(1-dist/170)*.85;
+        for(var j=0;j<rip.length;j++){
+          var R=rip[j],gap=Math.abs(Math.sqrt((d.x-R.x)*(d.x-R.x)+(d.y-R.y)*(d.y-R.y))-(T-R.t)*420);
+          if(gap<band)v+=(1-gap/band)*(1-(T-R.t)/2.2);
+        }
+        var q=Math.round(Math.min(1,v)*20)/20;
+        if(q!==d.o){d.r.setAttribute('opacity',q);d.o=q;}
+        var k=v>.55?2:v>.3?1:0;
+        if(k!==d.k){d.r.setAttribute('class',k===2?'is-big':k?'is-mid':'');d.k=k;}
+      }
+    }
+    build();
+    if(rm){frame(0);return;}
+    function now(){return performance.now()/1000;}
+    document.addEventListener('pointermove',function(e){var b=el.getBoundingClientRect();px=e.clientX-b.left;py=e.clientY-b.top;lastMove=now();});
+    document.addEventListener('pointerdown',function(e){
+      var b=el.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
+      if(x>=0&&y>=0&&x<=b.width&&y<=b.height)rip.push({x:x,y:y,t:now()});
+    });
+    document.documentElement.addEventListener('pointerleave',function(){px=py=-9999;});
+    function tick(t){
+      if(!vis||!el.isConnected){running=false;return;}
+      var T=t/1000;
+      if(T-lastMove>3&&T-lastAuto>3.6){lastAuto=T;rip.push({x:Math.random()*el.clientWidth,y:Math.random()*el.clientHeight,t:T});}
+      frame(T);requestAnimationFrame(tick);
+    }
+    function start(){if(!running){running=true;requestAnimationFrame(tick);}}
+    if('ResizeObserver' in window)new ResizeObserver(build).observe(el);
+    if('IntersectionObserver' in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis)start();}).observe(el);
+    start();
+  });
+})();` };
+
+S.i35 = { html: `<div class="lcs-i35" role="img" aria-label="Flashing arrow board: under construction like I-35">
+  <svg viewBox="0 0 360 250" aria-hidden="true">
+    <rect class="lcs-i35__post" x="122" y="136" width="8" height="60"/>
+    <rect class="lcs-i35__post" x="230" y="136" width="8" height="60"/>
+    <rect class="lcs-i35__base" x="96" y="192" width="168" height="10"/>
+    <rect class="lcs-i35__panel" x="60" y="16" width="250" height="120"/>
+    <g class="lcs-i35__lamps"></g>
+    <line class="lcs-i35__road" x1="0" y1="218" x2="360" y2="218"/>
+    <text class="lcs-i35__label" x="180" y="244" text-anchor="middle">I-35 · WORK ZONE</text>
+  </svg>
+</div>
+<style>
+.lcs-i35 svg{display:block;width:100%;height:auto}
+.lcs-i35__panel{fill:var(--lcs-paper,#111);stroke:var(--lcs-ink,#fff);stroke-width:2}
+.lcs-i35__post,.lcs-i35__base{fill:var(--lcs-ink,#fff);opacity:.85}
+.lcs-i35__lamps circle{fill:var(--lcs-ink,#fff);opacity:.12}
+.lcs-i35__lamps circle.is-on{fill:var(--lcs-accent,#E4007C);opacity:1}
+.lcs-i35__road{stroke:var(--lcs-ink,#fff);stroke-width:3;stroke-dasharray:18 14;animation:lcs-i35-road .6s linear infinite}
+.lcs-i35__label{fill:var(--lcs-ink,#fff);opacity:.7;font-family:var(--lcs-mono,ui-monospace,monospace);font-size:12px;letter-spacing:.16em}
+@keyframes lcs-i35-road{to{stroke-dashoffset:32}}
+@media (prefers-reduced-motion:reduce){.lcs-i35__road{animation:none}}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-i35:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var g=el.querySelector('.lcs-i35__lamps'),lamps=[];
+    for(var r=0;r<9;r++)for(var c=0;c<21;c++){
+      var o=document.createElementNS(NS,'circle');
+      o.setAttribute('cx',75+c*11);o.setAttribute('cy',32+r*11);o.setAttribute('r',3.6);g.appendChild(o);
+      var chev=-1,a=4-Math.abs(r-4);
+      [2,8,14].forEach(function(x0,k){var dx=c-x0;if(dx===a||dx===a-1)chev=k;});
+      lamps.push({el:o,chev:chev});
+    }
+    function show(n){lamps.forEach(function(l){l.el.setAttribute('class',l.chev>-1&&l.chev<n?'is-on':'');});}
+    if(rm){show(3);return;}
+    var step=0,frames=[1,2,3,0];
+    setInterval(function(){if(el.isConnected)show(frames[step++%frames.length]);},420);
+    show(1);
+  });
+})();` };
+
+S.ribbon = { html: `<div class="lcs-ribbon" data-text="EMPATHY + ACCESSIBILITY + BRAND + BY DESIGN + " data-speed="70" role="img" aria-label="Empathy, accessibility, brand, by design">
+  <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="lcs-ribbon__band" d="M-3200 120Q-3000 40-2800 120T-2400 120T-2000 120T-1600 120T-1200 120T-800 120T-400 120T0 120T400 120T800 120T1200 120T1600 120T2000 120"/>
+    <path class="lcs-ribbon__guide" d="M-3200 120Q-3000 40-2800 120T-2400 120T-2000 120T-1600 120T-1200 120T-800 120T-400 120T0 120T400 120T800 120T1200 120T1600 120T2000 120"/>
+    <text class="lcs-ribbon__text" dy=".36em"><textPath class="lcs-ribbon__tp" startOffset="0"></textPath></text>
+  </svg>
+</div>
+<style>
+.lcs-ribbon{width:100%;overflow:hidden;line-height:0}
+.lcs-ribbon svg{display:block;width:100%;height:clamp(130px,20vw,240px)}
+.lcs-ribbon__band{fill:none;stroke:var(--lcs-ink,#fff);stroke-width:80}
+.lcs-ribbon__guide{fill:none}
+.lcs-ribbon__text{fill:var(--lcs-paper,#111);font-family:var(--lcs-display,inherit);font-size:42px;font-weight:700;letter-spacing:.06em}
+.lcs-ribbon__sep{fill:var(--lcs-accent,#E4007C)}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-ribbon:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var id='lcs-r-'+Math.random().toString(36).slice(2,9);
+    el.querySelector('.lcs-ribbon__guide').id=id;
+    var tp=el.querySelector('.lcs-ribbon__tp'),txt=el.querySelector('.lcs-ribbon__text');
+    tp.setAttribute('href','#'+id);tp.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href','#'+id);
+    var unit=el.getAttribute('data-text')||'EMPATHY + ACCESSIBILITY + BRAND + BY DESIGN + ';
+    function addUnit(){
+      unit.split('+').forEach(function(p,i,all){
+        if(p){var s=document.createElementNS(NS,'tspan');s.textContent=p;tp.appendChild(s);}
+        if(i<all.length-1){var q=document.createElementNS(NS,'tspan');q.textContent='+';q.setAttribute('class','lcs-ribbon__sep');tp.appendChild(q);}
+      });
+    }
+    var len=0;
+    function fill(){
+      tp.textContent='';addUnit();
+      try{len=txt.getSubStringLength(0,unit.length);}catch(e){len=0;}
+      var reps=len?Math.ceil(6400/len)+1:8;
+      for(var r=1;r<reps;r++)addUnit();
+    }
+    fill();
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fill);
+    if(rm||!len)return;
+    var speed=+el.getAttribute('data-speed')||70,off=0,last=0,rate=1,target=1,vis=true,running=false;
+    el.addEventListener('mouseenter',function(){target=.2;});
+    el.addEventListener('mouseleave',function(){target=1;});
+    function tick(t){
+      if(!vis||!el.isConnected){running=false;return;}
+      var dt=last?Math.min((t-last)/1000,.05):0;last=t;
+      rate+=(target-rate)*.06;off=(off+speed*rate*dt)%len;
+      tp.setAttribute('startOffset',(len-off).toFixed(2));
+      requestAnimationFrame(tick);
+    }
+    function start(){if(!running){running=true;last=0;requestAnimationFrame(tick);}}
+    if('IntersectionObserver' in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis)start();}).observe(el);
+    start();
+  });
+})();` };
+
+S.glitch = { html: `<a class="lcs-glitch" href="../" data-idle="6">LUJAN</a>
+<style>
+.lcs-glitch{display:inline-block;line-height:1;font-family:var(--lcs-display,inherit);font-weight:700;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-glitch:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-glitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var id='lcs-g-'+Math.random().toString(36).slice(2,9),defs=document.createElementNS(NS,'svg');
+    defs.setAttribute('width','0');defs.setAttribute('height','0');defs.setAttribute('aria-hidden','true');
+    defs.style.position='absolute';
+    defs.innerHTML='<filter id="'+id+'" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">'+
+      '<feTurbulence type="fractalNoise" baseFrequency="0.0001 0.07" numOctaves="1" seed="1"/>'+
+      '<feComponentTransfer result="slices"><feFuncR type="discrete" tableValues="0 .3 .5 .5 .5 .7 1"/><feFuncG type="linear" slope="0" intercept=".5"/></feComponentTransfer>'+
+      '<feDisplacementMap in="SourceGraphic" in2="slices" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter>';
+    document.body.appendChild(defs);
+    el.style.filter='url(#'+id+')';
+    var turb=defs.querySelector('feTurbulence'),disp=defs.querySelector('feDisplacementMap'),busy=false;
+    function burst(n,amp){
+      if(busy)return;busy=true;var i=0;
+      (function step(){
+        if(i++<n){el.style.textShadow=((Math.random()*10-5)|0)+'px 0 var(--lcs-accent,#E4007C)';disp.setAttribute('scale',((Math.random()*2-1)*amp).toFixed(1));turb.setAttribute('seed',Math.random()*100|0);setTimeout(step,45+Math.random()*45);}
+        else{disp.setAttribute('scale','0');el.style.textShadow='';busy=false;}
+      })();
+    }
+    el.addEventListener('pointerenter',function(){burst(9,24);});
+    el.addEventListener('focus',function(){burst(9,24);});
+    var idle=+el.getAttribute('data-idle')||0;
+    if(idle)(function loop(){setTimeout(function(){if(!el.isConnected)return;burst(3,12);loop();},idle*1000*(.7+Math.random()*.6));})();
+  });
+})();` };
+
+S.links = { html: `<nav class="lcs-nav" aria-label="Main">
+  <a class="lcs-pxlink" href="../about/">About</a>
+  <a class="lcs-pxlink" href="../work/">Work</a>
+  <a class="lcs-pxlink" href="../research/">Research</a>
+  <a class="lcs-inquire" href="../inquire/">
+    <span>Inquire</span>
+    <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+  </a>
+</nav>
+<style>
+.lcs-nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.4em;font-family:var(--lcs-mono,inherit)}
+.lcs-pxlink{position:relative;color:var(--lcs-ink,#fff);text-decoration:none;padding-bottom:.35em}
+.lcs-pxlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lcs-accent,#E4007C) 0 3px,transparent 3px 5px);
+  clip-path:inset(0 100% 0 0);transition:clip-path .4s steps(8)}
+.lcs-pxlink:hover::after,.lcs-pxlink:focus-visible::after,.lcs-pxlink[aria-current="page"]::after,.lcs-pxlink.w--current::after{clip-path:inset(0)}
+.lcs-inquire{position:relative;display:inline-flex;align-items:center;gap:.6em;padding:.55em .9em;border:2px solid var(--lcs-ink,#fff);
+  color:var(--lcs-ink,#fff);text-decoration:none;isolation:isolate;transition:color 0s .15s}
+.lcs-inquire::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--lcs-ink,#fff);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-inquire:hover,.lcs-inquire:focus-visible{color:var(--lcs-paper,#111)}
+.lcs-inquire:hover::before,.lcs-inquire:focus-visible::before{clip-path:inset(0)}
+.lcs-pxlink:focus-visible,.lcs-inquire:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+.lcs-inquire__arrow{width:1.1em;height:.92em;fill:currentColor;overflow:visible}
+.lcs-inquire:hover .lcs-inquire__arrow,.lcs-inquire:focus-visible .lcs-inquire__arrow{fill:var(--lcs-accent,#E4007C);animation:lcs-march .6s steps(3) infinite}
+@keyframes lcs-march{to{transform:translateX(.5em)}}
+@media (prefers-reduced-motion:reduce){.lcs-pxlink::after,.lcs-inquire,.lcs-inquire::before{transition:none}.lcs-inquire__arrow{animation:none!important}}
+</style>`, js: '' };
+
+S.stitch = { html: `<div class="lcs-stitch" role="img" aria-label="Cross-stitched bird and flower"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+<style>
+.lcs-stitch svg{display:block;width:100%;height:auto;overflow:visible}
+.lcs-stitch line{stroke:var(--lcs-accent,#E4007C);stroke-width:.3;stroke-linecap:round;opacity:0}
+.lcs-stitch .is-b line{stroke:var(--lcs-accent-2,#FF9ACB)}
+/* monochrome stitches: every letter is a tone of the theme accent, so detail survives in one color */
+.lcs-stitch .c-r line,.lcs-stitch .c-c line,.lcs-stitch .c-o line{stroke:var(--lcs-accent,#E4007C)}
+.lcs-stitch .c-g line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 62%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-k line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 38%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-y line{stroke:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch .c-w line{stroke:color-mix(in srgb,var(--lcs-accent-2,#FF9ACB) 45%,#FFFFFF)}
+.lcs-stitch .c-v line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 22%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-d line{stroke:#FFFFFF}
+/* monochrome stitches: every letter is a tone of the theme accent, so detail survives in one color */
+.lcs-stitch .c-r line,.lcs-stitch .c-c line,.lcs-stitch .c-o line{stroke:var(--lcs-accent,#E4007C)}
+.lcs-stitch .c-g line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 62%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-k line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 38%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-y line{stroke:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch .c-w line{stroke:color-mix(in srgb,var(--lcs-accent-2,#FF9ACB) 45%,#FFFFFF)}
+.lcs-stitch .c-v line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 22%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-d line{stroke:#FFFFFF}
+.lcs-stitch line.is-in{opacity:1}
+</style>`, js: `(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-stitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var pat=el.getAttribute('data-pattern')||'',alt=el.getAttribute('data-pattern-alt');if(alt&&Math.random()<(parseFloat(el.getAttribute('data-alt-chance'))||.25))pat=alt;var rows=pat.split('/'),svg=el.querySelector('svg'),steps=[];
+    var cols=Math.max.apply(null,rows.map(function(r){return r.length;}));
+    svg.setAttribute('viewBox','-0.5 -0.5 '+(cols+1)+' '+(rows.length+1));
+    function line(g,x1,y1,x2,y2){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);g.appendChild(l);return l;}
+    rows.forEach(function(row,r){
+      var cs=[];for(var c=0;c<row.length;c++)cs.push(c);
+      if(r%2)cs.reverse();
+      cs.forEach(function(c){
+        var ch=row.charAt(c),k={X:'',o:'is-b',G:'c-g',R:'c-r',W:'c-w',K:'c-k',O:'c-o',C:'c-c',Y:'c-y',V:'c-v',D:'c-d'}[ch];if(k===undefined)return;
+        var g=document.createElementNS(NS,'g');if(k)g.setAttribute('class',k);svg.appendChild(g);
+        steps.push(line(g,c+.2,r+.2,c+.8,r+.8));steps.push(line(g,c+.8,r+.2,c+.2,r+.8));
+      });
+    });
+    if(rm){steps.forEach(function(l){l.setAttribute('class','is-in');});return;}
+    function run(){var i=0;(function next(){if(i<steps.length&&el.isConnected){steps[i++].setAttribute('class','is-in');setTimeout(next,16);}})();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run();}},{threshold:.3});io.observe(el);
+    }else run();
+  });
+})();` };
+
+/* =================== CARDS =================== */
+const CARDS_RAW = [
+  {k:'field', wide:true, bleed:true, cls:'stage--field', hint:'Move your cursor. Click or tap to send a ripple.', title:'Pixel field',
+   from:'<b>Home hero background.</b> A grid of pixels breathes in a slow diagonal wave, swells around the cursor and ripples outward on click. When nobody is moving it sends its own ripple every few seconds. Change the grid size with <code>data-cell</code>.'},
+  {k:'dissolve', title:'Pixel dissolve headline', from:'<b>“A new design agency from Texas.”</b> The headline arrives block by block, each block flashing white before it clears. Set block size with <code>data-cell</code> and timing with <code>data-duration</code>.'},
+  {k:'type', title:'Block-cursor values', from:'<b>“Empathy + Accessibility + Brand + by Design”</b> typed out, then swapped for the About line. Add or remove phrases in <code>data-text</code>, separated by <code>|</code>. One phrase types once and stops.'},
+  {k:'ribbon', wide:true, bleed:true, title:'Values ribbon', from:'<b>Your four values on a moving band.</b> The + separators stay in. It slows down while hovered. Edit <code>data-text</code> and <code>data-speed</code>.'},
+  {k:'i35', title:'I-35 arrow board', from:'<b>Work page: “Under construction like I-35.”</b> A flashing arrow board with sequential chevrons over a moving lane line. Pick the Work zone preset to light it in caution amber.'},
+  {k:'glitch', title:'Glitch wordmark', from:'<b>The LUJAN logo.</b> Slices of the wordmark jump sideways on hover and keyboard focus, plus a tiny glitch every few seconds (<code>data-idle</code>, or remove it). It also works on an image logo.'},
+  {k:'links', title:'Pixel links', from:'<b>About · Work · Inquire.</b> Nav underlines build in dotted steps, the current page stays underlined, and Inquire becomes a button that wipes to white while its pixel arrow marches.'},
+  {k:'stitch', title:'Stitched motif', from:'<b>Otomí heritage.</b> A pixel ruby-throated hummingbird feeding at a heartleaf hibiscus (Hibiscus martianus), a Texas native, sewn in cross-stitch one thread at a time, in tones of a single color that follows the site theme, a nod to Tenango embroidery. About one load in four, a monarch lands instead. The drawings are originals. Draw your own in <code>data-pattern</code> (and <code>data-pattern-alt</code> for the occasional visitor): rows split by <code>/</code>, <code>X</code>, <code>R</code>, <code>C</code>, <code>O</code> full accent, <code>G</code> mid tone, <code>K</code> deep tone, <code>o</code>, <code>Y</code> soft accent, <code>W</code> highlight, <code>V</code> near-black vein, <code>D</code> white dot.'},
+];
+const CARDS = ['field','dissolve','type','ribbon','stitch','glitch','i35','links'].map(k=>CARDS_RAW.find(c=>c.k===k));
+
+/* =================== PALETTES =================== */
+const PRESETS = [
+  {name:'Rosa mexicano', ink:'#FFFFFF', paper:'#111111', accent:'#E4007C', accent2:'#FF9ACB'},
+  {name:'Rosa on white', ink:'#111111', paper:'#F4F1EF', accent:'#D1006F', accent2:'#F27BB5'},
+  {name:'Mono', ink:'#FFFFFF', paper:'#111111', accent:'#FFFFFF', accent2:'#8A8A8A'},
+  {name:'Work zone', ink:'#FFFFFF', paper:'#111111', accent:'#FFB000', accent2:'#E4007C'},
+];
+const VARS = [['ink','--lcs-ink','text'],['paper','--lcs-paper','background'],['accent','--lcs-accent','rosa'],['accent2','--lcs-accent-2','soft pink']];
+let current = {...PRESETS[0]};
+
+/* =================== HELPERS =================== */
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const SC = 'scr'+'ipt';
+function snippetText(k){const s=S[k];return s.html + (s.js ? '\n<'+SC+'>\n'+s.js+'\n</'+SC+'>' : '');}
+function varsText(){
+  return '<style>\n:root{\n'+VARS.map(([k,v])=>'  '+v+':'+current[k]+';').join('\n')+
+    '\n  /* optional: name your Webflow fonts, otherwise the effects inherit */\n  /* --lcs-display:"Your pixel font", monospace; */\n  /* --lcs-mono:"Your mono font", monospace; */\n}\n</style>';
+}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);}
+async function copy(text,label,pre){
+  try{await navigator.clipboard.writeText(text);toast(label+' copied');}
+  catch(e){
+    if(pre){const d=pre.closest('details');if(d)d.open=true;const r=document.createRange();r.selectNodeContents(pre);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);}
+    toast('Copy is blocked here. The code is selected, press Ctrl/Cmd+C');
+  }
+}
+function mount(target,k){
+  target.innerHTML=S[k].html;
+  if(S[k].js){try{new Function(S[k].js)();}catch(e){console.error(e);}}
+}
+
+/* =================== RENDER =================== */
+function renderHero(){
+  mount($('#hero-field'),'field');
+  mount($('#hero-logo'),'glitch');
+  mount($('#hero-h'),'dissolve');
+  mount($('#hero-type'),'type');
+  mount($('#hero-stitch'),'stitch');
+}
+function renderGrid(){
+  const grid=$('#grid');
+  CARDS.forEach(c=>{
+    const card=document.createElement('article');
+    card.className='card'+(c.wide?' card--wide':'');
+    card.innerHTML=`<div class="stage${c.bleed?' stage--bleed':''}${c.cls?' '+c.cls:''}"></div>
+      <div class="meta"><div class="meta__top"><h3>${c.title}</h3><span class="label">.lcs-${c.k}</span></div><p class="from">${c.from}</p></div>
+      <div class="actions"><button class="btn btn--solid" type="button" data-copy>Copy embed</button><button class="btn" type="button" data-replay>Replay</button></div>
+      <details><summary>View code</summary><pre><code></code></pre></details>`;
+    grid.appendChild(card);
+    const stage=$('.stage',card);
+    const go=()=>{mount(stage,c.k);if(c.hint){const h=document.createElement('span');h.className='stage-hint';h.textContent=c.hint;stage.appendChild(h);}};
+    go();
+    $('pre code',card).innerHTML=esc(snippetText(c.k));
+    $('[data-copy]',card).addEventListener('click',()=>copy(snippetText(c.k),c.title,$('pre',card)));
+    $('[data-replay]',card).addEventListener('click',go);
+  });
+}
+function applyPalette(){
+  VARS.forEach(([k,v])=>document.documentElement.style.setProperty(v,current[k]));
+  VARS.forEach(([k])=>{const i=$('#c-'+k);if(i)i.value=current[k].length===7?current[k]:'#000000';});
+  const light=parseInt(current.paper.slice(1,3),16)>128;
+  document.documentElement.style.colorScheme=light?'light':'dark';
+  document.querySelectorAll('#presets .chip').forEach((b,i)=>b.setAttribute('aria-pressed',String(PRESETS[i].name===current.name)));
+}
+function buildPalette(){
+  const p=$('#presets');
+  PRESETS.forEach(pr=>{
+    const b=document.createElement('button');b.type='button';b.className='chip';
+    b.innerHTML=`<i>${['paper','ink','accent','accent2'].map(k=>`<b style="background:${pr[k]}"></b>`).join('')}</i>${pr.name}`;
+    b.addEventListener('click',()=>{current={...pr};applyPalette();});
+    p.appendChild(b);
+  });
+  const sw=$('#swatches');
+  VARS.forEach(([k,,label])=>{
+    const l=document.createElement('label');l.className='swatch';l.htmlFor='c-'+k;
+    l.innerHTML=`<input type="color" id="c-${k}" value="${current[k]}">${label}`;
+    $('input',l).addEventListener('input',e=>{current[k]=e.target.value.toUpperCase();current.name='Custom';applyPalette();});
+    sw.appendChild(l);
+  });
+  $('#copy-vars').addEventListener('click',()=>copy(varsText(),'Variables'));
+  applyPalette();
+}
+function clock(){
+  const fmt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'long',day:'numeric',year:'numeric'});
+  const tf=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const tick=()=>{const d=new Date();$('#clock').textContent=fmt.format(d)+' at '+tf.format(d);};
+  tick();setInterval(tick,1000);
+}
+
+buildPalette();
+renderHero();
+renderGrid();
+clock();
+</script>
+<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#grid a, .site a");if(a)e.preventDefault();});</script>
+<script src="../assets/cd-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapping inner experience | Lujan</title>
+<meta name="description" content="Science can measure what happens in the brain, but experience only exists from the inside. Lujan research on mapping inner experience.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap">
+<style>
+/* ===== Lujan tokens (motion kit variables) ===== */
+:root{
+  --lcs-ink:#FFFFFF;
+  --lcs-paper:#111111;
+  --lcs-accent:#E4007C;   /* rosa mexicano */
+  --lcs-accent-2:#FF9ACB; /* soft pink */
+  --lcs-display:"Geist Pixel","Pixelify Sans", "Courier New", monospace;
+  --lcs-mono:"Fira Mono", ui-monospace, Menlo, Consolas, monospace;
+  --muted:#A6A6A6;
+  --line:#2C2C2C;
+  --gutter:max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(20px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--lcs-paper);color:var(--lcs-ink);font:16px/1.65 var(--lcs-mono);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--lcs-display);font-weight:700;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+::selection{background:var(--lcs-accent);color:var(--lcs-ink)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--lcs-ink);color:var(--lcs-paper);padding:8px 12px;z-index:50}
+.skip:focus{left:16px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ===== header ===== */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--lcs-paper);z-index:30}
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--lcs-paper);border-bottom:1px solid transparent;transition:border-color .2s}
+.header.is-scrolled{border-bottom-color:var(--line)}
+.header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px;padding-block:20px}
+.header .lcs-glitch{font-size:clamp(34px,4vw,48px)}
+.header .lcs-nav{font-size:15px}
+@media (max-width:480px){.header .lcs-nav{font-size:14px;gap:.9em}}
+@media (max-width:340px){.header .lcs-nav{font-size:13px;gap:.7em}}
+
+
+
+.section{padding-block:clamp(72px,11vw,140px);border-bottom:1px solid var(--line)}
+.section__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,56px)}
+.section__head h2{font-size:clamp(56px,10vw,128px)}
+
+
+
+
+/* ===== footer ===== */
+.footer .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 40px;padding-block:44px calc(44px + env(safe-area-inset-bottom,0px))}
+.footer b{font:700 28px/1 var(--lcs-display)}
+.footer .loc{font:500 20px/1 var(--lcs-display)}
+.footer time{font-size:14px;font-variant-numeric:tabular-nums}
+.footer .lcs-stitch{width:64px;margin-left:auto}
+.footer small{flex-basis:100%;color:var(--muted);font-size:12px}
+.footer__also{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;font-size:14px}
+.footer__also span{color:var(--muted)}
+
+:focus-visible{outline:2px solid var(--lcs-accent);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== motion kit ===== */
+.lcs-dissolve{position:relative;font-family:var(--lcs-display,inherit);color:var(--lcs-ink,#fff)}
+.lcs-dissolve__veil{position:absolute;left:-2px;top:-2px;width:calc(100% + 4px);height:calc(100% + 4px);fill:var(--lcs-paper,#111);pointer-events:none}
+.lcs-dissolve__flash{fill:var(--lcs-accent,#E4007C)}
+.lcs-dissolve__flash--b{fill:var(--lcs-accent-2,#FF9ACB)}
+.lcs-glitch{display:inline-block;line-height:1;font-family:var(--lcs-display,inherit);font-weight:700;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-glitch:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+.lcs-nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.4em;font-family:var(--lcs-mono,inherit)}
+.lcs-pxlink{position:relative;color:var(--lcs-ink,#fff);text-decoration:none;padding-bottom:.35em}
+.lcs-pxlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lcs-accent,#E4007C) 0 3px,transparent 3px 5px);
+  clip-path:inset(0 100% 0 0);transition:clip-path .4s steps(8)}
+.lcs-pxlink:hover::after,.lcs-pxlink:focus-visible::after,.lcs-pxlink[aria-current="page"]::after,.lcs-pxlink.w--current::after{clip-path:inset(0)}
+.lcs-inquire{position:relative;display:inline-flex;align-items:center;gap:.6em;padding:.55em .9em;border:2px solid var(--lcs-ink,#fff);
+  color:var(--lcs-ink,#fff);text-decoration:none;isolation:isolate;transition:color 0s .15s}
+.lcs-inquire::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--lcs-ink,#fff);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-inquire:hover,.lcs-inquire:focus-visible{color:var(--lcs-paper,#111)}
+.lcs-inquire:hover::before,.lcs-inquire:focus-visible::before{clip-path:inset(0)}
+.lcs-pxlink:focus-visible,.lcs-inquire:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}
+.lcs-inquire__arrow{width:1.1em;height:.92em;fill:currentColor;overflow:visible}
+.lcs-inquire:hover .lcs-inquire__arrow,.lcs-inquire:focus-visible .lcs-inquire__arrow{fill:var(--lcs-accent,#E4007C);animation:lcs-march .6s steps(3) infinite}
+@keyframes lcs-march{to{transform:translateX(.5em)}}
+@media (prefers-reduced-motion:reduce){.lcs-pxlink::after,.lcs-inquire,.lcs-inquire::before{transition:none}.lcs-inquire__arrow{animation:none!important}}
+.lcs-stitch svg{display:block;width:100%;height:auto;overflow:visible}
+.lcs-stitch line{stroke:var(--lcs-accent,#E4007C);stroke-width:.3;stroke-linecap:round;opacity:0}
+.lcs-stitch .is-b line{stroke:var(--lcs-accent-2,#FF9ACB)}
+/* monochrome stitches: every letter is a tone of the theme accent, so detail survives in one color */
+.lcs-stitch .c-r line,.lcs-stitch .c-c line,.lcs-stitch .c-o line{stroke:var(--lcs-accent,#E4007C)}
+.lcs-stitch .c-g line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 62%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-k line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 38%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-y line{stroke:var(--lcs-accent-2,#FF9ACB)}
+.lcs-stitch .c-w line{stroke:color-mix(in srgb,var(--lcs-accent-2,#FF9ACB) 45%,#FFFFFF)}
+.lcs-stitch .c-v line{stroke:color-mix(in srgb,var(--lcs-accent,#E4007C) 22%,var(--lcs-paper,#111111))}
+.lcs-stitch .c-d line{stroke:#FFFFFF}
+.lcs-stitch line.is-in{opacity:1}
+
+/* ===== Work dropdown ===== */
+.lcs-menu{position:relative}
+.lcs-menu__btn{appearance:none;background:none;border:0;border-radius:0;font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.45em;min-height:44px}
+.lcs-menu__btn.lcs-pxlink{padding:0 0 .35em}
+.lcs-menu__caret{width:.7em;height:.42em;fill:currentColor;transition:transform .2s steps(2)}
+.lcs-menu__btn[aria-expanded="true"] .lcs-menu__caret{transform:rotate(180deg)}
+.lcs-menu__btn[aria-expanded="true"]::after,.lcs-menu:has([aria-current="page"]) .lcs-menu__btn::after{clip-path:inset(0)}
+.lcs-menu__list{position:absolute;top:calc(100% + 6px);right:-16px;z-index:40;width:max-content;max-width:340px;margin:0;padding:6px 0;list-style:none;
+  background:var(--lcs-paper,#111);border:2px solid var(--lcs-ink,#fff);animation:lcs-menu-in .2s steps(3)}
+@keyframes lcs-menu-in{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.lcs-menu__list a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:11px 16px;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-menu__list a small{flex:none}
+.lcs-menu__list a small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}
+.lcs-menu__list a:hover,.lcs-menu__list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}
+.lcs-menu__list a:hover small,.lcs-menu__list a:focus-visible small{color:var(--lcs-accent,#E4007C)}
+.lcs-menu__list a:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:-2px}
+.lcs-menu__list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}
+@media (max-width:640px){.lcs-menu{position:static}.lcs-menu__list{top:100%;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-width:none}}
+@media (prefers-reduced-motion:reduce){.lcs-menu__list{animation:none}.lcs-menu__caret{transition:none}}
+
+/* Geist Pixel has one weight: never fake-bold it */
+h1,h2,h3,legend,.lcs-glitch,.lcs-dissolve,.lcs-ribbon__text,.footer b,.footer .loc{font-synthesis:none}
+
+/* ===== shared extras for the new pages (built on the site tokens above) ===== */
+.lcs-pg{--ink:var(--lcs-ink,#FFFFFF);--paper:var(--lcs-paper,#111111);--rosa:var(--lcs-accent,#E4007C);--blush:var(--lcs-accent-2,#FF9ACB);
+  --display:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);--mono:var(--lcs-mono,"Fira Mono",ui-monospace,Menlo,Consolas,monospace);
+  --field:#1A1A1A;--err:#FF7A7A}
+.lcs-pg *{box-sizing:border-box}
+.lcs-pg [hidden]{display:none!important}
+.lcs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.section__head h1{font-size:clamp(44px,7.4vw,104px);max-width:14ch}
+.page__lede{color:var(--muted);max-width:62ch;font-size:clamp(16px,1.4vw,18px);margin-bottom:clamp(36px,5vw,56px)}
+.page__lead{font-size:clamp(22px,3vw,38px);line-height:1.3;max-width:28ch;margin-bottom:20px}
+
+/* buttons, same pixel wipe as the site's Inquire button */
+.lcs-btn{position:relative;appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:.55em .9em;
+  font:inherit;font-size:16px;border:2px solid var(--ink);border-radius:0;color:var(--ink);background:transparent;cursor:pointer;isolation:isolate;transition:color 0s .15s}
+.lcs-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-btn:hover,.lcs-btn:focus-visible{color:var(--paper)}
+.lcs-btn:hover::before,.lcs-btn:focus-visible::before{clip-path:inset(0)}
+.lcs-btn .lcs-inquire__arrow{width:1.1em;height:.92em;fill:currentColor;overflow:visible}
+.lcs-btn:hover .lcs-inquire__arrow,.lcs-btn:focus-visible .lcs-inquire__arrow{fill:var(--rosa);animation:lcs-march .6s steps(3) infinite}
+.lcs-ghost{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:0;padding:.5em .9em;cursor:pointer;min-height:44px}
+.lcs-ghost:hover{background:var(--ink);color:var(--paper)}
+.lcs-link{appearance:none;font:inherit;font-size:.9rem;color:var(--ink);background:none;border:0;padding:.5em 0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+@media (prefers-reduced-motion:reduce){.lcs-btn,.lcs-btn::before{transition:none}.lcs-btn .lcs-inquire__arrow{animation:none!important}}
+
+
+/* ===== research page: mapping inner experience ===== */
+.lj-crumbs{margin:0 0 28px;font-size:14px;color:var(--muted)}
+.lj-crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5em}
+.lj-crumbs li+li::before{content:"/";margin-right:.5em}
+.lj-crumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}
+.lj-research{max-width:70ch}
+.lj-research h2{font-size:clamp(32px,4.6vw,52px);margin:clamp(56px,8vw,96px) 0 20px}
+.lj-research h3{font-family:var(--mono);font-weight:500;font-size:1rem;line-height:1.4;margin:0 0 6px;color:var(--blush)}
+.lj-research p{margin:0 0 1em}
+.lj-research ul{margin:0 0 1em;padding-left:1.25em}
+.lj-research ul li{margin-bottom:.75em}
+.lj-research ul li::marker{color:var(--rosa)}
+.lj-research strong{font-weight:500;color:var(--ink)}
+.lj-research a{text-decoration:underline;text-decoration-color:var(--rosa);text-underline-offset:.2em;text-decoration-thickness:2px}
+.lj-research a:hover{color:var(--blush)}
+.lj-halves{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);margin:28px 0}
+.lj-halves>div{padding:20px}
+.lj-halves>div+div{border-left:2px solid var(--ink)}
+.lj-halves p{margin:0;color:var(--muted)}
+.lj-lineage{list-style:none;margin:28px 0 0;padding:0;border-left:2px solid var(--line)}
+.lj-lineage li{position:relative;padding:0 0 28px 24px}
+.lj-lineage li::before{content:"";position:absolute;left:-7px;top:.55em;width:12px;height:12px;background:var(--rosa)}
+.lj-lineage li:nth-child(even)::before{background:var(--blush)}
+.lj-year{display:block;font:700 28px/1.15 var(--display);font-synthesis:none;margin-bottom:4px}
+.lj-lineage p{margin:0;color:var(--muted)}
+.lj-lineage strong{color:var(--ink)}
+.lj-refs{font-size:14px;line-height:1.6;color:var(--muted)}
+.lj-refs li{margin-bottom:.9em}
+.lj-refs cite{font-style:italic}
+.lj-credits{margin-top:clamp(56px,8vw,96px);padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+@media (max-width:560px){.lj-halves{grid-template-columns:1fr}.lj-halves>div+div{border-left:0;border-top:2px solid var(--ink)}}
+/* ===== color themes: picked in the footer, remembered in this browser ===== */
+html[data-lcs-theme="bluebonnet"]{--lcs-paper:#0D1120;--lcs-accent:#4F7DFF;--lcs-accent-2:#B7C8FF}
+html[data-lcs-theme="nopal"]{--lcs-paper:#0E1511;--lcs-accent:#2FB574;--lcs-accent-2:#B5E7C9}
+html[data-lcs-theme="monarca"]{--lcs-paper:#15100B;--lcs-accent:#FF8A1F;--lcs-accent-2:#FFD29A}
+html[data-lcs-theme="tulipan"]{--lcs-paper:#170D10;--lcs-accent:#E3243F;--lcs-accent-2:#FF9EAA}
+
+/* ===== theme switcher (footer) ===== */
+.lcs-themes{display:flex;flex-wrap:wrap;align-items:center;gap:0 2px;font-size:14px}
+.lcs-themes__label{color:var(--muted,#A6A6A6);margin-right:8px}
+.lcs-themes button{appearance:none;background:none;border:0;border-radius:0;padding:0;width:44px;height:44px;display:grid;place-items:center;cursor:pointer}
+.lcs-themes i{display:block;width:16px;height:16px;background:var(--sw);box-shadow:0 0 0 2px var(--lcs-paper,#111),0 0 0 2px transparent;transition:transform .15s steps(2)}
+.lcs-themes button:hover i{transform:translateY(-3px)}
+.lcs-themes button[aria-pressed="true"] i{box-shadow:0 0 0 2px var(--lcs-paper,#111),0 0 0 4px var(--lcs-ink,#fff)}
+.lcs-themes button:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:-2px}
+.lcs-themes__name{margin-left:8px;min-width:12ch}
+@media (prefers-reduced-motion:reduce){.lcs-themes i{transition:none}}
+
+/* menu rag: labels stay on one line; on phones the badge drops below instead of splitting the label */
+.lcs-menu__list{max-width:none}
+.lcs-menu__list a{flex-wrap:wrap;white-space:nowrap}
+.lcs-menu__list a small{margin-left:auto}
+@media (max-width:640px){.lcs-menu__list a{white-space:normal;text-wrap:balance}}
+</style>
+<style>
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.w-form-done,.w-form-fail{display:none}
+/* Hit areas: the look stays the same, the tappable box grows to 44px. */
+.lcs-pxlink::before{content:"";position:absolute;inset:-8px -4px}
+.lcs-glitch{padding-block:5px;margin-block:-5px}
+.lcs-inquire{min-height:44px}
+</style>
+</head>
+<body>
+<div class="lcs-pg">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="lcs-glitch" href="../../" data-idle="6" aria-label="Lujan home">LUJAN</a>
+    <nav class="lcs-nav" aria-label="Main">
+      <a class="lcs-pxlink" href="../../#about">About</a>
+      <div class="lcs-menu">
+        <button class="lcs-pxlink lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button>
+        <ul class="lcs-menu__list" id="lcs-work-menu" hidden>
+          <li><a href="../../#work">Case studies</a></li>
+          <li><a href="../../color-grading-game/">Color Grading Game<small>Example</small></a></li>
+          <li><a href="../../dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
+          <li><a href="../../lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="../../#lab">The lab<small>All pages</small></a></li>
+        </ul>
+      </div>
+      <a class="lcs-pxlink" href="../../research/" aria-current="page">Research</a>
+      <a class="lcs-inquire" href="../../inquire/">
+        <span>Inquire</span>
+        <svg class="lcs-inquire__arrow" viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 0h1v1H3zM4 1h1v1H4zM0 2h6v1H0zM4 3h1v1H4zM3 4h1v1H3z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="section" aria-labelledby="lj-title">
+<div class="wrap">
+<nav class="lj-crumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="../../research/">Research</a></li>
+    <li><span aria-current="page">Mapping inner experience</span></li>
+  </ol>
+</nav>
+<div class="section__head"><h1 class="lcs-dissolve" id="lj-title" data-cell="12" data-duration="1400">Mapping inner experience</h1><span class="eyebrow">Research / Open initiative</span></div>
+<p class="page__lede">An open research initiative from Lujan Creative Agency, exploring art as a way to share what experience feels like from the inside, building on the work of Chilean neuroscientist Francisco J. Varela.</p>
+
+<article class="lj-research" aria-labelledby="lj-title">
+  <h2>The idea</h2>
+  <p>Science can measure what happens in the brain, but experience only exists from the inside. A scan can show that fear happened. It can’t show what the fear felt like.</p>
+  <div class="lj-halves">
+    <div>
+      <h3>From the outside</h3>
+      <p>Brain imaging, heart rate, hormones, behavior. What can be measured.</p>
+    </div>
+    <div>
+      <h3>From the inside</h3>
+      <p>Lived experience: how a feeling builds, where it sits in the body, what it’s like.</p>
+    </div>
+  </div>
+  <p>In 1996, Varela proposed neurophenomenology, a way of studying the mind that treats both halves as essential and lets each one correct the other. Since then, researchers have trained people to describe their experience carefully and used those descriptions to make sense of brain data.</p>
+  <p>Most of those methods depend on words. But many people experience more than they can put into words, or communicate in other ways. Art has always been a way to show what language can’t reach. This initiative asks whether art-making can widen who gets to contribute their inner experience to science.</p>
+
+  <h2>Questions we’re exploring</h2>
+  <ul>
+    <li>Can drawings, paintings and other artwork work as rigorous first-person reports, alongside or in place of spoken descriptions?</li>
+    <li>How can first-person research methods be made accessible to nonverbal, neurodivergent and disabled participants?</li>
+    <li>What can art therapy practice teach research about describing emotion and bodily experience?</li>
+    <li>How can AI help find patterns across many people’s art and descriptions, while keeping consent, care and credit with the people who made them?</li>
+  </ul>
+
+  <h2>How we work</h2>
+  <ul>
+    <li><strong>Open access.</strong> Everything we learn is published free, here and in an open archive, with no paywalls.</li>
+    <li><strong>Credit everyone.</strong> Every contributor is named, unless they choose not to be, and the people whose work came before are cited.</li>
+    <li><strong>Accessible first.</strong> Findings are published as accessible web pages.</li>
+    <li><strong>Consent and care.</strong> No one’s experience or artwork is used without clear permission, and permission can be withdrawn.</li>
+    <li><strong>Respect the traditions.</strong> We draw on phenomenology and contemplative practice with attribution, not extraction.</li>
+    <li><strong>People decide.</strong> AI tools can assist, but people make the decisions.</li>
+  </ul>
+
+  <h2>Lineage and&nbsp;credits</h2>
+  <p>This work stands on the shoulders of many people and traditions.</p>
+  <ol class="lj-lineage">
+    <li>
+      <span class="lj-year">Centuries</span>
+      <p><strong>Buddhist contemplative traditions</strong> developed attention to one’s own mind as a trainable skill.</p>
+    </li>
+    <li>
+      <span class="lj-year">1900s</span>
+      <p><strong>Edmund Husserl</strong> founded phenomenology, the careful description of experience as it appears.</p>
+    </li>
+    <li>
+      <span class="lj-year">1972</span>
+      <p><strong>Humberto Maturana and Francisco J. Varela</strong>, working in Chile, introduced autopoiesis: living systems continuously create and maintain themselves.</p>
+    </li>
+    <li>
+      <span class="lj-year">1987</span>
+      <p><strong>Varela, the 14th Dalai Lama and Adam Engle</strong> co-founded the <a href="https://www.mindandlife.org">Mind &amp; Life Institute</a>, bringing scientists and contemplatives together.</p>
+    </li>
+    <li>
+      <span class="lj-year">1991</span>
+      <p><strong>Varela, Evan Thompson and Eleanor Rosch</strong> published <cite>The Embodied Mind</cite>, joining cognitive science with lived experience.</p>
+    </li>
+    <li>
+      <span class="lj-year">1996</span>
+      <p><strong>Varela</strong> proposed neurophenomenology as a remedy for the hard problem of consciousness.</p>
+    </li>
+    <li>
+      <span class="lj-year">2001</span>
+      <p><strong>Varela</strong> wrote “Intimate Distances,” a first-person account of living after his liver transplant. He died that year, at 54.</p>
+    </li>
+    <li>
+      <span class="lj-year">2002</span>
+      <p><strong>Antoine Lutz and colleagues</strong> showed that participants’ own descriptions could reveal patterns in brain data that otherwise looked like noise.</p>
+    </li>
+    <li>
+      <span class="lj-year">2006</span>
+      <p><strong>Claire Petitmengin</strong> described the interview method that became micro-phenomenology, helping people put a single moment of experience into words.</p>
+    </li>
+    <li>
+      <span class="lj-year">2007</span>
+      <p><strong>Evan Thompson</strong> carried Varela’s ideas forward in <cite>Mind in Life</cite>.</p>
+    </li>
+    <li>
+      <span class="lj-year">2014</span>
+      <p><strong>Lauri Nummenmaa and colleagues</strong> asked people to color body outlines where they felt emotions, producing maps that were strikingly similar across Western European and East Asian participants.</p>
+    </li>
+    <li>
+      <span class="lj-year">2016</span>
+      <p><strong>Girija Kaimal and colleagues</strong> studied how art-making affects stress hormones.</p>
+    </li>
+    <li>
+      <span class="lj-year">2023</span>
+      <p><strong>Susan Magsamen and Ivy Ross</strong> surveyed the field of neuroaesthetics in <cite>Your Brain on Art</cite>.</p>
+    </li>
+  </ol>
+
+  <h2>References</h2>
+  <ul class="lj-refs">
+    <li>Kaimal, G., Ray, K., &amp; Muniz, J. (2016). Reduction of cortisol levels and participants’ responses following art making. <cite>Art Therapy, 33</cite>(2), 74–80.</li>
+    <li>Lutz, A., Lachaux, J.-P., Martinerie, J., &amp; Varela, F. J. (2002). Guiding the study of brain dynamics by using first-person data: Synchrony patterns correlate with ongoing conscious states during a simple visual task. <cite>Proceedings of the National Academy of Sciences, 99</cite>(3), 1586–1591.</li>
+    <li>Magsamen, S., &amp; Ross, I. (2023). <cite>Your Brain on Art: How the Arts Transform Us</cite>. Random House.</li>
+    <li>Maturana, H. R., &amp; Varela, F. J. (1980). <cite>Autopoiesis and Cognition: The Realization of the Living</cite>. D. Reidel. (Originally published in Spanish, 1972.)</li>
+    <li>Nummenmaa, L., Glerean, E., Hari, R., &amp; Hietanen, J. K. (2014). Bodily maps of emotions. <cite>Proceedings of the National Academy of Sciences, 111</cite>(2), 646–651.</li>
+    <li>Petitmengin, C. (2006). Describing one’s subjective experience in the second person: An interview method for the science of consciousness. <cite>Phenomenology and the Cognitive Sciences, 5</cite>(3–4), 229–269.</li>
+    <li>Thompson, E. (2007). <cite>Mind in Life: Biology, Phenomenology, and the Sciences of Mind</cite>. Harvard University Press.</li>
+    <li>Varela, F. J. (1996). Neurophenomenology: A methodological remedy for the hard problem. <cite>Journal of Consciousness Studies, 3</cite>(4), 330–349.</li>
+    <li>Varela, F. J. (2001). Intimate distances: Fragments for a phenomenology of organ transplantation. <cite>Journal of Consciousness Studies, 8</cite>(5–7), 259–271.</li>
+    <li>Varela, F. J., Thompson, E., &amp; Rosch, E. (1991). <cite>The Embodied Mind: Cognitive Science and Human Experience</cite>. MIT Press.</li>
+  </ul>
+
+  <div class="lj-credits">
+    <p>Led by Karina Lujan, Lujan Creative Agency. This page was drafted in collaboration with Claude, an AI model made by Anthropic.</p>
+    <p>In memory of Francisco J. Varela <span style="white-space: nowrap">(1946–2001)</span>.</p>
+  </div>
+</article>
+</div>
+</section>
+</main>
+
+
+<footer class="footer">
+  <div class="wrap">
+    <b>LUJAN</b>
+    <span class="loc">Garland, TX</span>
+    <time id="clock" aria-label="Local time in Garland, Texas"></time>
+    <nav class="footer__also" aria-label="Also by Karina Lujan">
+      <span>Also from Karina</span>
+      <a class="lcs-pxlink" href="https://signalntx.com">Signal NTX</a>
+      <a class="lcs-pxlink" href="https://grounddart.webflow.io">Ground’d</a>
+    </nav>
+    <div class="lcs-themes" role="group" aria-label="Color theme">
+      <span class="lcs-themes__label">Theme</span>
+      <button type="button" data-theme="rosa" aria-label="Rosa mexicano" title="Rosa mexicano" aria-pressed="true"><i style="--sw:#E4007C"></i></button>
+      <button type="button" data-theme="bluebonnet" aria-label="Bluebonnet" title="Bluebonnet" aria-pressed="false"><i style="--sw:#4F7DFF"></i></button>
+      <button type="button" data-theme="nopal" aria-label="Nopal" title="Nopal" aria-pressed="false"><i style="--sw:#2FB574"></i></button>
+      <button type="button" data-theme="monarca" aria-label="Monarca" title="Monarca" aria-pressed="false"><i style="--sw:#FF8A1F"></i></button>
+      <button type="button" data-theme="tulipan" aria-label="Tulipán del monte" title="Tulipán del monte" aria-pressed="false"><i style="--sw:#E3243F"></i></button>
+      <span class="lcs-themes__name" aria-hidden="true">Rosa mexicano</span>
+    </div>
+    <div class="lcs-stitch" aria-hidden="true"
+  data-pattern="..................KK...../.................KKKK..../.CC.CC..........KKKKK..../CCCCCCC........KKKKK...../CCCCCC.....GGGGGGGG....../.CCCYYYKKKKGG.GGGGGG...../CCCCCC.....RRRRGGGGG...../CCCCCCC.....RRWWGGGGG..../.CC.CC.......WWWWGGGGG.../.GG.GG.........WWWGGGG.../.GGGGG............GKKK.../..GGG..............KK.KK."
+  data-pattern-alt="........VV...VV......../..........V.V........../VVVV.......V.......VVVV/VDOOVVVV...V...VVVVOODV/VOOOOOOOVVVVVVVOOOOOOOV/VDOVVOOOOOVVVOOOOOVVODV/.VOOOVVOOOVVVOOOVVOOOV./.VDOOOOVVVVVVVVVOOOODV./..VDVOOOOOVVVOOOOOVDV../...VVVVVVVVVVVVVVVVV.../..VDOOVOOOVVVOOOVOODV../.VOOOOVOOOVVVOOOVOOOOV./.VDOOOOVOOVVVOOVOOOODV./..VOOOOOVVVVVVVOOOOOV../..VDOOOVOV.V.VOVOOODV../...VDVDVV.....VVDVDV.../....VVV.........VVV...." data-alt-chance="0.25">
+  <svg aria-hidden="true"></svg>
+</div>
+    <small>© <span id="year">2026</span> Lujan. All rights reserved.</small>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-glitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var id='lcs-g-'+Math.random().toString(36).slice(2,9),defs=document.createElementNS(NS,'svg');
+    defs.setAttribute('width','0');defs.setAttribute('height','0');defs.setAttribute('aria-hidden','true');
+    defs.style.position='absolute';
+    defs.innerHTML='<filter id="'+id+'" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">'+
+      '<feTurbulence type="fractalNoise" baseFrequency="0.0001 0.07" numOctaves="1" seed="1"/>'+
+      '<feComponentTransfer result="slices"><feFuncR type="discrete" tableValues="0 .3 .5 .5 .5 .7 1"/><feFuncG type="linear" slope="0" intercept=".5"/></feComponentTransfer>'+
+      '<feDisplacementMap in="SourceGraphic" in2="slices" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter>';
+    document.body.appendChild(defs);
+    el.style.filter='url(#'+id+')';
+    var turb=defs.querySelector('feTurbulence'),disp=defs.querySelector('feDisplacementMap'),busy=false;
+    function burst(n,amp){
+      if(busy)return;busy=true;var i=0;
+      (function step(){
+        if(i++<n){el.style.textShadow=((Math.random()*10-5)|0)+'px 0 var(--lcs-accent,#E4007C)';disp.setAttribute('scale',((Math.random()*2-1)*amp).toFixed(1));turb.setAttribute('seed',Math.random()*100|0);setTimeout(step,45+Math.random()*45);}
+        else{disp.setAttribute('scale','0');el.style.textShadow='';busy=false;}
+      })();
+    }
+    el.addEventListener('pointerenter',function(){burst(9,24);});
+    el.addEventListener('focus',function(){burst(9,24);});
+    var idle=+el.getAttribute('data-idle')||0;
+    if(idle)(function loop(){setTimeout(function(){if(!el.isConnected)return;burst(3,12);loop();},idle*1000*(.7+Math.random()*.6));})();
+  });
+})();
+</script>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-dissolve:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    if(rm)return;
+    var cell=+el.getAttribute('data-cell')||10,dur=+el.getAttribute('data-duration')||1300,rects=[];
+    var veil=document.createElementNS(NS,'svg');
+    veil.setAttribute('class','lcs-dissolve__veil');veil.setAttribute('aria-hidden','true');
+    veil.setAttribute('preserveAspectRatio','none');veil.setAttribute('shape-rendering','crispEdges');
+    el.appendChild(veil);
+    function build(){
+      var w=Math.max(1,Math.ceil(el.offsetWidth)),h=Math.max(1,Math.ceil(el.offsetHeight));
+      veil.setAttribute('viewBox','0 0 '+w+' '+h);veil.textContent='';rects=[];
+      for(var y=0;y<h;y+=cell)for(var x=0;x<w;x+=cell){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',cell+.6);r.setAttribute('height',cell+.6);
+        veil.appendChild(r);rects.push(r);
+      }
+      for(var i=rects.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=rects[i];rects[i]=rects[j];rects[j]=t;}
+    }
+    function play(){
+      var t0=0,done=0,flashing=[],N=rects.length;
+      function tick(t){
+        if(!t0)t0=t;
+        var p=Math.min(1,(t-t0)/dur),e=p<.5?2*p*p:1-Math.pow(2-2*p,2)/2,target=Math.floor(N*e);
+        while(done<target){var r=rects[done++];r.setAttribute('class',Math.random()<.5?'lcs-dissolve__flash':'lcs-dissolve__flash lcs-dissolve__flash--b');flashing.push([r,t]);}
+        while(flashing.length&&t-flashing[0][1]>70){flashing.shift()[0].remove();}
+        if(p<1||flashing.length)requestAnimationFrame(tick);else veil.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+    build();
+    function go(){build();play();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go();}},{threshold:.3});io.observe(el);
+    }else go();
+  });
+})();
+</script>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.lcs-stitch:not([data-lcs-on])').forEach(function(el){
+    el.setAttribute('data-lcs-on','');
+    var pat=el.getAttribute('data-pattern')||'',alt=el.getAttribute('data-pattern-alt');if(alt&&Math.random()<(parseFloat(el.getAttribute('data-alt-chance'))||.25))pat=alt;var rows=pat.split('/'),svg=el.querySelector('svg'),steps=[];
+    var cols=Math.max.apply(null,rows.map(function(r){return r.length;}));
+    svg.setAttribute('viewBox','-0.5 -0.5 '+(cols+1)+' '+(rows.length+1));
+    function line(g,x1,y1,x2,y2){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);g.appendChild(l);return l;}
+    rows.forEach(function(row,r){
+      var cs=[];for(var c=0;c<row.length;c++)cs.push(c);
+      if(r%2)cs.reverse();
+      cs.forEach(function(c){
+        var ch=row.charAt(c),k={X:'',o:'is-b',G:'c-g',R:'c-r',W:'c-w',K:'c-k',O:'c-o',C:'c-c',Y:'c-y',V:'c-v',D:'c-d'}[ch];if(k===undefined)return;
+        var g=document.createElementNS(NS,'g');if(k)g.setAttribute('class',k);svg.appendChild(g);
+        steps.push(line(g,c+.2,r+.2,c+.8,r+.8));steps.push(line(g,c+.8,r+.2,c+.2,r+.8));
+      });
+    });
+    if(rm){steps.forEach(function(l){l.setAttribute('class','is-in');});return;}
+    function run(){var i=0;(function next(){if(i<steps.length&&el.isConnected){steps[i++].setAttribute('class','is-in');setTimeout(next,16);}})();}
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run();}},{threshold:.3});io.observe(el);
+    }else run();
+  });
+})();
+</script>
+<script>
+/* page glue: live Garland clock, header rule on scroll, current nav link */
+(function(){
+  var fd=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'long',day:'numeric',year:'numeric'});
+  var ft=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  var c=document.getElementById('clock');
+  function tick(){var d=new Date();c.textContent=fd.format(d)+' at '+ft.format(d);}
+  tick();setInterval(tick,1000);
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  var h=document.querySelector('.header');
+  function onScroll(){h.classList.toggle('is-scrolled',window.scrollY>8);}
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* Work dropdown: click or tap to open, hover on desktop, Escape or a click outside to close */
+  document.querySelectorAll('.lcs-menu').forEach(function(m){
+    var b=m.querySelector('.lcs-menu__btn'),l=m.querySelector('.lcs-menu__list'),t=0,byHover=false;
+    function set(o,focusFirst){b.setAttribute('aria-expanded',String(o));l.hidden=!o;if(o&&focusFirst){var f=l.querySelector('a');if(f)f.focus();}}
+    b.addEventListener('click',function(){if(byHover){byHover=false;return;}set(b.getAttribute('aria-expanded')!=='true');});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();e.stopPropagation();set(true,true);}});
+    m.addEventListener('keydown',function(e){
+      var items=[].slice.call(l.querySelectorAll('a')),i=items.indexOf(document.activeElement);
+      if(e.key==='Escape'&&!l.hidden){set(false);b.focus();}
+      else if(i>-1&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();items[(i+(e.key==='ArrowDown'?1:items.length-1))%items.length].focus();}
+    });
+    m.addEventListener('focusout',function(e){if(!m.contains(e.relatedTarget))set(false);});
+    document.addEventListener('click',function(e){if(!m.contains(e.target))set(false);});
+    l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+    if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+      m.addEventListener('mouseenter',function(){clearTimeout(t);if(l.hidden){byHover=true;set(true);}});
+      m.addEventListener('mouseleave',function(){byHover=false;t=setTimeout(function(){if(!m.querySelector(':focus-visible'))set(false);},250);});
+    }
+  });
+
+  if('IntersectionObserver' in window){
+    var links={};document.querySelectorAll('.header a[href^="#"]:not(.skip):not(.lcs-glitch)').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var a=links[e.target.id];if(!a)return;if(e.isIntersecting)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});},{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(links).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s);});
+  }
+})();
+</script>
+<script>
+/* color themes: footer swatches set data-lcs-theme on <html>; the choice is remembered in this browser */
+(function(){
+  var KEY='lcs-theme',root=document.documentElement;
+  function set(t,save){
+    if(t==='rosa')root.removeAttribute('data-lcs-theme');else root.setAttribute('data-lcs-theme',t);
+    document.querySelectorAll('.lcs-themes').forEach(function(g){
+      g.querySelectorAll('button').forEach(function(b){
+        var on=b.getAttribute('data-theme')===t;b.setAttribute('aria-pressed',String(on));
+        if(on){var n=g.querySelector('.lcs-themes__name');if(n)n.textContent=b.getAttribute('aria-label');}
+      });
+    });
+    if(save){try{localStorage.setItem(KEY,t);}catch(e){}}
+  }
+  var cur='rosa';try{cur=localStorage.getItem(KEY)||'rosa';}catch(e){}
+  if(!document.querySelector('.lcs-themes button[data-theme="'+cur+'"]'))cur='rosa';
+  set(cur,false);
+  document.querySelectorAll('.lcs-themes button').forEach(function(b){b.addEventListener('click',function(){set(b.getAttribute('data-theme'),true);});});
+})();
+</script>
+<script src="../../assets/cd-nav.js"></script>
+</body>
+</html>

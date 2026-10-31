@@ -1,56 +1,202 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#111111">
-  <title>Page not found · Lujan Creative Agency</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: dark; font-family: "Geist Mono", ui-monospace, Menlo, monospace; background: #111; color: #fefefe; --muted: #bdbdbd; --pink: #fc8dc1; --rule: #454545; }
-    * { box-sizing: border-box; }
-    body { min-width: 320px; margin: 0; line-height: 1.65; background: #111; color: #fefefe; }
-    a { color: inherit; text-underline-offset: .2em; }
-    a:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
-    .wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
-    .skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; padding: .75rem 1rem; background: #fefefe; color: #111; font-weight: 600; text-decoration: none; }
-    .skip:focus { top: 1rem; }
-    .site-header { padding-block: 1.25rem; border-bottom: 1px solid var(--rule); }
-    .wordmark { display: inline-flex; min-height: 44px; align-items: center; color: var(--pink); font-size: .9rem; font-weight: 600; letter-spacing: .16em; text-decoration: none; }
-    main { padding-block: clamp(3rem, 10vw, 7rem); }
-    .eyebrow { color: var(--pink); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { margin: .5rem 0 1.25rem; font-family: "Geist Pixel", "Geist Mono", ui-monospace, Menlo, monospace; font-size: clamp(3rem, 12vw, 7rem); font-weight: 400; line-height: .98; letter-spacing: -.07em; }
-    p { max-width: 40rem; color: var(--muted); font-size: clamp(1rem, 2.5vw, 1.2rem); }
-    .actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
-    .btn { display: inline-flex; min-height: 44px; align-items: center; padding: 0 1.25rem; border: 2px solid #fefefe; color: #fefefe; text-decoration: none; }
-    .btn:hover { background: #fefefe; color: #111; }
-    .btn.primary { border-color: #dd0070; background: #dd0070; }
-    .btn.primary:hover { background: #fefefe; border-color: #fefefe; color: #111; }
-    .site-footer { padding-block: 1.5rem 6rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
-  </style>
+<script>/* apply the saved color theme before the page paints */try{var t=localStorage.getItem('lcs-theme');if(t&&t!=='rosa')document.documentElement.setAttribute('data-lcs-theme',t);}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found | Lujan</title>
+<meta name="description" content="This page doesn’t exist, or it moved.">
+<meta name="theme-color" content="#111111">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap">
+<style>
+:root{--e-ink:var(--lcs-ink,#FFFFFF);--e-paper:var(--lcs-paper,#111111);--e-rosa:var(--lcs-accent,#E4007C);--e-blush:var(--lcs-accent-2,#FF9ACB);
+  --e-display:var(--lcs-display,"Geist Pixel","Pixelify Sans","Courier New",monospace);--e-mono:var(--lcs-mono,"Fira Mono",ui-monospace,Menlo,Consolas,monospace)}
+html,body{background:var(--e-paper)!important;color-scheme:dark}
+body{margin:0;color:var(--e-ink);font-family:var(--e-mono)}
+.lcs-err{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;box-sizing:border-box;color:var(--e-ink);font-family:var(--e-mono)}
+.lcs-err *{box-sizing:border-box}
+.lcs-err a{color:inherit}
+.lcs-err__top{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;border-bottom:1px solid #2C2C2C;
+  padding:calc(18px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px))}
+.lcs-err__logo{display:inline-block;padding-block:6px;margin-block:-6px;font:700 32px/1 var(--e-display);text-decoration:none}
+.lcs-err__nav{display:flex;gap:22px;flex-wrap:wrap;font-size:15px}
+.lcs-err__nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;padding:.5em 0;border-bottom:2px solid transparent}
+.lcs-err__nav a:hover{border-bottom-color:var(--e-rosa)}
+.lcs-err__main{flex:1;display:grid;align-items:center;gap:clamp(32px,6vw,72px);width:100%;max-width:1180px;margin:0 auto;
+  padding:clamp(40px,8vw,96px) max(20px,env(safe-area-inset-right,0px)) clamp(40px,8vw,96px) max(20px,env(safe-area-inset-left,0px));grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.lcs-err__main{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.lcs-err__code{display:block;font:700 clamp(84px,17vw,200px)/.9 var(--e-display);color:var(--e-ink);margin:0 0 18px;letter-spacing:-.02em}
+.lcs-err__code span{color:var(--e-rosa)}
+.lcs-err__eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#A9A9A9;margin-bottom:14px}
+.lcs-err h1{font:700 clamp(34px,5.4vw,60px)/1.04 var(--e-display);margin:0 0 18px;text-wrap:balance}
+.lcs-err__lede{margin:0;max-width:52ch;color:#C4C4C4;line-height:1.65;font-size:16px}
+.lcs-err__path{margin:16px 0 0;font-size:14px;color:#A9A9A9;word-break:break-all}
+.lcs-err__path code{color:var(--e-blush);font:inherit}
+.lcs-err__count{margin:16px 0 0;font-size:14px;color:#A9A9A9;font-variant-numeric:tabular-nums}
+.lcs-err__actions{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin-top:32px}
+.lcs-err__btn{position:relative;display:inline-flex;align-items:center;gap:.6em;min-height:48px;padding:.75em 1.1em;border:2px solid var(--e-ink);text-decoration:none;isolation:isolate;transition:color 0s .15s}
+.lcs-err__btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--e-ink);clip-path:inset(0 100% 0 0);transition:clip-path .3s steps(6)}
+.lcs-err__btn:hover,.lcs-err__btn:focus-visible{color:var(--e-paper)}
+.lcs-err__btn:hover::before,.lcs-err__btn:focus-visible::before{clip-path:inset(0)}
+.lcs-err__btn svg{width:1.1em;height:.92em;fill:currentColor}
+.lcs-err__link{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:4px}
+.lcs-err__foot a{display:inline-flex;align-items:center;min-height:44px}
+.lcs-err a:focus-visible{outline:2px solid var(--e-rosa);outline-offset:4px}
+.lcs-err__board{width:100%;max-width:520px;justify-self:center}
+.lcs-err__board svg{display:block;width:100%;height:auto}
+.lcs-err__panel{fill:var(--e-paper);stroke:var(--e-ink);stroke-width:2}
+.lcs-err__post{fill:var(--e-ink);opacity:.85}
+.lcs-err__lamps circle{fill:var(--e-ink);opacity:.12}
+.lcs-err__lamps circle.is-on{fill:var(--e-rosa);opacity:1}
+.lcs-err__road{stroke:var(--e-ink);stroke-width:3;stroke-dasharray:18 14;animation:lcs-err-road .6s linear infinite}
+.lcs-err__label{fill:var(--e-ink);opacity:.7;font-family:var(--e-mono);font-size:12px;letter-spacing:.16em}
+.lcs-err__foot{display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline;border-top:1px solid #2C2C2C;font-size:14px;color:#A9A9A9;
+  padding:22px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.lcs-err__clock{color:var(--e-ink,#fff);font-variant-numeric:tabular-nums}
+.lcs-err__foot a{color:var(--e-ink,#fff);text-decoration:none;padding:.4em 0;border-bottom:2px solid transparent}
+.lcs-err__foot a:hover{border-bottom-color:var(--e-rosa,#E4007C)}
+.lcs-err__foot b{font:700 22px/1 var(--e-display);color:var(--e-ink)}
+@keyframes lcs-err-road{to{stroke-dashoffset:32}}
+@media (prefers-reduced-motion:reduce){.lcs-err__road{animation:none}.lcs-err__btn,.lcs-err__btn::before{transition:none}}
+/* ===== Work dropdown ===== */
+.lcs-menu{position:relative}
+.lcs-menu__btn{appearance:none;background:none;border:0;border-radius:0;font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.45em;min-height:44px}
+.lcs-menu__caret{width:.7em;height:.42em;fill:currentColor;transition:transform .2s steps(2)}
+.lcs-menu__btn[aria-expanded="true"] .lcs-menu__caret{transform:rotate(180deg)}
+.lcs-menu__list{position:absolute;top:calc(100% + 6px);right:-16px;z-index:40;width:max-content;max-width:340px;margin:0;padding:6px 0;list-style:none;
+  background:var(--lcs-paper,#111);border:2px solid var(--lcs-ink,#fff);animation:lcs-menu-in .2s steps(3)}
+@keyframes lcs-menu-in{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.lcs-menu__list a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:11px 16px;color:var(--lcs-ink,#fff);text-decoration:none}
+.lcs-menu__list a small{flex:none}
+.lcs-menu__list a small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}
+.lcs-menu__list a:hover,.lcs-menu__list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}
+.lcs-menu__list a:hover small,.lcs-menu__list a:focus-visible small{color:var(--lcs-accent,#E4007C)}
+.lcs-menu__list a:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:-2px}
+.lcs-menu__list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}
+@media (max-width:640px){.lcs-menu{position:static}.lcs-menu__list{top:100%;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-width:none}}
+@media (prefers-reduced-motion:reduce){.lcs-menu__list{animation:none}.lcs-menu__caret{transition:none}}
+
+.lcs-err__top{position:relative}
+.lcs-err__nav{align-items:center}
+.lcs-err__nav .lcs-menu__btn{color:inherit;padding:.5em 0;border-bottom:2px solid transparent;font-size:inherit}
+.lcs-err__nav .lcs-menu__btn:hover,.lcs-err__nav .lcs-menu__btn[aria-expanded="true"]{border-bottom-color:var(--e-rosa,#E4007C)}
+.lcs-err__nav .lcs-menu__btn:focus-visible{outline:2px solid var(--e-rosa,#E4007C);outline-offset:4px}
+.lcs-err__nav .lcs-menu__list a{border-bottom:0;padding:11px 16px}
+/* ===== color themes: picked in the footer, remembered in this browser ===== */
+html[data-lcs-theme="bluebonnet"]{--lcs-paper:#0D1120;--lcs-accent:#4F7DFF;--lcs-accent-2:#B7C8FF}
+html[data-lcs-theme="nopal"]{--lcs-paper:#0E1511;--lcs-accent:#2FB574;--lcs-accent-2:#B5E7C9}
+html[data-lcs-theme="monarca"]{--lcs-paper:#15100B;--lcs-accent:#FF8A1F;--lcs-accent-2:#FFD29A}
+html[data-lcs-theme="tulipan"]{--lcs-paper:#170D10;--lcs-accent:#E3243F;--lcs-accent-2:#FF9EAA}
+
+/* menu rag: labels stay on one line; on phones the badge drops below instead of splitting the label */
+.lcs-menu__list{max-width:none}
+.lcs-menu__list a{flex-wrap:wrap;white-space:nowrap}
+.lcs-menu__list a small{margin-left:auto}
+@media (max-width:640px){.lcs-menu__list a{white-space:normal;text-wrap:balance}}
+</style>
+<style>
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.w-form-done,.w-form-fail{display:none}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="wordmark" href="/" aria-label="Lujan Creative Agency home">LUJAN</a>
-    </div>
+<div class="lcs-err">
+  <header class="lcs-err__top">
+    <a class="lcs-err__logo" href="/" aria-label="Lujan home">LUJAN</a>
+    <nav class="lcs-err__nav" aria-label="Main"><a href="/#about">About</a><div class="lcs-menu"><button class="lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button><ul class="lcs-menu__list" id="lcs-work-menu" hidden>
+          <li><a href="/#work">Case studies</a></li>
+          <li><a href="/color-grading-game/">Color Grading Game<small>Example</small></a></li>
+          <li><a href="/dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
+          <li><a href="/lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="/#lab">The lab<small>All pages</small></a></li>
+        </ul></div><a href="/research/">Research</a><a href="/inquire/">Inquire</a></nav>
   </header>
-  <main id="main" class="wrap">
-    <p class="eyebrow">Error 404</p>
-    <h1>Track not found</h1>
-    <p>That page isn't on the playlist. It may have moved or never existed. Open the CD menu in the bottom-right corner to browse everything, or head back home.</p>
-    <div class="actions">
-      <a class="btn primary" href="/">Back to home</a>
-      <a class="btn" href="/#work">See the work</a>
+<script>
+(function(){
+  /* Work dropdown: click or tap to open, hover on desktop, Escape or a click outside to close */
+  document.querySelectorAll('.lcs-menu').forEach(function(m){
+    var b=m.querySelector('.lcs-menu__btn'),l=m.querySelector('.lcs-menu__list'),t=0,byHover=false;
+    function set(o,focusFirst){b.setAttribute('aria-expanded',String(o));l.hidden=!o;if(o&&focusFirst){var f=l.querySelector('a');if(f)f.focus();}}
+    b.addEventListener('click',function(){if(byHover){byHover=false;return;}set(b.getAttribute('aria-expanded')!=='true');});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();e.stopPropagation();set(true,true);}});
+    m.addEventListener('keydown',function(e){
+      var items=[].slice.call(l.querySelectorAll('a')),i=items.indexOf(document.activeElement);
+      if(e.key==='Escape'&&!l.hidden){set(false);b.focus();}
+      else if(i>-1&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();items[(i+(e.key==='ArrowDown'?1:items.length-1))%items.length].focus();}
+    });
+    m.addEventListener('focusout',function(e){if(!m.contains(e.relatedTarget))set(false);});
+    document.addEventListener('click',function(e){if(!m.contains(e.target))set(false);});
+    l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+    if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+      m.addEventListener('mouseenter',function(){clearTimeout(t);if(l.hidden){byHover=true;set(true);}});
+      m.addEventListener('mouseleave',function(){byHover=false;t=setTimeout(function(){if(!m.querySelector(':focus-visible'))set(false);},250);});
+    }
+  });
+
+})();
+</script>
+
+  <main class="lcs-err__main">
+    <div>
+      <span class="lcs-err__code" aria-hidden="true">4<span>0</span>4</span>
+      <span class="lcs-err__eyebrow">Error 404 · Page not found</span>
+      <h1>Wrong exit.</h1>
+      <p class="lcs-err__lede">This page doesn’t exist, or it moved. Let’s get you back on the road.</p>
+      <p class="lcs-err__path" hidden>We looked for <code id="lcs-err-path"></code></p>
+      <div class="lcs-err__actions"><a class="lcs-err__btn" href="/"><svg viewBox="0 0 6 5" shape-rendering="crispEdges" aria-hidden="true"><path d="M2 0h1v1H2zM1 1h1v1H1zM0 2h6v1H0zM1 3h1v1H1zM2 4h1v1H2z"/></svg>Back to the homepage</a></div>
+    </div>
+    <div class="lcs-err__board" data-mode="left" role="img" aria-label="Arrow board pointing back toward the homepage">
+      <svg viewBox="0 0 360 250" aria-hidden="true">
+        <rect class="lcs-err__post" x="122" y="136" width="8" height="60"/><rect class="lcs-err__post" x="230" y="136" width="8" height="60"/>
+        <rect class="lcs-err__post" x="96" y="192" width="168" height="10"/>
+        <rect class="lcs-err__panel" x="60" y="16" width="250" height="120"/>
+        <g class="lcs-err__lamps"></g>
+        <line class="lcs-err__road" x1="0" y1="218" x2="360" y2="218"/>
+        <text class="lcs-err__label" x="180" y="244" text-anchor="middle">BACK THE WAY YOU CAME</text>
+      </svg>
     </div>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">Lujan Creative Agency LLC · Garland, Texas</div>
-  </footer>
-  <script src="/assets/cd-nav.js"></script>
+  <footer class="lcs-err__foot"><b>LUJAN</b><span>Garland, TX</span><time class="lcs-err__clock" aria-label="Local time in Garland, Texas"></time><a href="https://signalntx.com">Signal NTX</a><a href="https://grounddart.webflow.io">Ground’d</a></footer>
+<script>
+/* live Garland date and time, same as the homepage footer */
+(function(){var c=document.querySelector('.lcs-err__clock');if(!c||c.hasAttribute('data-on'))return;c.setAttribute('data-on','');
+  var fd=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'long',day:'numeric',year:'numeric'});
+  var ft=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  function tick(){var d=new Date();c.textContent=fd.format(d)+' at '+ft.format(d);}tick();setInterval(tick,1000);})();
+</script>
+
+</div>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg',el=document.querySelector('.lcs-err__board');if(!el||el.hasAttribute('data-on'))return;
+  el.setAttribute('data-on','');
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,
+      mode=el.getAttribute('data-mode'),g=el.querySelector('.lcs-err__lamps'),lamps=[],C=21,Rw=9;
+  for(var r=0;r<Rw;r++)for(var c=0;c<C;c++){
+    var o=document.createElementNS(NS,'circle');o.setAttribute('cx',75+c*11);o.setAttribute('cy',32+r*11);o.setAttribute('r',3.6);g.appendChild(o);
+    var a=4-Math.abs(r-4),chev=-1,cc=mode==='left'?(C-1-c):c;
+    [2,8,14].forEach(function(x0,k){var dx=cc-x0;if(dx===a||dx===a-1)chev=k;});
+    var corner=(r<2||r>6)&&(c<2||c>18),bar=(r===4||r===3||r===5)&&c>1&&c<19&&!(r!==4&&(c<3||c>17));
+    lamps.push({el:o,chev:chev,corner:corner,bar:bar});
+  }
+  function chevrons(n){lamps.forEach(function(l){l.el.setAttribute('class',l.chev>-1&&l.chev<n?'is-on':'');});}
+  function pick(key,on){lamps.forEach(function(l){l.el.setAttribute('class',on&&l[key]?'is-on':'');});}
+  if(mode==='left'||mode==='right'){
+    if(rm){chevrons(3);return;}
+    var frames=[1,2,3,0],i=0;chevrons(1);setInterval(function(){chevrons(frames[i++%4]);},420);
+  }else{
+    var key=mode==='bar'?'bar':'corner';
+    if(rm){pick(key,true);return;}
+    var on=true;pick(key,true);(function tick(){setTimeout(function(){on=!on;pick(key,on);tick();},on?1100:450);})();
+  }
+})();
+(function(){var p=location.pathname+location.search;if(p&&p!=='/'){var c=document.getElementById('lcs-err-path');c.textContent=p;c.parentNode.hidden=false;}})();
+</script>
+<script src="/assets/cd-nav.js"></script>
 </body>
 </html>
