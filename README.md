@@ -4,7 +4,7 @@ Karina Lujan here. I'm a Brand Designer and Accessibility Specialist, Founder of
 
 # [https://lujan.design]
 
-# A clean, modern responsive website built from scratch. This project is hosted live on GitHub Pages.
+# A responsive agency site and design portfolio, hosted on GitHub Pages.
 
 ###
 
@@ -21,13 +21,12 @@ Karina Lujan here. I'm a Brand Designer and Accessibility Specialist, Founder of
 ## Project Structure
 The repository is organized as follows:
 ```text
-├── index.html        # Main landing page
-├── css/              # Stylesheets folder
-│   └── style.css     # Primary CSS file
-├── js/               # JavaScript scripts folder
-│   └── script.js     # Primary JS file
-├── images/           # Images and graphic assets
-└── README.md         # Documentation
+├── index.html                         # Agency landing page
+├── CNAME                              # Custom domain for GitHub Pages
+├── .github/workflows/pages.yml        # Publishes the site on pushes to main
+├── LCA_Deploy_Ready/                  # Printable Web and Lujan TV OS projects
+├── lujan-design-package(3)/           # Standalone pages and embed examples
+└── README.md
 ```
 
 ## Local Development
@@ -35,13 +34,13 @@ If you want to download this project and run it locally on your computer:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com[your-username]/[your-repo-name].git
+   git clone https://github.com/karinalujan/lujan-creative-agency.git
    ```
 2. Navigate into the project folder:
    ```bash
-   cd [your-repo-name]
+   cd lujan-creative-agency
    ```
-3. Open `index.html` in any web browser to view the site locally.
+3. Open `index.html` in a browser. GitHub Pages deploys the root site automatically on pushes to `main`.
 
 ---
 
