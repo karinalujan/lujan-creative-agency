@@ -1,6 +1,5 @@
 /* Lujan shared nav: one source of truth for the header menu on every page.
-   Replaces any existing <nav class="lcs-nav|lj-nav|lcs-err__nav"> with the same
-   links and dropdown. Links resolve relative to this script's URL, so it works
+   Fills <nav class="ljn-nav" aria-label="Main"></nav> with the same links and dropdown. Links resolve relative to this script's URL, so it works
    from any folder depth. To add or move a page, edit MENU below. */
 (function () {
   'use strict';
@@ -99,17 +98,14 @@
   ].join('');
 
   function init() {
-    var old = document.querySelector('nav.lcs-nav, nav.lj-nav, nav.lcs-err__nav');
+    var old = document.querySelector('nav.ljn-nav');
     if (!old) return;
     var st = document.createElement('style');
     st.textContent = CSS;
     document.head.appendChild(st);
 
-    var nav = document.createElement('nav');
-    nav.className = 'ljn-nav';
-    nav.setAttribute('aria-label', 'Main');
+    var nav = old;
     nav.innerHTML = NAV_HTML;
-    old.parentNode.replaceChild(nav, old);
 
     var m = nav.querySelector('.ljn-menu'),
         b = m.querySelector('.ljn-btn'),
