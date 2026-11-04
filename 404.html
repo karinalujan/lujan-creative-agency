@@ -108,35 +108,10 @@ body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 <div class="lcs-err">
   <header class="lcs-err__top">
     <a class="lcs-err__logo" href="/" aria-label="Lujan home">LUJAN</a>
-    <nav class="lcs-err__nav" aria-label="Main"><a href="/#about">About</a><div class="lcs-menu"><button class="lcs-menu__btn" type="button" aria-expanded="false" aria-controls="lcs-work-menu">Work<svg class="lcs-menu__caret" viewBox="0 0 5 3" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z"/></svg></button><ul class="lcs-menu__list" id="lcs-work-menu" hidden>
-          <li><a href="/#work">Case studies</a></li>
-          <li><a href="/color-grading-game/">Color Grading Game<small>Example</small></a></li>
-          <li><a href="/dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
-          <li><a href="/lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
-          <li><a href="/#lab">The lab<small>All pages</small></a></li>
-        </ul></div><a href="/research/">Research</a><a href="/inquire/">Inquire</a></nav>
+    <nav class="ljn-nav" aria-label="Main"></nav>
   </header>
 <script>
 (function(){
-  /* Work dropdown: click or tap to open, hover on desktop, Escape or a click outside to close */
-  document.querySelectorAll('.lcs-menu').forEach(function(m){
-    var b=m.querySelector('.lcs-menu__btn'),l=m.querySelector('.lcs-menu__list'),t=0,byHover=false;
-    function set(o,focusFirst){b.setAttribute('aria-expanded',String(o));l.hidden=!o;if(o&&focusFirst){var f=l.querySelector('a');if(f)f.focus();}}
-    b.addEventListener('click',function(){if(byHover){byHover=false;return;}set(b.getAttribute('aria-expanded')!=='true');});
-    b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();e.stopPropagation();set(true,true);}});
-    m.addEventListener('keydown',function(e){
-      var items=[].slice.call(l.querySelectorAll('a')),i=items.indexOf(document.activeElement);
-      if(e.key==='Escape'&&!l.hidden){set(false);b.focus();}
-      else if(i>-1&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();items[(i+(e.key==='ArrowDown'?1:items.length-1))%items.length].focus();}
-    });
-    m.addEventListener('focusout',function(e){if(!m.contains(e.relatedTarget))set(false);});
-    document.addEventListener('click',function(e){if(!m.contains(e.target))set(false);});
-    l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
-    if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
-      m.addEventListener('mouseenter',function(){clearTimeout(t);if(l.hidden){byHover=true;set(true);}});
-      m.addEventListener('mouseleave',function(){byHover=false;t=setTimeout(function(){if(!m.querySelector(':focus-visible'))set(false);},250);});
-    }
-  });
 
 })();
 </script>
@@ -197,6 +172,7 @@ body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 })();
 (function(){var p=location.pathname+location.search;if(p&&p!=='/'){var c=document.getElementById('lcs-err-path');c.textContent=p;c.parentNode.hidden=false;}})();
 </script>
+<script src="/assets/nav.js"></script>
 <script src="/assets/cd-nav.js"></script>
 </body>
 </html>
