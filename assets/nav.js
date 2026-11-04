@@ -102,7 +102,7 @@
     '.ljn-open .ljcd-fab{visibility:hidden}',
     '.ljn-field{display:block;padding:12px 16px 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}',
     '.ljn-group+.ljn-group{margin-top:6px;border-top:1px solid #454545}',
-    '.ljn-sub{display:block;padding:6px 16px 2px;font-size:12px;color:#bdbdbd}',
+    '.ljn-sub{display:block;padding:6px 16px 2px;font-size:12px;color:var(--lcs-ink,#fff);opacity:.8}',
     '.ljn-list a{display:flex;align-items:center;min-height:44px;padding:6px 16px;color:var(--lcs-ink,#fff);text-decoration:none}',
     '.ljn-list a:hover,.ljn-list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}',
     '.ljn-list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}',
