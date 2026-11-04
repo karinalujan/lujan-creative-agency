@@ -89,7 +89,7 @@ a{color:var(--fg)}
 .stage-hint{position:absolute;left:16px;bottom:14px;font-size:12px;color:var(--muted);z-index:1;pointer-events:none}
 .meta{padding:16px 18px 8px;display:grid;gap:8px}
 .meta__top{display:flex;gap:12px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
-.meta h3{font-size:24px}
+.meta h2{font-size:24px}
 .meta .from{margin:0;color:var(--muted);font-size:14px;max-width:66ch}
 .meta .from b{color:var(--fg);font-weight:500}
 .meta .from code{font:inherit;color:var(--fg);background:var(--raise);padding:0 4px}
@@ -98,16 +98,6 @@ details{border-top:1px solid var(--line);margin:0 18px;padding-block:0 14px;min-
 summary{cursor:pointer;font-size:13px;color:var(--muted);padding-block:12px}
 pre{margin:10px 0 0;max-height:320px;max-width:100%;overflow:auto;background:var(--raise);border:1px solid var(--line);padding:14px;font:12px/1.55 var(--lcs-mono);color:var(--fg);white-space:pre}
 
-/* ---- install ---- */
-.install{border-top:1px solid var(--line);padding-block:36px 0;display:grid;gap:20px}
-.install h2{font-size:clamp(26px,3.2vw,40px)}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;grid-template-columns:1fr;counter-reset:s}
-@media (min-width:880px){.steps{grid-template-columns:repeat(3,1fr)}}
-.steps li{counter-increment:s;border:1px solid var(--line);padding:18px;min-width:0}
-.steps li::before{content:counter(s);font:700 34px/1 var(--lcs-display);display:block;margin-bottom:10px}
-.steps p{margin:0;color:var(--muted);font-size:14px}
-.steps strong{color:var(--fg);font-weight:500}
-.steps code{color:var(--fg)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%) translateY(16px);opacity:0;
   background:var(--fg);color:var(--bg);font:500 13px var(--lcs-mono);padding:10px 16px;transition:.2s;pointer-events:none;z-index:20}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -123,7 +113,10 @@ body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 </style>
 </head>
 <body>
-<div class="wrap">
+<header>
+  <nav class="ljn-nav" aria-label="Site navigation"></nav>
+</header>
+<main class="wrap">
   <section class="site" aria-label="Homepage preview with effects applied">
     <div id="hero-field"></div>
     <header class="site__nav">
@@ -159,17 +152,9 @@ body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
     <button class="btn btn--solid" type="button" id="copy-vars">Copy variables</button>
   </section>
 
-  <main class="grid" id="grid"></main>
+  <div class="grid" id="grid"></div>
 
-  <section class="install">
-    <h2>Adding them in Webflow</h2>
-    <ol class="steps">
-      <li><p><strong>Paste the variables once.</strong> Site settings → Custom code → Head code. Leave the two font lines commented out and the effects use the fonts already on your page.</p></li>
-      <li><p><strong>Drop in a Code Embed</strong> where the effect belongs and paste its snippet. For the pixel field, put the embed first inside the hero section, set that section to <code>position: relative</code> and give the hero content <code>z-index: 1</code>.</p></li>
-      <li><p><strong>Publish to test.</strong> The Designer shows markup but doesn't run scripts, so most effects only move on the staging or live site.</p></li>
-    </ol>
-  </section>
-</div>
+</main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -567,7 +552,7 @@ const SC = 'scr'+'ipt';
 function snippetText(k){const s=S[k];return s.html + (s.js ? '\n<'+SC+'>\n'+s.js+'\n</'+SC+'>' : '');}
 function varsText(){
   return '<style>\n:root{\n'+VARS.map(([k,v])=>'  '+v+':'+current[k]+';').join('\n')+
-    '\n  /* optional: name your Webflow fonts, otherwise the effects inherit */\n  /* --lcs-display:"Your pixel font", monospace; */\n  /* --lcs-mono:"Your mono font", monospace; */\n}\n</style>';
+    '\n  /* optional: name your page fonts, otherwise the effects inherit */\n  /* --lcs-display:"Your pixel font", monospace; */\n  /* --lcs-mono:"Your mono font", monospace; */\n}\n</style>';
 }
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);}
 async function copy(text,label,pre){
@@ -596,7 +581,7 @@ function renderGrid(){
     const card=document.createElement('article');
     card.className='card'+(c.wide?' card--wide':'');
     card.innerHTML=`<div class="stage${c.bleed?' stage--bleed':''}${c.cls?' '+c.cls:''}"></div>
-      <div class="meta"><div class="meta__top"><h3>${c.title}</h3><span class="label">.lcs-${c.k}</span></div><p class="from">${c.from}</p></div>
+      <div class="meta"><div class="meta__top"><h2>${c.title}</h2><span class="label">.lcs-${c.k}</span></div><p class="from">${c.from}</p></div>
       <div class="actions"><button class="btn btn--solid" type="button" data-copy>Copy embed</button><button class="btn" type="button" data-replay>Replay</button></div>
       <details><summary>View code</summary><pre><code></code></pre></details>`;
     grid.appendChild(card);
