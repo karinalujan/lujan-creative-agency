@@ -106,12 +106,11 @@
     '.ljn-list a{display:flex;align-items:center;min-height:44px;padding:6px 16px;color:var(--lcs-ink,#fff);text-decoration:none}',
     '.ljn-list a:hover,.ljn-list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}',
     '.ljn-list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}',
-    '.ljn-bar{position:relative;z-index:50;background:var(--lcs-paper,#111);color:var(--lcs-ink,#fff)}',
-    '.ljn-bar__in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5pc 1.5pc}',
-    '.ljn-logo{display:inline-flex;align-items:center;min-height:44px;color:var(--lcs-ink,#fff);text-decoration:none;font-family:var(--lcs-display,"Geist Pixel"),"Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1}',
+    '.ljn-nav--bar{position:relative;z-index:50;max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;gap:.5pc 1.5em}',
+    '.ljn-logo{display:inline-flex;align-items:center;min-height:44px;color:var(--lcs-ink,#fff);text-decoration:none;font-family:var(--lcs-display,"Geist Pixel"),"Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1;margin-right:auto}',
     '.ljn-logo:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}',
-    '@media (max-width:480px){.ljn-logo{font-size:28px}.ljn-bar__in{padding:1pc}}',
-    '@media print{.ljn-bar,.ljn-nav{display:none!important}}',
+    '@media (max-width:480px){.ljn-logo{font-size:28px}.ljn-nav--bar{padding:1pc}}',
+    '@media print{.ljn-nav{display:none!important}}',
     '@media (max-width:480px){.ljn-nav{font-size:14px;gap:.9em}}',
     '@media (max-width:640px){.ljn-menu{position:static}.ljn-list{top:auto;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-width:none;margin-top:6px}}',
     '@media (prefers-reduced-motion:reduce){.ljn-link::after{transition:none}}'
@@ -127,19 +126,13 @@
     var nav = old;
     nav.innerHTML = NAV_HTML;
     if (!nav.parentNode.querySelector('.lcs-glitch,.lcs-err__logo')) {
-      var bar = document.createElement('header');
-      bar.className = 'ljn-bar';
-      var inner = document.createElement('div');
-      inner.className = 'ljn-bar__in';
       var logo = document.createElement('a');
       logo.className = 'ljn-logo';
       logo.href = url('./');
       logo.setAttribute('aria-label', 'Lujan, home');
       logo.textContent = 'LUJAN';
-      nav.parentNode.insertBefore(bar, nav);
-      inner.appendChild(logo);
-      inner.appendChild(nav);
-      bar.appendChild(inner);
+      nav.insertBefore(logo, nav.firstChild);
+      nav.classList.add('ljn-nav--bar');
     }
 
     var m = nav.querySelector('.ljn-menu'),
