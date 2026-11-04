@@ -53,14 +53,16 @@
   function isCurrent(h) { return norm(decodeURIComponent(new URL(h, ROOT).pathname)) === here; }
 
   var menuHtml = '', hasCurrent = false;
-  MENU.forEach(function (g) {
-    menuHtml += '<li class="ljn-field" role="presentation">' + esc(g.field) + '</li>';
+  MENU.forEach(function (g, gi) {
+    var id = 'ljn-f' + gi;
+    menuHtml += '<li class="ljn-group"><span class="ljn-field" id="' + id + '">' + esc(g.field) + '</span><ul aria-labelledby="' + id + '">';
     g.items.forEach(function (it) {
-      if (it.sub) { menuHtml += '<li class="ljn-sub" role="presentation">' + esc(it.sub) + '</li>'; return; }
+      if (it.sub) { menuHtml += '<li class="ljn-sub" aria-hidden="true">' + esc(it.sub) + '</li>'; return; }
       var cur = isCurrent(it.h);
       if (cur) hasCurrent = true;
       menuHtml += '<li><a href="' + url(it.h) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(it.t) + '</a></li>';
     });
+    menuHtml += '</ul></li>';
   });
 
   var NAV_HTML =
@@ -86,12 +88,19 @@
     '.ljn-menu{position:relative}',
     '.ljn-list{position:absolute;top:calc(100% + 6px);right:-16px;z-index:2147482000;width:max-content;min-width:260px;max-width:340px;max-height:calc(100vh - 100px);overflow-y:auto;margin:0;padding:6px 0;list-style:none;background:var(--lcs-paper,#111);border:2px solid var(--lcs-ink,#fff)}',
     '.ljn-list[hidden]{display:none}',
-    '.ljn-field{padding:12px 16px 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}',
-    '.ljn-field:not(:first-child){margin-top:6px;border-top:1px solid #454545}',
+    '.ljn-group ul{margin:0;padding:0;list-style:none}',
+    '.ljn-field{display:block;padding:12px 16px 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lcs-accent-2,#FF9ACB)}',
+    '.ljn-group+.ljn-group{margin-top:6px;border-top:1px solid #454545}',
     '.ljn-sub{padding:6px 16px 2px;font-size:12px;color:#bdbdbd}',
-    '.ljn-list a{display:block;padding:10px 16px;color:var(--lcs-ink,#fff);text-decoration:none}',
+    '.ljn-list a{display:flex;align-items:center;min-height:44px;padding:6px 16px;color:var(--lcs-ink,#fff);text-decoration:none}',
     '.ljn-list a:hover,.ljn-list a:focus-visible{background:var(--lcs-ink,#fff);color:var(--lcs-paper,#111)}',
     '.ljn-list a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--lcs-accent,#E4007C)}',
+    '.ljn-bar{position:relative;z-index:50;background:var(--lcs-paper,#111);color:var(--lcs-ink,#fff)}',
+    '.ljn-bar__in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5pc 1.5pc}',
+    '.ljn-logo{display:inline-flex;align-items:center;min-height:44px;color:var(--lcs-ink,#fff);text-decoration:none;font-family:var(--lcs-display,"Geist Pixel"),"Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1}',
+    '.ljn-logo:focus-visible{outline:2px solid var(--lcs-accent,#E4007C);outline-offset:4px}',
+    '@media (max-width:480px){.ljn-logo{font-size:28px}.ljn-bar__in{padding:1pc}}',
+    '@media print{.ljn-bar,.ljn-nav{display:none!important}}',
     '@media (max-width:480px){.ljn-nav{font-size:14px;gap:.9em}}',
     '@media (max-width:640px){.ljn-menu{position:static}.ljn-list{top:auto;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-width:none;margin-top:6px}}',
     '@media (prefers-reduced-motion:reduce){.ljn-link::after{transition:none}}'
@@ -106,6 +115,21 @@
 
     var nav = old;
     nav.innerHTML = NAV_HTML;
+    if (!nav.parentNode.querySelector('.lcs-glitch,.lcs-err__logo')) {
+      var bar = document.createElement('header');
+      bar.className = 'ljn-bar';
+      var inner = document.createElement('div');
+      inner.className = 'ljn-bar__in';
+      var logo = document.createElement('a');
+      logo.className = 'ljn-logo';
+      logo.href = url('./');
+      logo.setAttribute('aria-label', 'Lujan, home');
+      logo.textContent = 'LUJAN';
+      nav.parentNode.insertBefore(bar, nav);
+      inner.appendChild(logo);
+      inner.appendChild(nav);
+      bar.appendChild(inner);
+    }
 
     var m = nav.querySelector('.ljn-menu'),
         b = m.querySelector('.ljn-btn'),
