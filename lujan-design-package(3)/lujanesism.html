@@ -10,14 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FFFFFF; --paper:#F3F3F3; --ink:#121212; --soft:#5A5A5A;
-  --cochineal:#C4005F; --cochineal-text:#C4005F; --agave:#B83A7A; --marigold:#656565; --rule:#DDDDDD;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root{--bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
-    --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
-    color-scheme:dark}
+  --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+  --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+  color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:1pc}
@@ -41,7 +36,7 @@ h3{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400
 section.wrap,.toc{padding-top:2pc;padding-bottom:2pc}
 .toc ol{margin:0;padding-left:1.5pc}
 .toc li{margin:.25pc 0}
-.toc ol ol{margin-top:.25pc}
+.toc ol ol{margin-top:.25pc;list-style:none;padding-left:1pc}
 a{color:var(--cochineal-text);text-underline-offset:.2em}
 a:hover{color:var(--ink)}
 :focus-visible{outline:3px solid var(--agave);outline-offset:.25pc}
@@ -55,7 +50,7 @@ li{margin-bottom:.5pc}
 .origin-grid strong{color:var(--ink)}
 .sub{border-top:1px solid var(--rule)}
 @media print{
-  :root{--bg:#fff;--ink:#000;--soft:#333;--cochineal-text:#000;--agave:#000}
+  :root{--bg:#fff;--ink:#000;--soft:#333;--cochineal-text:#000;--agave:#000;--rule:#999}
   .lj-nav,.lj-foot,.lj-skip,.span-bar,.toc{display:none!important}
   body{font-size:10pt;line-height:1.4}
   .wrap{max-width:none;padding:0}
@@ -138,8 +133,6 @@ li{margin-bottom:.5pc}
   });
 })();
 </script>
-<header class="wrap">
-  <h1 class="mark display">Luján <span>Américas</span></h1>
 <header class="wrap">
   <h1 class="mark display">Lujan<wbr>esism</h1>
   <p class="lede"><strong>An operational philosophy of light.</strong> Followed by an essay on patriarchy, property, and the reclamation of collective vitality.</p>
