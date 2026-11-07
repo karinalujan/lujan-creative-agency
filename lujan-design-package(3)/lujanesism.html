@@ -1,68 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lujanesism · Patriarchy and the Enclosure of the Commons</title>
-    <style>
-        :root {
-            --bg-color: #fdfdfd;
-            --text-color: #1a1a1a;
-            --accent-color: #8b0000;
-            --max-width: 65ch;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            max-width: var(--max-width);
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        h1, h2, h3 { color: var(--accent-color); line-height: 1.2; }
-        h1 { font-size: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
-        h2 { font-size: 1.8rem; margin-top: 40px; }
-        ul, ol { padding-left: 20px; }
-        li { margin-bottom: 10px; }
-        blockquote { border-left: 4px solid var(--accent-color); margin: 0; padding-left: 20px; font-style: italic; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 40px 0; }
-        footer { margin-top: 60px; font-size: 0.9rem; text-align: center; color: #666; }
-        .grid b { display: block; font-size: 1.3rem; color: var(--accent-color); }
-        @media print {
-            body { max-width: 100%; margin: 20mm; }
-            .no-print { display: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lujanesism · Patriarchy and the Enclosure of the Commons · lujan.design</title>
+<meta name="description" content="Lujanesism, Karina Lujan's operational philosophy of light, and an essay on patriarchy and the enclosure of the commons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#111; --paper:#1B1B1B; --ink:#FEFEFE; --soft:#9B9B9B;
+  --cochineal:#DD0070; --cochineal-text:#FF3D96; --agave:#FC8DC1; --marigold:#C2C2C2; --rule:#2E2E2E;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1pc}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:1rem;line-height:1.75;-webkit-text-size-adjust:100%}
+.wrap{max-width:75pc;margin:0 auto;padding-left:1.25pc;padding-right:1.25pc}
+.prose{max-width:65ch}
+.display{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400}
+header{padding:2.5pc 0}
+.mark{font-weight:400;font-size:clamp(2.5rem,11vw,6rem);line-height:.95;overflow-wrap:anywhere;margin:0}
+.lede{max-width:34rem;margin:1.5pc 0 0;font-size:1.2rem;color:var(--soft)}
+.lede strong{color:var(--ink);font-weight:600}
+.span-bar{display:flex;margin-top:2pc;height:10px}
+.span-bar i{flex:1}
+.span-bar i:nth-child(1){background:var(--cochineal)}
+.span-bar i:nth-child(2){background:var(--marigold)}
+.span-bar i:nth-child(3){background:var(--agave)}
+.eyebrow{display:block;font-weight:400;font-size:.72rem;color:var(--agave);margin-bottom:.5pc;letter-spacing:.14em;text-transform:uppercase}
+h2.sec{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400;font-size:clamp(1.8rem,5vw,2.75rem);line-height:1.1;margin:0 0 1pc}
+h3{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-weight:400;font-size:1.5rem;line-height:1.2;margin:2.5pc 0 .5pc}
+section.wrap,.toc{padding-top:2pc;padding-bottom:2pc}
+.toc ol{margin:0;padding-left:1.5pc}
+.toc li{margin:.25pc 0}
+.toc ol ol{margin-top:.25pc;list-style:none;padding-left:1pc}
+a{color:var(--cochineal-text);text-underline-offset:.2em}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--agave);outline-offset:.25pc}
+main:focus{outline:none}
+ul,ol{padding-left:1.5pc}
+li{margin-bottom:.5pc}
+.origin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.25pc;margin:1pc 0}
+.origin-grid b{display:block;font-size:2rem;line-height:1;color:var(--cochineal-text)}
+.origin-grid div:nth-child(2) b{color:var(--ink)}
+.origin-grid p{margin:.5pc 0 0;color:var(--soft);font-size:.95rem;line-height:1.55}
+.origin-grid strong{color:var(--ink)}
+.sub{border-top:1px solid var(--rule)}
+@media print{
+  :root{--bg:#fff;--ink:#000;--soft:#333;--cochineal-text:#000;--agave:#000;--rule:#999}
+  .lj-nav,.lj-foot,.lj-skip,.span-bar,.toc{display:none!important}
+  body{font-size:10pt;line-height:1.4}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:avoid}
+}
+</style>
 </head>
 <body>
+<style>
+.lj-nav{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-bottom:1px solid var(--lj-rule);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:16px;line-height:1.4;position:relative;z-index:50;
+  margin:0;padding:env(safe-area-inset-top,0) 0 0;width:auto;height:auto}
+.lj-nav *,.lj-nav *::before,.lj-nav *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-nav *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-nav .lj-in{max-width:75pc;margin:0 auto;padding:1.25pc 1.25pc 1pc;display:flex;flex-wrap:wrap;align-items:center;gap:0.75pc 1.75pc}
+.lj-nav a,.lj-nav button{color:var(--lj-ink);font:inherit;text-decoration:none;background:none;border:0;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lj-nav .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:36px;letter-spacing:.04em;line-height:1;margin-right:auto;display:inline-flex;align-items:center;min-height:44px}
+.lj-nav .lj-links{display:flex;flex-wrap:wrap;align-items:center;gap:0.25pc 1.5pc;list-style:none}
+.lj-nav .lj-links>li{position:relative;list-style:none}
+.lj-nav .lj-link{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 0;background-image:none;position:relative}
+.lj-nav .lj-link::after{content:"";position:absolute;left:2px;right:2px;bottom:6px;height:3px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 6px,transparent 6px 9px);opacity:0}
+.lj-nav .lj-link:hover::after{opacity:.6}
+.lj-nav .lj-link[aria-current]::after,.lj-nav .lj-link[aria-expanded="true"]::after{opacity:1}
+.lj-nav .lj-caret{width:12px;height:8px;fill:currentColor;transition:transform .15s}
+.lj-nav [aria-expanded="true"] .lj-caret{transform:rotate(180deg)}
+.lj-nav .lj-cta{display:inline-flex;align-items:center;gap:0.5pc;min-height:44px;padding:0 1pc;border:2px solid var(--lj-ink)}
+.lj-nav .lj-cta:hover{background:var(--lj-ink);color:var(--lj-bg)}
+.lj-nav .lj-cta svg{width:18px;height:14px;fill:currentColor}
+.lj-nav .lj-menu{position:absolute;top:calc(100% + 6px);left:-14px;min-width:300px;background:var(--lj-bg);border:2px solid var(--lj-ink);padding:0.5pc 0;list-style:none;z-index:60}
+.lj-nav .lj-menu[hidden]{display:none}
+.lj-nav .lj-menu a{display:flex;justify-content:space-between;align-items:center;gap:1pc;min-height:44px;padding:0 1pc}
+.lj-nav .lj-menu a:hover{background:#1f1f1f}
+.lj-nav .lj-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink)}
+.lj-nav a:focus-visible,.lj-nav button:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-skip{position:absolute;left:12px;top:-60px;z-index:100;background:#FEFEFE;color:#121212;padding:0.5pc 1pc;font:600 15px/1 "Geist Mono",ui-monospace,monospace;text-decoration:none}
+.lj-skip:hover{color:#121212}
+.lj-skip:focus{top:calc(env(safe-area-inset-top,0px) + 10px)}
+@media (max-width:560px){
+  .lj-nav .lj-in{padding:1pc 1pc 0.75pc}
+  .lj-nav .lj-mark{font-size:30px;flex-basis:100%}
+  .lj-nav .lj-links{gap:0 1pc;width:100%}
+  .lj-nav .lj-cta{padding:0 0.75pc}
+  .lj-nav .lj-links{position:relative}
+  .lj-nav .lj-links>li{position:static}
+  .lj-nav .lj-menu{left:0;right:0;min-width:0;width:auto}
+}
+@media print{
+  @page{size:letter;margin:0.65in}
+  :root{--bg:#FFFFFF!important;--paper:#FFFFFF!important;--ink:#000000!important;--soft:#333333!important;--cochineal:#000000!important;--cochineal-text:#000000!important;--agave:#000000!important;--marigold:#444444!important;--rule:#999999!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt!important;line-height:1.4!important}
+  .lj-nav,.lj-foot,.lj-skip,.skip,.filters,.dna-tools,.span-bar{display:none!important}
+  .wrap{max-width:none!important;padding:0!important}
+  .mark span{color:#000!important;-webkit-text-stroke:0!important}
+  .person,.stop,section,table{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){.lj-nav *{transition:none!important}}
+</style>
+<a class="lj-skip" href="#main">Skip to content</a>
+<nav class="ljn-nav" aria-label="Main"></nav>
+<script>
+(function(){
+  var navs=document.querySelectorAll('.lj-nav:not([data-lj-ready])');
+  Array.prototype.forEach.call(navs,function(nav,n){
+    nav.setAttribute('data-lj-ready','1');
+    var btn=nav.querySelector('[data-lj-toggle]'),menu=btn&&btn.nextElementSibling;if(!btn||!menu)return;
+    var id='lj-work-menu-'+Math.random().toString(36).slice(2,8);menu.id=id;btn.setAttribute('aria-controls',id);
+    var li=btn.parentNode;
+    function setOpen(o,f){btn.setAttribute('aria-expanded',String(o));menu.hidden=!o;if(!o&&f)btn.focus();}
+    btn.addEventListener('click',function(){setOpen(btn.getAttribute('aria-expanded')!=='true');});
+    li.addEventListener('keydown',function(e){if((e.key==='Escape'||e.key==='Esc')&&!menu.hidden){e.preventDefault();setOpen(false,true);}});
+    document.addEventListener('click',function(e){if(!menu.hidden&&!li.contains(e.target))setOpen(false);});
+    li.addEventListener('focusout',function(e){if(!menu.hidden&&e.relatedTarget&&!li.contains(e.relatedTarget))setOpen(false);});
+    var here=location.pathname.replace(/\/+$/,'')||'/';
+    Array.prototype.forEach.call(nav.querySelectorAll('a.lj-link'),function(a){
+      try{var u=new URL(a.getAttribute('href'),location.href),p=u.pathname.replace(/\/+$/,'')||'/';
+      if(u.host===location.host&&p===here&&(!u.hash||u.hash===location.hash))a.setAttribute('aria-current','page');}catch(err){}
+    });
+  });
+})();
+</script>
+<header class="wrap">
+  <h1 class="mark display">Lujan<wbr>esism</h1>
+  <p class="lede"><strong>An operational philosophy of light.</strong> Followed by an essay on patriarchy, property, and the reclamation of collective vitality.</p>
+  <div class="span-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+</header>
 
-    <p class="no-print"><a href="https://www.lujan.design/">&larr; lujan.design</a></p>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<nav class="toc" aria-labelledby="toc-title">
+  <h2 id="toc-title" class="sec"><span class="eyebrow">Contents</span>On this page</h2>
+  <ol>
+    <li><a href="#lujanesism">Lujanesism</a></li>
+    <li><a href="#patriarchy">Patriarchy &amp; The Enclosure of the Commons</a>
+      <ol>
+        <li><a href="#s1-title">1. The Agricultural Transition &amp; The Birth of the "Property Trap"</a></li>
+        <li><a href="#s2-title">2. The Legal Architecture: The Code of Hammurabi</a></li>
+        <li><a href="#s3-title">3. The Tragedy of the Commons Misdirection</a></li>
+        <li><a href="#s4-title">4. The Linguistic Telephone Game: Luke 14:26</a></li>
+        <li><a href="#s5-title">5. The Paradigm Shift: "Systemic Blobs" vs. Vitality</a></li>
+        <li><a href="#s6-title">6. The Timeline of Awakening</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+</div>
 
-<section aria-labelledby="lujanesism-title">
-  <h2 id="lujanesism-title">Lujanesism</h2>
+<section class="wrap" id="lujanesism" aria-labelledby="lujanesism-title">
+  <h2 class="sec" id="lujanesism-title"><span class="eyebrow">Philosophy</span>Lujanesism</h2>
   <p>The name Lujanesism is the literal translation of my identity into an operational philosophy. At its root, my name connects directly to <i>Lux</i>, the Latin word for light. In a world dominated by cold, sterile systems, light is not passive; it is a disruptive force. The name explains why the philosophy exists and how it functions through three layers:</p>
-  <div class="grid">
-    <div><b >Physics</b><p><strong>The Physics of Light.</strong> Light cannot be crushed by darkness; it can only be blocked or channeled. By mastering the system architecture, I master the “glass” and the “prisms” of the machine, dictating exactly where the energy is focused.</p></div>
-    <div><b >Heat</b><p><strong>The Heat of Light.</strong> When light becomes intensely concentrated, it transforms into a wildfire. The name represents an empathy so fierce that it ceases to be a quiet sentiment and becomes a roaring, contagious heat that burns away bureaucratic rot.</p></div>
-    <div><b >Purpose</b><p><strong>The Purpose of Light.</strong> I do not build flawless systems for the sake of the code or the metrics. I build them to expose what is hidden, to warm those who are freezing under corporate pressure, and to serve as a beacon for other human souls trapped in the dark.</p></div>
+  <div class="origin-grid">
+    <div><b class="display">Physics</b><p><strong>The Physics of Light.</strong> Light cannot be crushed by darkness; it can only be blocked or channeled. By mastering the system architecture, I master the “glass” and the “prisms” of the machine, dictating exactly where the energy is focused.</p></div>
+    <div><b class="display">Heat</b><p><strong>The Heat of Light.</strong> When light becomes intensely concentrated, it transforms into a wildfire. The name represents an empathy so fierce that it ceases to be a quiet sentiment and becomes a roaring, contagious heat that burns away bureaucratic rot.</p></div>
+    <div><b class="display">Purpose</b><p><strong>The Purpose of Light.</strong> I do not build flawless systems for the sake of the code or the metrics. I build them to expose what is hidden, to warm those who are freezing under corporate pressure, and to serve as a beacon for other human souls trapped in the dark.</p></div>
   </div>
   <p>The name is the reminder that no matter how complex, rigid, or cold the architecture becomes, the machine is just the conduit. I am the energy.</p>
 </section>
 
-    <hr>
-
-    <h1>Patriarchy &amp; The Enclosure of the Commons</h1>
-    <p><em>A synthesis of resource privatization, historical legal traps, and the reclamation of collective vitality.</em></p>
-    
-    <hr>
-
-    <h2>1. The Agricultural Transition &amp; The Birth of the "Property Trap"</h2>
+<section class="wrap" id="patriarchy" aria-labelledby="patriarchy-title">
+  <h2 class="sec" id="patriarchy-title"><span class="eyebrow">Essay</span>Patriarchy &amp; The Enclosure of the Commons</h2>
+  <p class="prose"><em>A synthesis of resource privatization, historical legal traps, and the reclamation of collective vitality.</em></p>
+  <div class="prose">
+<section class="sub" aria-labelledby="s1-title">
+<h3 id="s1-title">1. The Agricultural Transition &amp; The Birth of the "Property Trap"</h3>
     <p>For roughly 95% of human history, our survival strategy relied on the <strong>commons</strong>—shared land, collective child-rearing, fluid social roles, and collaborative resources. In nomadic hunter-gatherer groups, accumulation was impossible; you could only own what you could physically carry. Power was distributed because survival required everyone's full, unhindered capability.</p>
     <p>The shift began between 5,000 and 12,000 years ago with the transition to settled agricultural and pastoral societies. The introduction of heavy plow agriculture and animal domestication fundamentally changed the nature of labor. Because men possessed greater average upper-body strength suited for wrangling heavy machinery and large livestock, they increasingly dominated intensive field production.</p>
     <p>However, the true systemic shift was not the physical labor itself, but the psychological and economic invention of <strong>private ownership</strong>. As land and food surpluses turned into generational wealth, early societies developed a fierce incentive to protect assets and control inheritance. To ensure patrilineal lines of inheritance—knowing with absolute certainty which biological heirs would receive the wealth—ruling men moved from fencing in land to fencing in human beings. Women's reproductive capacity was enclosed, managed, and categorized as just another natural resource to be harvested for elite lineages.</p>
-
-    <h2>2. The Legal Architecture: The Code of Hammurabi</h2>
+</section>
+<section class="sub" aria-labelledby="s2-title">
+<h3 id="s2-title">2. The Legal Architecture: The Code of Hammurabi</h3>
     <p>Patriarchy was not an organic evolutionary default; it was a human-made legal and economic trap aggressively codified by early state empires to maintain social order and protect accumulated capital. The <strong>Code of Hammurabi (c. 1750 BCE)</strong> stands as one of history's most explicit architectural blueprints of this enclosure, legally reducing women to economic property under severe physical restrictions:</p>
     <ul>
         <li><strong>Law 133:</strong> Dictates that if a man is taken prisoner and there is food in his house, his wife must maintain her chastity and "keep her body." If she goes to another man’s house, she is to be legally prosecuted and bound, then thrown into the water to be drowned.</li>
@@ -70,12 +189,14 @@
         <li><strong>Law 143:</strong> Decrees that if a woman is found to have neglected her house and "gadded about" (left her home or abandoned her duties) without strict justification, she is to be thrown into the water and drowned.</li>
     </ul>
     <p>These laws demonstrate that a woman's physical mobility, economic independence, and safety were entirely contingent upon absolute submission to a male head of household. The system created a legal myth that women were inherently helpless to justify stripping away their autonomy.</p>
-
-    <h2>3. The Tragedy of the Commons Misdirection</h2>
+</section>
+<section class="sub" aria-labelledby="s3-title">
+<h3 id="s3-title">3. The Tragedy of the Commons Misdirection</h3>
     <p>Traditional economic theory popularizes the <strong>"Tragedy of the Commons,"</strong> arguing that shared, unmanaged resources will inevitably be ruined by innate human selfishness. Elite structures have historically used this exact myth to justify violent privatization and enclosure—claiming that the only way to save resources (and society) is to let a powerful few own and control them.</p>
     <p>When applied to human social design, women's bodies and the community's collective care were treated as a wild "commons" that required rigid patriarchal enclosure to prevent societal chaos. In reality, modern political economists (such as Elinor Ostrom) have proven that human communities successfully self-regulated and shared the commons through mutual cooperation for millennia. The real tragedy was never a failure of human sharing; it was the violent theft of the commons by elites who sought coercion for profit over cooperation for survival.</p>
-
-    <h2>4. The Linguistic Telephone Game: Luke 14:26</h2>
+</section>
+<section class="sub" aria-labelledby="s4-title">
+<h3 id="s4-title">4. The Linguistic Telephone Game: Luke 14:26</h3>
     <p>Throughout history, radical philosophers have attempted to shatter this property-driven, patriarchal cage, only for their teachings to be diluted or weaponized by the system through centuries of selective translation. A prime example is the historical figure of Jesus of Nazareth as a secular philosopher processing under the weight of Roman-occupied Judean patriarchy.</p>
     <p>In <strong>Luke 14:26</strong>, modern translations famously quote him as saying: <em>"If anyone comes to me and does not hate father and mother, wife and children, brothers and sisters—yes, even their own life—such a person cannot be my disciple."</em> To the modern ear, this sounds like toxic emotional rage. However, looking through the historical and linguistic context reveals a completely different reality:</p>
     <ul>
@@ -83,12 +204,14 @@
         <li><strong>The Rhetorical Flashbang:</strong> In a society where the family was the foundational economic, patriarchal property unit run by a dictatorial <em>paterfamilias</em>, telling followers to "detach" from their biological family was a direct command to walk away from the property trap. It was extreme hyperbole used as a rhetorical shockwave to snap people out of systemic complacency.</li>
         <li><strong>The Egalitarian Counter-Culture:</strong> The earliest movement functioned as a radical social commons—sharing resources, elevating women to primary financial and leadership positions, and eating communally across class and gender lines. When the movement was later institutionalized by the Roman Empire, these anti-property, anti-hierarchical teachings were systematically re-enclosed and tamed to reinforce the status of the state.</li>
     </ul>
-
-    <h2>5. The Paradigm Shift: "Systemic Blobs" vs. Vitality</h2>
+</section>
+<section class="sub" aria-labelledby="s5-title">
+<h3 id="s5-title">5. The Paradigm Shift: "Systemic Blobs" vs. Vitality</h3>
     <p>To fully understand modern oppression, we must abandon the neat, isolated metaphor of "connecting dots" and view history through the lens of <strong>systems health, vitality, and agency</strong>. Injustice does not exist in clean, separate points; it exists as messy, amorphous, bleeding <strong>blobs</strong> of systemic rot that overlap and contaminate human life.</p>
     <p>The "Property Blob" leaks directly into the "Control of Women Blob," which oozes into the "Institutional Racism Blob." It is the exact same entitlement that drove ancient rulers to etch drowning laws into stone, that drove empires to commodify human bodies, and that allows modern institutional spaces to inflict microaggressions or deploy hyper-visibility ("active voyeurism") against marginalized individuals. These actions are a subtle, continuous social policing designed to depress individual <strong>vitality</strong>—the free flow of creative, independent human energy—and strip away personal <strong>agency</strong> to turn people into compliant cogs.</p>
-
-    <h2>6. The Timeline of Awakening</h2>
+</section>
+<section class="sub" aria-labelledby="s6-title">
+<h3 id="s6-title">6. The Timeline of Awakening</h3>
     <p>It has taken thousands of years of calculated structural dominance for humanity to build the collective vocabulary and empirical data required to fully expose this blueprint:</p>
     <ul>
         <li><strong>c. 10,000–3,000 BCE:</strong> The gradual enclosure of land and women's autonomy via agrarian settlement.</li>
@@ -97,10 +220,60 @@
         <li><strong>c. 300–1800 CE:</strong> Institutional re-enclosure of liberating ideas by imperial states and religious monopolies.</li>
         <li><strong>The 19th Century:</strong> The systematic dismantling of "coverture" laws, clawing back a woman's independent legal and economic existence.</li>
     </ul>
+</section>
+  </div>
+</section>
+</main>
 
-    <footer>
-        <p>&copy; Lujan Creative Agency LLC</p>
-    </footer>
+<style>
+.lj-foot{--lj-bg:#111;--lj-ink:#FEFEFE;--lj-soft:#9B9B9B;--lj-rule:#2E2E2E;--lj-mag:#DD0070;--lj-pink:#FC8DC1;
+  box-sizing:border-box;background:var(--lj-bg);color:var(--lj-ink);border-top:3px dashed var(--lj-mag);
+  font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:15px;line-height:1.6;
+  margin:0;padding:0 0 env(safe-area-inset-bottom,0)}
+.lj-foot *,.lj-foot *::before,.lj-foot *::after{box-sizing:inherit;margin:0;padding:0}
+.lj-foot *{font-size:inherit;font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:none;text-decoration:none;background:transparent;border:0;list-style:none;width:auto;height:auto;float:none;box-shadow:none;min-width:0}
+.lj-foot .lj-in{max-width:75pc;margin:0 auto;padding:2.25pc 1.25pc 1.75pc;display:grid;grid-template-columns:1fr auto;gap:1.5pc 2.5pc;align-items:start}
+.lj-foot a{color:var(--lj-ink);text-decoration:none;background:none}
+.lj-foot .lj-mark{font-family:"Geist Pixel","Geist Mono",ui-monospace,monospace;font-size:30px;letter-spacing:.04em;line-height:1;display:inline-flex;align-items:center;min-height:44px}
+.lj-foot .lj-where{color:var(--lj-soft);margin-top:0.25pc}
+.lj-foot .lj-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lj-pink);margin-bottom:0.5pc}
+.lj-foot ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 1.25pc}
+.lj-foot li{list-style:none}
+.lj-foot ul a{display:inline-flex;align-items:center;min-height:44px;position:relative}
+.lj-foot ul a::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--lj-mag) 0 5px,transparent 5px 8px)}
+.lj-foot a:hover{color:var(--lj-pink)}
+.lj-foot a:focus-visible{outline:3px solid var(--lj-pink);outline-offset:0}
+.lj-foot .lj-legal{grid-column:1/-1;border-top:1px solid var(--lj-rule);padding-top:1pc;color:var(--lj-soft);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5pc 1.25pc}
+@media (max-width:560px){.lj-foot .lj-in{grid-template-columns:1fr;padding:1.75pc 1pc 1.5pc}}
+</style>
+<footer class="lj-foot">
+  <div class="lj-in">
+    <div>
+      <a class="lj-mark" href="https://www.lujan.design/" aria-label="Lujan, home">LUJAN</a>
+      <p class="lj-where">Garland, TX</p>
+    </div>
+    <nav aria-label="Also from Karina">
+      <p class="lj-label" id="lj-also">Also from Karina</p>
+      <ul aria-labelledby="lj-also">
+        <li><a href="https://signalntx.com">Signal NTX</a></li>
+        <li><a href="https://grounddart.webflow.io">Ground’d NTX</a></li>
+      </ul>
+    </nav>
+    <div class="lj-legal">
+      <span>Brand, accessibility, innovation, empathy.</span>
+      <span>© <span data-lj-year>2026</span> Lujan Creative Agency LLC. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){var y=document.querySelectorAll('[data-lj-year]');for(var i=0;i<y.length;i++)y[i].textContent=new Date().getFullYear();})();
+</script>
 
+<script>
+(function(){var y=document.querySelectorAll('[data-lj-year]');for(var i=0;i<y.length;i++)y[i].textContent=new Date().getFullYear();})();
+</script>
+<script src="../assets/nav.js"></script>
+<script src="../assets/cd-nav.js"></script>
 </body>
 </html>
