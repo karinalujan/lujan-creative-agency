@@ -17,6 +17,7 @@
   var TRACKS = [
     { title: 'Home', tag: 'Index', href: './' },
     { title: 'Lujan Americas', tag: 'Lineage', href: 'lujan-design-package%283%29/lujan-americas.html' },
+    { title: 'Lujanesism', tag: 'Philosophy', href: 'lujan-design-package%283%29/lujanesism.html' },
     { title: 'Research', tag: 'Research', href: 'research/' },
     { title: 'Mapping Inner Experience', tag: 'Research', href: 'research/mapping-inner-experience/' },
     { title: 'Color Grading Game', tag: 'Play', href: 'color-grading-game/' },
