@@ -151,6 +151,7 @@ html[data-lcs-theme="tulipan"]{--lcs-paper:#170D10;--lcs-accent:#E3243F;--lcs-ac
           <li><a href="/color-grading-game/">Color Grading Game<small>Example</small></a></li>
           <li><a href="/dark-ux-patterns-web-audit/">Dark UX Patterns Web Audit<small>Example</small></a></li>
           <li><a href="/lujan-design-package%283%29/lujan-americas.html">Lujan Américas<small>Lineage</small></a></li>
+          <li><a href="/lujan-design-package%283%29/lujanesism.html">Lujanesism<small>Philosophy</small></a></li>
           <li><a href="/#lab">The lab<small>All pages</small></a></li>
         </ul></div><a href="/research/">Research</a><a href="/inquire/">Inquire</a></nav>
   </header>

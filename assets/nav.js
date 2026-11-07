@@ -20,6 +20,7 @@
       { t: 'Color Grading Game', h: 'color-grading-game/' },
       { t: 'Motion Kit', h: 'motion-kit/' },
       { t: 'Lujan Américas', h: DESIGN + 'lujan-americas.html' },
+      { t: 'Lujanesism', h: DESIGN + 'lujanesism.html' },
       { t: 'The Iconic Playlist', h: 'playlist.html' }
     ] },
     { field: 'Science', items: [
